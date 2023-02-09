@@ -1,129 +1,193 @@
 <div align="center">
 
-<h1>AvatarCLIP: Zero-Shot Text-Driven Generation and Animation of 3D Avatars</h1>
-
-<div>
-    <a href='https://hongfz16.github.io/' target='_blank'>Fangzhou Hong</a><sup>1</sup>*&emsp;
-    <a href='https://scholar.google.com/citations?user=2QLD4fAAAAAJ&hl=en' target='_blank'>Mingyuan Zhang</a><sup>1</sup>*&emsp;
-    <a href='https://scholar.google.com/citations?user=lSDISOcAAAAJ&hl=zh-CN' target='_blank'>Liang Pan</a><sup>1</sup>&emsp;
-    <a href='https://caizhongang.github.io/' target='_blank'>Zhongang Cai</a><sup>1,2,3</sup>&emsp;
-    <a href='https://yanglei.me/' target='_blank'>Lei Yang</a><sup>2</sup>&emsp;
-    <a href='https://liuziwei7.github.io/' target='_blank'>Ziwei Liu</a><sup>1+</sup>
-</div>
-<div>
-    <sup>1</sup>S-Lab, Nanyang Technological University&emsp;
-    <sup>2</sup>SenseTime Research&emsp;
-    <sup>3</sup>Shanghai AI Laboratory
-</div>
-<div>
-    *equal contribution&emsp;
-    <sup>+</sup>corresponding author
-</div>
-
-<strong>Accepted to <a href='https://s2022.siggraph.org/' target='_blank'>SIGGRAPH 2022</a> (Journal Track)</strong>
-
-<h3>TL;DR</h3>
-<h4>AvatarCLIP generate and animate avatars given descriptions of <span style="color:#0a939d">body shapes</span>, <span style="color:#EE9B00">appearances</span> and <span style="color:#AE2011">motions</span>.</h4>
-
-<table>
-<tr>
-    <td><img src="assets/tallandskinny_femalesoldier_arguing.gif" width="100%"/></td>
-    <td><img src="assets/skinny_ninja_raisingbotharms.gif" width="100%"/></td>
-    <td><img src="assets/overweight_sumowrestler_sitting.gif" width="100%"/></td>
-    <td><img src="assets/tallandfat_ironman_running.gif" width="100%"/></td>
-</tr>
-<tr>
-    <td align='center' width='24%'>A <span style="color:#0a939d">tall and skinny</span> <span style="color:#EE9B00">female soldier</span> that is <span style="color:#AE2011">arguing</span>.</td>
-    <td align='center' width='24%'>A <span style="color:#0a939d">skinny</span> <span style="color:#EE9B00">ninja</span> that is <span style="color:#AE2011">raising both arms</span>.</td>
-    <td align='center' width='24%'>An <span style="color:#0a939d">overweight</span> <span style="color:#EE9B00">sumo wrestler</span> that is <span style="color:#AE2011">sitting</span>.</td>
-    <td align='center' width='24%'>A <span style="color:#0a939d">tall and fat</span> <span style="color:#EE9B00">Iron Man</span> that is <span style="color:#AE2011">running</span>.</td>
-<tr>
-</table>
-
-This repository contains the official implementation of _AvatarCLIP: Zero-Shot Text-Driven Generation and Animation of 3D Avatars_.
-
----
-
-<h4 align="center">
-  <a href="https://hongfz16.github.io/projects/AvatarCLIP.html" target='_blank'>[Project Page]</a> •
-  <a href="https://arxiv.org/abs/2205.08535" target='_blank'>[arXiv]</a> •
-  <a href="https://drive.google.com/file/d/1_-5JIWyRCF7osAVWQ-z01nme4NxBTtrC/view?usp=sharing" target='_blank'>[High-Res PDF (166M)]</a> •
-  <a href="https://youtu.be/-l2ZMeoASGY" target='_blank'>[Supplementary Video]</a> •
-  <a href="https://colab.research.google.com/drive/1dfaecX7xF3nP6fyXc8XBljV5QY1lc1TR?usp=sharing" target='_blank'>[Colab Demo]</a>
-</h4>
+<h1>AVR-Lab Project About:
+"AvatarCLIP: Zero-Shot Text-Driven Generation and Animation of 3D Avatars"</h1>
 
 </div>
 
-## Updates
-[09/2022] :fire::fire::fire:**If you are looking for a higher-quality 3D human generation method, go checkout our new work [EVA3D](https://hongfz16.github.io/projects/EVA3D.html)!**:fire::fire::fire:
+This repository is forked from the original [AvatarCLIP](https://github.com/hongfz16/AvatarCLIP) repository.
+In this fork, we aim to provide more detailed instructions to run parts of the project, as well as a more user-friendly interface to generate avatars.
 
-[09/2022] :fire::fire::fire:**If you are looking for a higher-quality text2motion method, go checkout our new work [MotionDiffuse](https://mingyuan-zhang.github.io/projects/MotionDiffuse.html)!**:fire::fire::fire:
+Currently, we only provide instructions to run the avatar generation part of the project as no instructions are yet available to convert the created animations to an FBX file.
 
-[07/2022] Code release for motion generation part!
-
-[05/2022] [Paper](https://arxiv.org/abs/2205.08535) uploaded to arXiv. [![arXiv](https://img.shields.io/badge/arXiv-2205.08535-b31b1b.svg)](https://arxiv.org/abs/2205.08535)
-
-[05/2022] Add a [Colab Demo](https://colab.research.google.com/drive/1dfaecX7xF3nP6fyXc8XBljV5QY1lc1TR?usp=sharing) for avatar generation! [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1dfaecX7xF3nP6fyXc8XBljV5QY1lc1TR?usp=sharing)
-
-[05/2022] Support converting the generated avatar to the **animatable FBX format**! Go checkout [how to use the FBX models](#use-generated-fbx-models). Or checkout the [instructions](./Avatar2FBX/README.md) for the conversion codes.
-
-[05/2022] Code release for avatar generation part!
-
-[04/2022] AvatarCLIP is accepted to SIGGRAPH 2022 (Journal Track):partying_face:!
-
-## Citation
-If you find our work useful for your research, please consider citing the paper:
-```
-@article{hong2022avatarclip,
-    title={AvatarCLIP: Zero-Shot Text-Driven Generation and Animation of 3D Avatars},
-    author={Hong, Fangzhou and Zhang, Mingyuan and Pan, Liang and Cai, Zhongang and Yang, Lei and Liu, Ziwei},
-    journal={ACM Transactions on Graphics (TOG)},
-    volume={41},
-    number={4},
-    articleno={161},
-    pages={1--19},
-    year={2022},
-    publisher={ACM New York, NY, USA},
-    doi={10.1145/3528223.3530094},
-}
-```
-
-## Use Generated FBX Models
-
-### Download
-
-Go visit our [project page](https://hongfz16.github.io/projects/AvatarCLIP.html). Go to the section 'Avatar Gallery'. Pick a model you like. Click 'Load Model' below. Click 'Download FBX' link at the bottom of the pop-up viewer.
-
-<img src='./assets/download_fbx.jpg' width='60%'>
-
-### Import to Your Favourite 3D Software (e.g. Blender, Unity3D)
-
-The FBX models are already rigged. Use your motion library to animate it!
-
-<img src='./assets/blender_tpose.png' width='60%'>
-
-<img src='./assets/blender_motion.gif' width='100%'>
-
-### Upload to Mixamo
-
-To make use of the rich motion library provided by [Mixamo](https://www.mixamo.com), you can also upload the FBX model to Mixamo. The rigging process is completely automatic!
-
-<img src='./assets/mixamo_motion.gif' width='100%'>
+We highly recommend you to read the original README file for more information about the project.
 
 ## Installation
 
-We recommend using anaconda to manage the python environment. The setup commands below are provided for your reference.
+In the following section we will explain how to install the project on your local machine. 
+We will assume that you are using a Linux machine, but the installation should be similar on other operating systems.
+
+As some dependencies of the project require configuring system related resources (which are not python packages), 
+we use conda to manage the environment as it also allows to install system dependencies.
+
+### 1. Create a Conda Environment
+
+First, we need to create a conda environment. We specify the python version to be 3.7, according to the requirements of the project.
+    
+```bash
+conda create -n AvatarCLIP python=3.7
+conda activate AvatarCLIP
+```
+
+### 2. Install Specific Versions of GCC and G++
+
+(Only required if your system uses GCC and G++ versions higher than 8.0)
+
+The project uses a python package named `neural_renderer` which requires specific versions of GCC and G++.
+When running this package installation, it is stated that versions later than 8 are not supported for GCC and G++.
+Therefore, we need to install specific versions of GCC and G++ - we will use version 7.5.0.
+
+First, to view the current version of GCC and G++ installed on your system, run the following commands:
+
+```bash
+gcc --version
+g++ --version
+```
+
+The output should be similar to the following:
+
+```bash
+gcc (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+Copyright (C) 2019 Free Software Foundation, Inc.
+```
+
+```bash
+g++ (Ubuntu 9.4.0-1ubuntu1~20.04.1) 9.4.0
+Copyright (C) 2019 Free Software Foundation, Inc.
+```
+
+If the versions are higher than 8.0, you will need to install the supported versions of GCC and G++.
+To do so, run the following commands:
+
+```bash
+conda install gcc_linux-64=7.5.0
+conda install gxx_linux-64=7.5.0
+```
+
+Then, link the new versions of GCC and G++ to your system:
+
+```bash
+cd /home/your_username/miniconda3/envs/AvatarCLIP/bin
+ln -s /home/your_username/miniconda3/envs/AvatarCLIP/bin/x86_64-conda_cos6-linux-gnu-gcc gcc
+ln -s /home/your_username/miniconda3/envs/AvatarCLIP/bin/x86_64-conda_cos6-linux-gnu-g++ g++
+```
+
+
+cd /home/eitan.g/miniconda3/envs/AvatarCLIP/bin
+ln -s /home/eitan.g/miniconda3/envs/AvatarCLIP/bin/x86_64-conda_cos6-linux-gnu-gcc gcc
+ln -s /home/eitan.g/miniconda3/envs/AvatarCLIP/bin/x86_64-conda_cos6-linux-gnu-g++ g++
+
+To verify that the new versions of GCC and G++ are installed, first deactivate the conda environment and then reactivate it:
+
+```bash
+conda deactivate
+conda activate AvatarCLIP
+```
+
+Then, run the following commands:
+
+```bash
+gcc --version
+g++ --version
+```
+
+The output should be similar to the following:
+
+```bash
+gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
+Copyright (C) 2018 Free Software Foundation, Inc.
+```
+
+```bash
+g++ (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
+Copyright (C) 2018 Free Software Foundation, Inc.
+```
+
+
+### 3. Install Python Packages
+
+The original project suggests to install some packages using `conda` and others using `pip`.
+It is usually recommended to use only one package manager, but because some of them are only available on `conda` and others on `pip`,
+we have to use both.
+
+To maintain stability in the environment, we will install all the packages using `conda` and then install the remaining packages using `pip`.
+
+First, install the packages using `conda` according to the following order (changing the order might cause dependency errors and lead to the infamous [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell)):
+
+```bash
+conda install -c menpo osmesa
+conda install pytorch==1.7.0 torchvision==0.8.0 torchaudio==0.7.0 cudatoolkit=10.1 -c pytorch
+```
+
+Next, clone the project repository:
 
 ```bash
 git clone https://github.com/hongfz16/AvatarCLIP.git
 cd AvatarCLIP
-conda create -n AvatarCLIP python=3.7
-conda activate AvatarCLIP
-conda install pytorch==1.7.0 torchvision==0.8.0 torchaudio==0.7.0 cudatoolkit=10.1 -c pytorch
+```
+
+For the next part, we will use the `requirements.txt` file provided in the project repository to install the remaining packages.
+Please notice that `neural_renderer` is trying to access GPU resources while installing, so you must have a GPU installed on your machine.
+If you are using a virtual server (like Lambda on Technion), you can access a GPU node buy running the following command:
+
+```bash
+srun --gres=gpu:1 --pty bash
+```
+
+Then, install the remaining packages using `pip` from the `requirements.txt` file.
+
+```bash
 pip install -r requirements.txt
 ```
 
-Other than the above steps, you should also install [neural_renderer](https://github.com/daniilidis-group/neural_renderer) following its instructions. Before compiling neural_renderer (or after compiling should also be fine), remember to add the following three lines to `neural_renderer/perspective.py` after line 19.
+Notice, after installing the packages using `pip` the environment might be broken, but running the code is possible, so we leave it as is.
+This problem however will affect running the avatar animation part of the project (which is not yet supported in this fork).
+We couldn't find a solution to this problem, but we are open to suggestions.
+
+Moreover, due to the broken environment we need to change some files in the `neural_renderer` package.
+In this package, sk-image is used to load and save images, but the package is not installed in the environment.
+Instead, we use `PIL` and `numpy` to load and save images.
+
+To do so, open the file `neural_renderer/load_obj.py` and change the following lines:
+
+line 6:
+```python
+from skimage.io import imread
+```
+
+to
+
+```python
+from PIL.Image import open as imread
+```
+
+and
+
+line 89:
+```python
+image = imread(filename_texture).astype(np.float32) / 255.
+```
+
+to
+
+```python
+image = np.asarray(imread(filename_texture), dtype=np.float32) / 255.
+```
+
+Then, open the file `neural_renderer/save_obj.py` and change the following lines:
+
+line 5:
+```python
+from skimage.io import imsave
+```
+
+to
+
+```python
+from numpy import save as imsave
+```
+
+also as stated in the original project, we need to add the following three lines to neural_renderer/perspective.py after line 19.
 
 ```python
 x[z<=0] = 0
@@ -131,70 +195,15 @@ y[z<=0] = 0
 z[z<=0] = 0
 ```
 
-This quick fix is for a rendering issue where objects behide the camera will also be rendered. Be careful when using this fixed version of neural_renderer on your other projects, because this fix will cause the rendering process not differentiable.
-
-To support offscreen rendering for motion visualization, you should install osmesa library.
-
-```bash
-conda install -c menpo osmesa
-```
-
 ## Data Preparation
 
-### Download SMPL Models
-Register and download SMPL models [here](https://smpl.is.tue.mpg.de/). Put the downloaded models in the folder `smpl_models`. The folder structure should look like
+For this section, start by following the instructions in the original project.
 
-```
-./
-├── ...
-└── smpl_models/
-    ├── smpl/
-        ├── SMPL_FEMALE.pkl
-        ├── SMPL_MALE.pkl
-        └── SMPL_NEUTRAL.pkl
-```
+Then, .... TODO
 
-### Download Pretrained Models & Other Data
-This download is only for coarse shape generation and motion generation. You can skip if you only want to use other parts. Download the pretrained weights and other required data [here](https://1drv.ms/u/s!AjLpFg-f48ljgZl9qpU7_6ZA9B7qwA?e=pPcHIG). Put them in the folder `AvatarGen` so that the folder structure should look like
+## Running the Code
 
-```
-./
-├── ...
-└── AvatarGen/
-    └── ShapeGen/
-        └── data/
-            ├── codebook.pth
-            ├── model_VAE_16.pth
-            ├── nongrey_male_0110.jpg
-            ├── smpl_uv.mtl
-            └── smpl_uv.obj
-```
-
-
-Pretrained weights and human texture for motion generation can be downloaded [here](https://drive.google.com/drive/folders/1TSyeT8MwH5EVQRbNGRVkWsA4Y9Y6dRbk?usp=sharing). Note that the human texture we used to render poses is from [SURREAL dataset](https://www.di.ens.fr/willow/research/surreal/data/). Besides, you should download pretrained weights of [VPoser v2.0](https://smpl-x.is.tue.mpg.de/download.php). Put them in the folder `AvatarAnimate` so that the folder structure should look like
-
-```
-├── ...
-└── AvatarAnimate/
-    └── data/
-        ├── codebook.pth
-        ├── motion_vae.pth
-        ├── pose_realnvp.pth
-        ├── nongrey_male_0110.jpg
-        ├── smpl_uv.mtl
-        ├── smpl_uv.obj
-        └── vposer
-            ├── V02_05.log
-            ├── V02_05.yaml
-            └── snapshots
-                ├── V02_05_epoch=08_val_loss=0.03.ckpt
-                └── V02_05_epoch=13_val_loss=0.03.ckpt
-        
-```
-
-## Avatar Generation
-
-### Coarse Shape Generation
+### Avatar Generation - Coarse Shape Generation
 
 Folder `AvatarGen/ShapeGen` contains codes for this part. Run the follow command to generate the coarse shape corresponding to the shape description 'a strong man'. We recommend to use the prompt augmentation 'a 3d rendering of xxx in unreal engine' for better results. The generated coarse body mesh will be stored under `AvatarGen/ShapeGen/output/coarse_shape`.
 
@@ -208,7 +217,7 @@ Then we need to render the mesh for initialization of the implicit avatar repres
 python render.py --coarse_shape_obj output/coarse_shape/a_3d_rendering_of_a_strong_man_in_unreal_engine.obj --output_folder ${RENDER_FOLDER}
 ```
 
-### Shape Sculpting and Texture Generation
+### Avatar Generation - Shape Sculpting and Texture Generation
 
 Note that all the codes are tested on NVIDIA V100 (32GB memory). Therefore, in order to run on GPUs with lower memory, please try to scale down the network or tune down `max_ray_num` in the config files. You can refer to `confs/examples_small/example.conf` or our [colab demo](https://colab.research.google.com/drive/1dfaecX7xF3nP6fyXc8XBljV5QY1lc1TR?usp=sharing) for a scale-down version of AvatarCLIP.
 
@@ -242,80 +251,6 @@ The final high resolution mesh will be stored as `AvatarCLIP/AvatarGen/Appearanc
 ## Convert Avatar to FBX Format
 
 For the convenience of using the generated avatar with modern graphics pipeline, we also provide scripts to rig the avatar and convert to FBX format. See the instructions [here](./Avatar2FBX/README.md).
-
-
-## Motion Generation
-
-### Candidate Poses Generation
-
-Here we provide four different methods for pose generation.
-
-1. PoseOptimizer: directly optimize on SMPL theta
-
-2. VPoserOptimizer: optimize the latent space of VPoser
-
-3. VPoserRealNVP: get latent codes of VPoser from pretrained conditional RealNVP
-
-4. VPoserCodebook: select the most similar poses to the given text feature
-
-
-We provide configurations to compare these methods. Here are some examples:
-
-```bash
-# Suppose your current location is `AvatarCLIP/AvatarAnimate`
-
-# Use PoseOptimizer method to generate poses for "arguing"
-python main.py --conf confs/pose_ablation/pose_optimizer/argue.conf
-# Results are stored in `AvatarCLIP/AvatarAnimate/exp/pose_ablation/pose_optimizer/argue` directory
-# candidate_0.jpg, candidate_1.jpg, ..., candidate_4.jpg are the top-5 poses
-# candidate_0.npy, candidate_1.npy, ..., candidate_4.npy are corresponding parameters
-
-# Use VPoserOptimizer method to generate poses for "praying"
-python main.py --conf confs/pose_ablation/vposer_optimizer/pray.conf
-# Results are stored in `AvatarCLIP/AvatarAnimate/exp/pose_ablation/vposer_optimizer/pray` directory
-
-# Use VPoserRealNVP method to generate poses for "shooting a basketball"
-python main.py --conf confs/pose_ablation/vposer_realnvp/shoot_basketball.conf
-# Results are stored in `AvatarCLIP/AvatarAnimate/exp/pose_ablation/vposer_realnvp/shoot_basketball` directory
-
-# Use VPoserCodebook method to generate poses for "running"
-python main.py --conf confs/pose_ablation/vposer_codebook/run.conf
-# Results are stored in `AvatarCLIP/AvatarAnimate/exp/pose_ablation/vposer_codebook/run` directory
-```
-
-### Motion Generation
-
-Here we provide three different methods for motion generation.
-
-1. MotionInterpolation: directly interpolate between given poses
-
-2. MotionOptimizer (baseline): optimize latent code of a pretrained VAE with a simple reconstruction loss
-
-3. MotionOptimizer (ours): optimize latent code of a pretrained VAE with weighted reconstruction loss, delta loss, and clip loss
-
-
-
-We provide configurations to compare these methods. Here are some examples:
-
-```bash
-# Suppose your current location is `AvatarCLIP/AvatarAnimate`
-
-# Use MotionInterpolation method to generate motion for "arguing"
-python main.py --conf confs/motion_ablation/interpolation/argue.conf
-# Results are stored in `AvatarCLIP/AvatarAnimate/exp/motion_ablation/interpolation/argue` directory
-# candidate_0.jpg, candidate_1.jpg, ..., candidate_4.jpg are the top-5 poses
-# candidate_0.npy, candidate_1.npy, ..., candidate_4.npy are corresponding parameters
-# motion.mp4 is the generated motion
-# motion.npy is corresponding parameters
-
-# Use MotionOptimizer (baseline) method to generate motion for "praying"
-python main.py --conf confs/motion_ablation/baseline/pray.conf
-# Results are stored in `AvatarCLIP/AvatarAnimate/exp/motion_ablation/baseline/pray` directory
-
-# Use MotionOptimizer (ours) method to generate motion for "shooting a basketball"
-python main.py --conf confs/motion_ablation/motion_optimizer/shoot_basketball.conf
-# Results are stored in `AvatarCLIP/AvatarAnimate/exp/motion_ablation/motion_optimizer/shoot_basketball` directory
-```
 
 ### Make your own configure
 
@@ -351,24 +286,3 @@ motion_generator {
 
 
 ```
-
-
-
-## License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
-
-## Related Works
-<p>There are lots of wonderful works that inspired our work or came around the same time as ours.</p>
-<p><a href="https://arxiv.org/abs/2112.01455">Dream Fields</a> enables zero-shot text-driven general 3D object generation using CLIP and NeRF.</p>
-<p><a href="https://arxiv.org/abs/2112.03221">Text2Mesh</a> proposes to edit a template mesh by predicting offsets and colors per vertex using CLIP and differentiable rendering.</p>
-<p><a href="https://arxiv.org/abs/2112.05139">CLIP-NeRF</a> can manipulate 3D objects represented by NeRF with natural languages or examplar images by leveraging CLIP.</p>
-<p><a href="https://arxiv.org/abs/2203.13333">Text to Mesh</a> facilitates zero-shot text-driven general mesh generation by deforming from a sphere mesh guided by CLIP.</p>
-<p><a href='https://github.com/GuyTevet/MotionCLIP'>MotionCLIP</a> establishes a projection from the CLIP text space to the motion space through supervised training, which leads to amazing text-driven motion generation results.</p>
-
-## Acknowledgements
-
-This study is supported by NTU NAP, MOE AcRF Tier 2 (T2EP20221-0033), and under the RIE2020 Industry Alignment Fund – Industry Collaboration Projects (IAF-ICP) Funding Initiative, as well as cash and in-kind contribution from the industry partner(s).
-
-We thank the following repositories for their contributions in our implementation: [NeuS](https://github.com/Totoro97/NeuS), [smplx](https://github.com/vchoutas/smplx), [vposer](https://github.com/nghorbani/human_body_prior), [Smplx2FBX](https://github.com/mrhaiyiwang/Smplx2FBX).
