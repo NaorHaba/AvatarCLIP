@@ -33,6 +33,8 @@ class Settings:
     IMPLICIT_AVATAR_OUTPUT_DIR = 'implicit_avatar/'
 
     GENERATED_AVATAR_OUTPUT_DIR = 'generated_avatar/'
+    GENERATED_AVATAR_TEXTURE_OUTPUT_DIR = 'texture/'
+    GENERATED_AVATAR_FBX_OUTPUT_NAME = 'avatar.fbx'
 
     @staticmethod
     def absolute_path(path):

@@ -17,9 +17,17 @@ if os.path.exists(avatar_output_folder):
     if len(generated_avatars_dirs) == 0:
         st.write(f"No shapes found in {generated_avatars_dirs}.")  # TODO move to config/messages + logging
     else:
-        for avatar in generated_avatars_dirs:
-            avatar_dir_path = os.path.join(avatar_output_folder, avatar)
-            st.markdown(f"#### {avatar}")  # TODO move to config/messages + logging
+        selected_avatar = st.selectbox("Select an avatar to view", generated_avatars_dirs)
+        if selected_avatar:
+            st.markdown(f"#### {selected_avatar}")
+            avatar_dir_path = os.path.join(avatar_output_folder, selected_avatar)
+            texture_folder = os.path.join(avatar_dir_path, Settings.GENERATED_AVATAR_TEXTURE_OUTPUT_DIR)
+            fbx_file = os.path.join(avatar_dir_path, Settings.GENERATED_AVATAR_FBX_OUTPUT_NAME)
+            render_status("Texture folder", texture_folder)  # TODO move to config/messages + logging
+            render_status("FBX file", fbx_file)  # TODO move to config/messages + logging
+        # for avatar in generated_avatars_dirs:
+        #     avatar_dir_path = os.path.join(avatar_output_folder, avatar)
+        #     st.markdown(f"#### {avatar}")  # TODO move to config/messages + logging
 
             # check status of shape
             # TODO add checks for running folder and fbx file
