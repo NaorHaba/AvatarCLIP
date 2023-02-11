@@ -54,6 +54,7 @@ class Messages:
     ## Generate Textures
     GENERATE_TEXTURES_SELECT_SHAPE = "Select a shape to generate textures for"
     GENERATE_TEXTURES_FORM_SUBMIT_BUTTON = "Generate Textures"
+    GENERATE_TEXTURES_DESCRIPTION = "Enter the texture description (e.g Batman, Obama etc.):"
 
     # Error Messages
     FOLDER_DOES_NOT_EXIST = "Folder {} does not exist."
