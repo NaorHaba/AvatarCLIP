@@ -36,6 +36,7 @@ if os.path.exists(coarse_output_folder):
             choose_config = st.radio(Messages.CHOOSE_CONFIG, options=(Messages.LARGE_CONFIG, Messages.SMALL_CONFIG), key="choose_config")
             submit = st.form_submit_button(Messages.INITIALIZE_IMPLICIT_AVATAR_FORM_SUBMIT_BUTTON)
             implicit_folder = os.path.join(selected_shape, Settings.IMPLICIT_AVATAR_OUTPUT_DIR)
+            print(implicit_folder)
             if submit:
                 if choose_config == Messages.LARGE_CONFIG:
                     implicit_config = Settings.LARGE_IMPLICIT_AVATAR_CONFIG
