@@ -1,7 +1,8 @@
 import os
 import streamlit as st
 import time
-
+from website.website_utils import spinner
+from website.logic import render_coarse_shape_wrapper
 from website.messages import Messages
 from website.settings import Settings
 
@@ -15,6 +16,10 @@ def generate_coarse_shape(shape_description):
         for i in range(10):
             time.sleep(1)
         st.success("Done!")  # TODO move to config/messages + logging
+
+@spinner("Rendering coarse shape, this may take a while...")
+def decorated_render_coarse_shape(shape_description):
+    render_coarse_shape_wrapper(shape_description)
 
 
 coarse_output_folder = os.path.join(Settings.OUTPUT_DIR, Settings.COARSE_SHAPE_OUTPUT_DIR)
@@ -36,6 +41,9 @@ if os.path.exists(coarse_output_folder):
             if_exists_instruction = st.radio(Messages.IF_EXISTS_INSTRUCTION, options=(Messages.CONTINUE_SELECTION, Messages.OVERWRITE_SELECTION), key="if_exists_instruction")
             submit = st.form_submit_button(Messages.RENDER_COARSE_SHAPE_FORM_SUBMIT_BUTTON)
             render_folder = os.path.join(selected_shape, Settings.COARSE_SHAPE_RENDERING_OUTPUT_DIR)
+            # path = os.path.join(coarse_output_folder, selected_shape)
+            obj_file = os.path.join(selected_shape, Settings.COARSE_SHAPE_OBJ_OUTPUT_NAME)
+            st.write(obj_file)
             if submit:
                 if os.path.exists(render_folder):
                     if if_exists_instruction == Messages.OVERWRITE_SELECTION:
