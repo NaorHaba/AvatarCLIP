@@ -11,15 +11,9 @@ st.set_page_config(layout="wide",
                    # page_icon='assets/icon.png'  # TODO
                    )
 
-def generate_coarse_shape(shape_description):
-    with st.spinner(text="Rendering coarse shape, this may take a while..."):  # TODO move to config/messages + logging
-        for i in range(10):
-            time.sleep(1)
-        st.success("Done!")  # TODO move to config/messages + logging
-
 @spinner("Rendering coarse shape, this may take a while...")
-def decorated_render_coarse_shape(shape_description):
-    render_coarse_shape_wrapper(shape_description)
+def decorated_render_coarse_shape(path_to_obj_file):
+    render_coarse_shape_wrapper(path_to_obj_file)
 
 
 coarse_output_folder = os.path.join(Settings.OUTPUT_DIR, Settings.COARSE_SHAPE_OUTPUT_DIR)
@@ -41,21 +35,20 @@ if os.path.exists(coarse_output_folder):
             if_exists_instruction = st.radio(Messages.IF_EXISTS_INSTRUCTION, options=(Messages.CONTINUE_SELECTION, Messages.OVERWRITE_SELECTION), key="if_exists_instruction")
             submit = st.form_submit_button(Messages.RENDER_COARSE_SHAPE_FORM_SUBMIT_BUTTON)
             render_folder = os.path.join(selected_shape, Settings.COARSE_SHAPE_RENDERING_OUTPUT_DIR)
-            # path = os.path.join(coarse_output_folder, selected_shape)
             obj_file = os.path.join(selected_shape, Settings.COARSE_SHAPE_OBJ_OUTPUT_NAME)
-            st.write(obj_file)
+            path_to_obj = os.path.join(coarse_output_folder, obj_file)
             if submit:
                 if os.path.exists(render_folder):
                     if if_exists_instruction == Messages.OVERWRITE_SELECTION:
                         st.warning(Messages.OVERWRITE_NOTICE.format(render_folder))
                         # call generate_coarse_shape function here
-                        generate_coarse_shape(selected_shape)
+                        decorated_render_coarse_shape(path_to_obj)
                     else:
                         st.info(Messages.CONTINUE_NOTICE.format(selected_shape))
-                        generate_coarse_shape(selected_shape)
+                        decorated_render_coarse_shape(path_to_obj)
                 else:
                     # call generate_coarse_shape function here
-                    generate_coarse_shape(selected_shape)
+                    decorated_render_coarse_shape(path_to_obj)
 else:
     st.info(Messages.FOLDER_DOES_NOT_EXIST.format(coarse_output_folder))
     # TODO ^ change error to indicate that the folder specified in settings.py does not exist
