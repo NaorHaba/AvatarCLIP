@@ -26,5 +26,5 @@ if os.path.exists(avatar_output_folder):
             render_status(Messages.VIEW_GENERATED_AVATARS_TEXTURE_FOLDER_STATUS_TITLE, texture_folder)
             render_status(Messages.VIEW_GENERATED_AVATARS_FBX_FILE_STATUS_TITLE, fbx_file)
 else:
-    st.write(Messages.FOLDER_DOES_NOT_EXIST.format(avatar_output_folder))
+    st.info(Messages.FOLDER_DOES_NOT_EXIST.format(avatar_output_folder))
     # TODO ^ change error to indicate that the folder specified in settings.py does not exist

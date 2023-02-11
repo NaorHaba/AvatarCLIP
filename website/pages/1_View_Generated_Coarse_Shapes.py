@@ -28,5 +28,5 @@ if os.path.exists(coarse_output_folder):
             render_status(Messages.VIEW_GENERATED_COARSE_SHAPES_RENDER_FOLDER_STATUS_TITLE, render_folder)
             render_status(Messages.VIEW_GENERATED_COARSE_SHAPES_IMPLICIT_FOLDER_STATUS_TITLE, implicit_folder)
 else:
-    st.write(Messages.FOLDER_DOES_NOT_EXIST.format(coarse_output_folder))
+    st.info(Messages.FOLDER_DOES_NOT_EXIST.format(coarse_output_folder))
     # TODO ^ change error to indicate that the folder specified in settings.py does not exist
