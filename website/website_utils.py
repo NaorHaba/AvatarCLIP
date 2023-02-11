@@ -25,6 +25,7 @@ logger = logging.getLogger(__name__)
 
 
 logger.info('test')
+logging.info('test2')
 
 
 def render_status(text, path):
