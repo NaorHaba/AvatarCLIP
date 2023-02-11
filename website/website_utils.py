@@ -39,6 +39,7 @@ class StreamToLogger(object):
         pass
 
 
+# redirect stdout and stderr to loggers
 stdout_logger = get_logger('STDOUT')
 sl = StreamToLogger(stdout_logger, logging.INFO)
 sys.stdout = sl
@@ -46,9 +47,6 @@ sys.stdout = sl
 stderr_logger = get_logger('STDERR')
 sl = StreamToLogger(stderr_logger, logging.ERROR)
 sys.stderr = sl
-
-
-print('hello world')
 
 
 def render_status(text, path):
