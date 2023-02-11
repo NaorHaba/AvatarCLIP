@@ -13,6 +13,7 @@ class Messages:
     RENDER_COARSE_SHAPE_PAGE_TITLE = "Render Coarse Shape"
     INITIALIZE_IMPLICIT_AVATAR_PAGE_TITLE = "Initialize Implicit Avatar"
     GENERATE_TEXTURES_PAGE_TITLE = "Generate Textures"
+    CONVERT_TO_FBX_PAGE_TITLE = "Convert to FBX"
 
     ## Page Messages
     SELECTED_VIEW_ITEM_TITLE = "#### {}"
@@ -55,6 +56,10 @@ class Messages:
     GENERATE_TEXTURES_SELECT_SHAPE = "Select a shape to generate textures for"
     GENERATE_TEXTURES_FORM_SUBMIT_BUTTON = "Generate Textures"
     GENERATE_TEXTURES_DESCRIPTION = "Enter the texture description (e.g Batman, Obama etc.):"
+
+    ## Convert to FBX
+    CONVERT_TO_FBX_SELECT_AVATAR = "Select an avatar to convert to FBX"
+    CONVERT_TO_FBX_FORM_SUBMIT_BUTTON = "Convert to FBX"
 
     # Error Messages
     FOLDER_DOES_NOT_EXIST = "Folder {} does not exist."
