@@ -12,8 +12,9 @@ handlers = [
     logging.StreamHandler(sys.stdout),
     logging.StreamHandler(sys.stderr)
 ]
+
 if Settings.LOG_TO_FILE:
-    handlers.append(logging.FileHandler(os.path.join(Settings.absolute_path(Settings.LOGS_DIR), time.strftime("%Y-%m-%d") + '.log')))
+    handlers.append(logging.FileHandler(os.path.join(Settings.absolute_path(Settings.LOGS_DIR), time.strftime("%Y-%m-%d_%H-%M-%S") + '.log')))
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s [%(filename)s:%(lineno)s - %(funcName)20s()]: %(message)s',
@@ -21,6 +22,9 @@ logging.basicConfig(level=logging.INFO,
                     handlers=handlers)
 
 logger = logging.getLogger(__name__)
+
+
+logger.info('test')
 
 
 def render_status(text, path):
