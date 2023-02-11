@@ -8,11 +8,9 @@ from pyhocon import ConfigFactory, HOCONConverter
 from website.config import Config
 from website.messages import Messages
 from website.settings import Settings, POSE_TYPE
-import website.website_utils
+from website.website_utils import get_logger
 
-import logging
-
-logger = logging.getLogger(__file__)
+logger = get_logger(__name__)
 
 
 if torch.cuda.is_available():
