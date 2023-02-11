@@ -18,11 +18,12 @@ logging.basicConfig(level=logging.INFO,
                     datefmt='%Y-%m-%d %H:%M:%S',
                     handlers=handlers)
 
+logging.info('test2')
+
 logger = logging.getLogger(__name__)
 
 
 logger.info('test')
-logging.info('test2')
 
 
 def render_status(text, path):
