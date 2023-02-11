@@ -8,10 +8,7 @@ import logging
 from website.settings import Settings
 
 
-handlers = [
-    logging.StreamHandler(sys.stdout),
-    logging.StreamHandler(sys.stderr)
-]
+handlers = []
 
 if Settings.LOG_TO_FILE:
     handlers.append(logging.FileHandler(Settings.absolute_path(Settings.LOGS_DIR + Settings.LOG_FILE_NAME), mode='w'))
