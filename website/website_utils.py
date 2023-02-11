@@ -18,9 +18,13 @@ logging.basicConfig(level=logging.INFO,
                     datefmt='%Y-%m-%d %H:%M:%S',
                     handlers=handlers)
 
+st.logger = logging.getLogger(__name__)
+
 logging.info('test2')
 
 logger = logging.getLogger(__name__)
+for handler in handlers:
+    logger.addHandler(handler)
 
 
 logger.info('test')
