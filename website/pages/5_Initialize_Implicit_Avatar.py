@@ -46,12 +46,15 @@ if os.path.exists(coarse_output_folder):
                 shape_folder = Settings.absolute_path(os.path.join(coarse_output_folder, selected_shape))
                 if os.path.exists(implicit_folder):
                     if if_exists_instruction == Messages.OVERWRITE_SELECTION:
+                        print(1)
                         st.warning(Messages.OVERWRITE_NOTICE.format(implicit_folder))
                         decorated_init_implicit_avatar(implicit_config, shape_folder, False)
                     else:
+                        print(2)
                         st.info(Messages.CONTINUE_NOTICE.format(selected_shape))
                         decorated_init_implicit_avatar(implicit_config, shape_folder, True)
                 else:
+                    print(3)
                     decorated_init_implicit_avatar(implicit_config, shape_folder, False)
 else:
     st.info(Messages.FOLDER_DOES_NOT_EXIST.format(coarse_output_folder))
