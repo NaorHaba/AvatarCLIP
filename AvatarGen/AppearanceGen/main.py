@@ -25,9 +25,11 @@ import clip
 from smplx import build_layer
 import imageio
 
+from website.website_utils import get_logger
+
 to8b = lambda x : (255*np.clip(x,0,1)).astype(np.uint8)
 
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 class Runner:
     def __init__(self, conf_path, mode='train', case='CASE_NAME', is_continue=False, is_colab=False, conf=None):

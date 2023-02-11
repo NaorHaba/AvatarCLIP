@@ -6,7 +6,9 @@ import logging
 import mcubes
 from icecream import ic
 
-logger = logging.getLogger(__name__)
+from website.website_utils import get_logger
+
+logger = get_logger(__name__)
 
 
 def extract_fields(bound_min, bound_max, resolution, query_func):

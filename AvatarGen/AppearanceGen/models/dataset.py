@@ -11,7 +11,10 @@ import json
 import imageio
 import logging
 from scipy import ndimage
-pil_logger = logging.getLogger('PIL')
+
+from website.website_utils import get_logger
+
+pil_logger = get_logger('PIL')
 pil_logger.setLevel(logging.INFO)
 
 # This function is borrowed from IDR: https://github.com/lioryariv/idr
