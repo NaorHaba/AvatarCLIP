@@ -21,10 +21,8 @@ logging.basicConfig(level=logging.INFO,
                     datefmt='%Y-%m-%d %H:%M:%S',
                     handlers=handlers)
 
-logger = logging.getLogger(__name__)
 
-print('hello')
-logger.info('test')
+logging.info('Settings:')
 
 
 def render_status(text, path):
