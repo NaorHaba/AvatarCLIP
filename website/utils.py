@@ -22,7 +22,6 @@ class StreamToLogger:
 logger = logging.getLogger()
 if Settings.LOG_TO_FILE:
     # initialize logging
-    os.makedirs(Settings.LOGS_DIR, exist_ok=True)
     logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s %(levelname)s [%(filename)s:%(lineno)s - %(funcName)20s()]: %(message)s',
                         datefmt='%Y-%m-%d %H:%M:%S',
@@ -50,3 +49,14 @@ def render_status(text, path):
         icon = ":x:"
         st.markdown(f"{text}: {icon}")
 
+
+# define a decorator that prints st.spinner that runs until the function is done
+def spinner(text):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            with st.spinner(text):
+                return func(*args, **kwargs)
+
+        return wrapper
+
+    return decorator

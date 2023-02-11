@@ -7,8 +7,7 @@ from pyhocon import ConfigFactory, HOCONConverter
 
 from website.config import Config
 from website.messages import Messages
-from website.settings import Settings
-from website.utils import POSE_TYPE
+from website.settings import Settings, POSE_TYPE
 
 import logging
 
