@@ -8,8 +8,8 @@ import logging
 from website.settings import Settings
 
 
-def get_logger():
-    logger = logging.getLogger(__name__)
+def get_logger(name=__name__):
+    logger = logging.getLogger(name)
     logger.setLevel(logging.DEBUG)
     formatter = logging.Formatter('%(asctime)s %(levelname)s [%(filename)s:%(lineno)s - %(funcName)20s()]: %(message)s',
                                   datefmt='%Y-%m-%d %H:%M:%S')
@@ -22,9 +22,27 @@ def get_logger():
     return logger
 
 
-logger = get_logger()
+class StreamToLogger(object):
+    """
+    Fake file-like stream object that redirects writes to a logger instance.
+    """
+    def __init__(self, logger, log_level=logging.INFO):
+        self.logger = logger
+        self.log_level = log_level
+        self.linebuf = ''
 
-logger.info('Starting the website')
+    def write(self, buf):
+        for line in buf.rstrip().splitlines():
+            self.logger.log(self.log_level, line.rstrip())
+
+
+stdout_logger = get_logger('STDOUT')
+sl = StreamToLogger(stdout_logger, logging.INFO)
+sys.stdout = sl
+
+stderr_logger = get_logger('STDERR')
+sl = StreamToLogger(stderr_logger, logging.ERROR)
+sys.stderr = sl
 
 
 def render_status(text, path):
