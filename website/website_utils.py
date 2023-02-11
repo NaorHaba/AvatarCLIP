@@ -13,15 +13,14 @@ handlers = []
 if Settings.LOG_TO_FILE:
     handlers.append(logging.FileHandler(Settings.absolute_path(Settings.LOGS_DIR + Settings.LOG_FILE_NAME), mode='w'))
 
-logging.basicConfig(level=logging.INFO,
+logging.basicConfig(level=logging.DEBUG,
+                    filename=Settings.absolute_path(Settings.LOGS_DIR + Settings.LOG_FILE_NAME),
+                    filemode='a',
                     format='%(asctime)s %(levelname)s [%(filename)s:%(lineno)s - %(funcName)20s()]: %(message)s',
-                    datefmt='%Y-%m-%d %H:%M:%S',
-                    handlers=handlers)
+                    datefmt='%Y-%m-%d %H:%M:%S')
 
 logger = logging.getLogger(__name__)
 
-
-print(handlers)
 logger.info('test')
 logging.info('test2')
 
