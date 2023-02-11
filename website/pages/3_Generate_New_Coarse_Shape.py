@@ -18,14 +18,13 @@ def decorated_generate_coarse_shape(shape_description):
     generate_coarse_shape(shape_description)
 
 
-
 placeholder = st.empty()
 with placeholder.form(key="coarse_shape_form", clear_on_submit=False):
     shape_description = st.text_input(Messages.GENERATE_NEW_COARSE_SHAPE_DESCRIPTION, key="shape_description")
     overwrite = st.checkbox(Messages.OVERWRITE_SELECTION, key="overwrite")
     submit = st.form_submit_button(Messages.GENERATE_NEW_COARSE_SHAPE_FORM_SUBMIT_BUTTON)
-    shape_folder = os.path.join(Settings.OUTPUT_DIR, Settings.COARSE_SHAPE_OUTPUT_DIR, shape_description)
-    obj_file = os.path.join(shape_folder, Settings.COARSE_SHAPE_OBJ_OUTPUT_NAME)
+    shape_folder = Settings.absolute_path(os.path.join(Settings.OUTPUT_DIR, Settings.COARSE_SHAPE_OUTPUT_DIR, shape_description))
+    obj_file = Settings.absolute_path(os.path.join(shape_folder, Settings.COARSE_SHAPE_OBJ_OUTPUT_NAME))
     if submit:
         if os.path.exists(shape_folder) and os.path.exists(obj_file):
             if overwrite:
@@ -36,7 +35,3 @@ with placeholder.form(key="coarse_shape_form", clear_on_submit=False):
                 st.info(Messages.GENERATE_NEW_COARSE_SHAPE_RETRY_MESSAGE.format(shape_description))
         else:
             decorated_generate_coarse_shape(shape_description)
-
-
-
-    

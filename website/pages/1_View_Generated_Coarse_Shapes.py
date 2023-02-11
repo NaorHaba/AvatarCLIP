@@ -11,7 +11,7 @@ st.set_page_config(layout="wide",
                    )
 
 
-coarse_output_folder = os.path.join(Settings.OUTPUT_DIR, Settings.COARSE_SHAPE_OUTPUT_DIR)
+coarse_output_folder = Settings.absolute_path(os.path.join(Settings.OUTPUT_DIR, Settings.COARSE_SHAPE_OUTPUT_DIR))
 if os.path.exists(coarse_output_folder):
     generated_shapes_dirs = os.listdir(coarse_output_folder)
     if len(generated_shapes_dirs) == 0:
@@ -20,10 +20,10 @@ if os.path.exists(coarse_output_folder):
         selected_shape = st.selectbox(Messages.VIEW_GENERATED_COARSE_SHAPES_SELECT_SHAPE, generated_shapes_dirs)
         if selected_shape:
             st.markdown(Messages.SELECTED_VIEW_ITEM_TITLE.format(selected_shape))
-            shape_dir_path = os.path.join(coarse_output_folder, selected_shape)
-            obj_file = os.path.join(shape_dir_path, Settings.COARSE_SHAPE_OBJ_OUTPUT_NAME)
-            render_folder = os.path.join(shape_dir_path, Settings.COARSE_SHAPE_RENDERING_OUTPUT_DIR)
-            implicit_folder = os.path.join(shape_dir_path, Settings.IMPLICIT_AVATAR_OUTPUT_DIR)
+            shape_dir_path = Settings.absolute_path(os.path.join(coarse_output_folder, selected_shape))
+            obj_file = Settings.absolute_path(os.path.join(shape_dir_path, Settings.COARSE_SHAPE_OBJ_OUTPUT_NAME))
+            render_folder = Settings.absolute_path(os.path.join(shape_dir_path, Settings.COARSE_SHAPE_RENDERING_OUTPUT_DIR))
+            implicit_folder = Settings.absolute_path(os.path.join(shape_dir_path, Settings.IMPLICIT_AVATAR_OUTPUT_DIR))
             render_status(Messages.VIEW_GENERATED_COARSE_SHAPES_OBJ_FILE_STATUS_TITLE, obj_file)
             render_status(Messages.VIEW_GENERATED_COARSE_SHAPES_RENDER_FOLDER_STATUS_TITLE, render_folder)
             render_status(Messages.VIEW_GENERATED_COARSE_SHAPES_IMPLICIT_FOLDER_STATUS_TITLE, implicit_folder)
