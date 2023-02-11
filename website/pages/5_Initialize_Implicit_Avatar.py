@@ -42,13 +42,13 @@ if os.path.exists(coarse_output_folder):
                 if os.path.exists(implicit_folder):
                     if if_exists_instruction == Messages.OVERWRITE_SELECTION:
                         st.warning(Messages.OVERWRITE_NOTICE.format(implicit_folder))
-                        # call generate_coarse_shape function here
+                        # call init_imp_avatar function here
                         generate_coarse_shape(selected_shape, choose_config)
                     else:
                         st.info(Messages.CONTINUE_NOTICE.format(selected_shape))
                         generate_coarse_shape(selected_shape, choose_config)
                 else:
-                    # call generate_coarse_shape function here
+                    # call init_imp_avatar function here
                     generate_coarse_shape(selected_shape, choose_config)
 else:
     st.info(Messages.FOLDER_DOES_NOT_EXIST.format(coarse_output_folder))

@@ -1,5 +1,4 @@
 import os
-from enum import Enum
 import time
 import streamlit as st
 import sys
@@ -50,7 +49,3 @@ def render_status(text, path):
         icon = ":x:"
         st.markdown(f"{text}: {icon}")
 
-        
-class POSE_TYPE(str, Enum):
-    STAND_POSE = 'stand_pose'
-    T_POSE = 't_pose'

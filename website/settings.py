@@ -1,6 +1,10 @@
 import os
+from enum import Enum
 
-from website.utils import POSE_TYPE
+
+class POSE_TYPE(str, Enum):
+    STAND_POSE = 'stand_pose'
+    T_POSE = 't_pose'
 
 
 class Settings:
