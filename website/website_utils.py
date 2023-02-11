@@ -45,6 +45,9 @@ sl = StreamToLogger(stderr_logger, logging.ERROR)
 sys.stderr = sl
 
 
+print('hello world')
+
+
 def render_status(text, path):
     if os.path.exists(path):
         icon = ":heavy_check_mark:"
