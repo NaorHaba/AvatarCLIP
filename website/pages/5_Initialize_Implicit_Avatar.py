@@ -38,9 +38,9 @@ if os.path.exists(coarse_output_folder):
             implicit_folder = os.path.join(selected_shape, Settings.IMPLICIT_AVATAR_OUTPUT_DIR)
             if submit:
                 if choose_config == Messages.LARGE_CONFIG:
-                    implicit_config = Settings.SMALL_IMPLICIT_AVATAR_CONFIG
-                else:
                     implicit_config = Settings.LARGE_IMPLICIT_AVATAR_CONFIG
+                else:
+                    implicit_config = Settings.SMALL_IMPLICIT_AVATAR_CONFIG
 
                 shape_folder = os.path.join(coarse_output_folder, selected_shape)
                 if os.path.exists(implicit_folder):
