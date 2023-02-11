@@ -11,7 +11,7 @@ from website.settings import Settings, POSE_TYPE
 
 import logging
 
-logger = logging.getLogger()
+logger = logging.getLogger(__file__)
 
 
 if torch.cuda.is_available():
@@ -38,7 +38,6 @@ def generate_coarse_shape(coarse_shape_prompt: str):
     if Settings.ENHANCE_PROMPT:
         coarse_shape_prompt = Settings.PROMPT_ENHANCING.format(coarse_shape_prompt)
         neutral_body_shape = Settings.PROMPT_ENHANCING.format(neutral_body_shape)
-
     logger.info(Messages.GENERATE_NEW_COARSE_SHAPE_INFO.format(coarse_shape_prompt))
     v, f, zero_beta_v = shape_gen(smpl_args,
                                   Settings.absolute_path(Settings.VIRTUAL_AUTO_ENCODER_PATH),

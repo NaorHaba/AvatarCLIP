@@ -16,10 +16,12 @@ class StreamToLogger:
     def write(self, buf):
         for line in buf.rstrip().splitlines():
             self.logger.log(self.log_level, line.rstrip())
+        
+    def flush(self):
+        pass
 
 
 # Create logger
-logger = logging.getLogger()
 if Settings.LOG_TO_FILE:
     # initialize logging
     logging.basicConfig(level=logging.INFO,
@@ -31,6 +33,8 @@ else:
     logging.basicConfig(level=logging.INFO,
                         format='%(asctime)s %(levelname)s [%(filename)s:%(lineno)s - %(funcName)20s()]: %(message)s',
                         datefmt='%Y-%m-%d %H:%M:%S')
+
+logger = logging.getLogger()
 
 # Redirect stdout to logger
 sys.stdout = StreamToLogger(logger, logging.INFO)
@@ -55,7 +59,8 @@ def spinner(text):
     def decorator(func):
         def wrapper(*args, **kwargs):
             with st.spinner(text):
-                return func(*args, **kwargs)
+                func(*args, **kwargs)
+            st.success('Done!')
 
         return wrapper
 

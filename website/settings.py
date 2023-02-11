@@ -46,7 +46,7 @@ class Settings:
 
     @staticmethod
     def absolute_path(path):
-        return os.path.join(os.path.dirname(__file__), path)
+        return os.path.join(os.path.dirname(__file__), os.pardir, path)
 
 
 # TODO log the settings
