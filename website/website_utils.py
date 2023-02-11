@@ -8,18 +8,23 @@ import logging
 from website.settings import Settings
 
 
-handlers = []
+def get_logger():
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s %(levelname)s [%(filename)s:%(lineno)s - %(funcName)20s()]: %(message)s',
+                                  datefmt='%Y-%m-%d %H:%M:%S')
 
-if Settings.LOG_TO_FILE:
-    handlers.append(logging.FileHandler(Settings.absolute_path(Settings.LOGS_DIR + Settings.LOG_FILE_NAME), mode='a'))
+    file_handler = logging.FileHandler(Settings.absolute_path(Settings.LOGS_DIR + Settings.LOG_FILE_NAME))
+    file_handler.setFormatter(formatter)
 
-logging.basicConfig(level=logging.INFO,
-                    format='%(asctime)s %(levelname)s [%(filename)s:%(lineno)s - %(funcName)20s()]: %(message)s',
-                    datefmt='%Y-%m-%d %H:%M:%S',
-                    handlers=handlers)
+    logger.addHandler(file_handler)
+
+    return logger
 
 
-logging.info('Settings:')
+logger = get_logger()
+
+logger.info('Starting the website')
 
 
 def render_status(text, path):
