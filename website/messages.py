@@ -42,7 +42,14 @@ class Messages:
     RENDER_COARSE_SHAPE_SELECT_SHAPE = "Select a shape to render"
     RENDER_COARSE_SHAPE_FORM_SUBMIT_BUTTON = "Render Coarse Shape"
 
-    ## Error Messages
+    ## Initialize Implicit Avatar
+    INITIALIZE_IMPLICIT_AVATAR_SELECT_SHAPE = "Select a shape to initialize"
+    INITIALIZE_IMPLICIT_AVATAR_FORM_SUBMIT_BUTTON = "Initialize Implicit Avatar"
+    CHOOSE_CONFIG = "Choose a config file to use for initialization"
+    LARGE_CONFIG = "Large config"
+    SMALL_CONFIG = "Small config"
+
+    # Error Messages
     FOLDER_DOES_NOT_EXIST = "Folder {} does not exist."
     NO_SHAPE_FOUND_IN_FOLDER = "No shapes found in {}."
     ALREADY_EXISTS = "'{}' already exists."
