@@ -1,5 +1,6 @@
 import os
 from enum import Enum
+import time
 
 
 class POSE_TYPE(str, Enum):
@@ -43,6 +44,7 @@ class Settings:
     # logs
     LOG_TO_FILE = True
     LOGS_DIR = 'logs/'
+    LOG_FILE_NAME = time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime()) + '.log'
 
     @staticmethod
     def absolute_path(path):
