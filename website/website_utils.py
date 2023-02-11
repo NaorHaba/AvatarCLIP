@@ -7,22 +7,16 @@ import logging
 
 from website.settings import Settings
 
+logger = logging.getLogger(__file__)
+logger.setLevel(logging.DEBUG)
 
-handlers = []
+file_handler = logging.FileHandler('website.log')
+file_handler.setLevel(logging.DEBUG)
 
-if Settings.LOG_TO_FILE:
-    handlers.append(logging.FileHandler(Settings.absolute_path(Settings.LOGS_DIR + Settings.LOG_FILE_NAME), mode='w'))
+logger.addHandler(file_handler)
 
-logging.basicConfig(level=logging.DEBUG,
-                    filename=Settings.absolute_path(Settings.LOGS_DIR + Settings.LOG_FILE_NAME),
-                    filemode='a',
-                    format='%(asctime)s %(levelname)s [%(filename)s:%(lineno)s - %(funcName)20s()]: %(message)s',
-                    datefmt='%Y-%m-%d %H:%M:%S')
-
-logger = logging.getLogger(__name__)
 
 logger.info('test')
-logging.info('test2')
 
 
 def render_status(text, path):
