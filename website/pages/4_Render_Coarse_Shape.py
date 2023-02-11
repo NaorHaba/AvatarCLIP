@@ -4,7 +4,6 @@ import time
 
 from website.messages import Messages
 from website.settings import Settings
-from website.utils import render_status
 
 st.set_page_config(layout="wide",
                    page_title=Messages.RENDER_COARSE_SHAPE_PAGE_TITLE,

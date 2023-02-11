@@ -1,7 +1,7 @@
 import os
 import streamlit as st
 import time
-from utils import spinner
+from website.website_utils import spinner
 from website.logic import generate_coarse_shape
 
 from website.messages import Messages

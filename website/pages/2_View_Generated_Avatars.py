@@ -3,7 +3,7 @@ import streamlit as st
 
 from website.messages import Messages
 from website.settings import Settings
-from website.utils import render_status
+from website.website_utils import render_status
 
 st.set_page_config(layout="wide",
                    page_title=Messages.VIEW_GENERATED_COARSE_SHAPES_PAGE_TITLE,
