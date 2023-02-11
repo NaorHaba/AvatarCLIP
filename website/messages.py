@@ -60,6 +60,7 @@ class Messages:
     ## Convert to FBX
     CONVERT_TO_FBX_SELECT_AVATAR = "Select an avatar to convert to FBX"
     CONVERT_TO_FBX_FORM_SUBMIT_BUTTON = "Convert to FBX"
+    CONVERT_TO_FBX_RETRY_MESSAGE = "Please choose a different avatar or check the overwrite checkbox"
 
     # Error Messages
     FOLDER_DOES_NOT_EXIST = "Folder {} does not exist."
