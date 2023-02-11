@@ -35,6 +35,9 @@ class StreamToLogger(object):
         for line in buf.rstrip().splitlines():
             self.logger.log(self.log_level, line.rstrip())
 
+    def flush(self):
+        pass
+
 
 stdout_logger = get_logger('STDOUT')
 sl = StreamToLogger(stdout_logger, logging.INFO)
