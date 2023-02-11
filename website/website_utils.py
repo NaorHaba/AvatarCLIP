@@ -11,7 +11,7 @@ from website.settings import Settings
 handlers = []
 
 if Settings.LOG_TO_FILE:
-    handlers.append(logging.FileHandler(Settings.absolute_path(Settings.LOGS_DIR + Settings.LOG_FILE_NAME), mode='w'))
+    handlers.append(logging.FileHandler(Settings.absolute_path(Settings.LOGS_DIR + Settings.LOG_FILE_NAME), mode='a'))
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s %(levelname)s [%(filename)s:%(lineno)s - %(funcName)20s()]: %(message)s',
