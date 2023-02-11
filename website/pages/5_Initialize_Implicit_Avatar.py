@@ -6,7 +6,7 @@ from website.messages import Messages
 from website.settings import Settings
 
 st.set_page_config(layout="wide",
-                   page_title=Messages.RENDER_COARSE_SHAPE_PAGE_TITLE,
+                   page_title=Messages.INITIALIZE_IMPLICIT_AVATAR_PAGE_TITLE,
                    # page_icon='assets/icon.png'  # TODO
                    )
 

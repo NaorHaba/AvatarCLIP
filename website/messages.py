@@ -11,6 +11,8 @@ class Messages:
     VIEW_GENERATED_AVATARS_PAGE_TITLE = "Generated Avatars"
     GENERATE_NEW_COARSE_SHAPE_PAGE_TITLE = "Generate New Coarse Shape"
     RENDER_COARSE_SHAPE_PAGE_TITLE = "Render Coarse Shape"
+    INITIALIZE_IMPLICIT_AVATAR_PAGE_TITLE = "Initialize Implicit Avatar"
+    GENERATE_TEXTURES_PAGE_TITLE = "Generate Textures"
 
     ## Page Messages
     SELECTED_VIEW_ITEM_TITLE = "#### {}"
@@ -48,6 +50,10 @@ class Messages:
     CHOOSE_CONFIG = "Choose a config file to use for initialization"
     LARGE_CONFIG = "Large config"
     SMALL_CONFIG = "Small config"
+
+    ## Generate Textures
+    GENERATE_TEXTURES_SELECT_SHAPE = "Select a shape to generate textures for"
+    GENERATE_TEXTURES_FORM_SUBMIT_BUTTON = "Generate Textures"
 
     # Error Messages
     FOLDER_DOES_NOT_EXIST = "Folder {} does not exist."
