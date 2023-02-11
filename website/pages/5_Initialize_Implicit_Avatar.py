@@ -19,7 +19,7 @@ def decorated_init_implicit_avatar(implicit_config, path_to_render, is_continue)
 
 coarse_output_folder = Settings.absolute_path(os.path.join(Settings.OUTPUT_DIR, Settings.COARSE_SHAPE_OUTPUT_DIR))
 if os.path.exists(coarse_output_folder):
-    generated_shapes_dirs = Settings.absolute_path(os.listdir(coarse_output_folder))
+    generated_shapes_dirs = os.listdir(coarse_output_folder)
     relevant_shapes_dirs = []
     for shape in generated_shapes_dirs:
         shape_dir_path = Settings.absolute_path(os.path.join(coarse_output_folder, shape))
