@@ -6,6 +6,8 @@ import logging
 import mcubes
 from icecream import ic
 
+logger = logging.getLogger(__name__)
+
 
 def extract_fields(bound_min, bound_max, resolution, query_func):
     N = 64
@@ -26,7 +28,7 @@ def extract_fields(bound_min, bound_max, resolution, query_func):
 
 
 def extract_geometry(bound_min, bound_max, resolution, threshold, query_func):
-    print('threshold: {}'.format(threshold))
+    logger.info('threshold: {}'.format(threshold))
     u = extract_fields(bound_min, bound_max, resolution, query_func)
     vertices, triangles = mcubes.marching_cubes(u, threshold)
     b_max_np = bound_max.detach().cpu().numpy()

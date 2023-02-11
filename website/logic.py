@@ -6,16 +6,18 @@ import torch
 from pyhocon import ConfigFactory, HOCONConverter
 
 from website.config import Config
+from website.messages import Messages
 from website.settings import Settings
 from website.utils import POSE_TYPE
 
-# TODO
-# FORMAT = "[%(filename)s:%(lineno)s - %(funcName)20s() ] %(message)s"
-# logging.basicConfig(level=logging.INFO, format=FORMAT)
+import logging
+
+logger = logging.getLogger()
 
 
 if torch.cuda.is_available():
-    torch.set_default_tensor_type('torch.cuda.FloatTensor')  # TODO + logging
+    torch.set_default_tensor_type('torch.cuda.FloatTensor')
+    logger.info(Messages.CUDA_DEFAULT_TENSOR_TYPE_INFO)
 
 
 def generate_coarse_shape(coarse_shape_prompt: str):
@@ -33,13 +35,12 @@ def generate_coarse_shape(coarse_shape_prompt: str):
         'num_betas': Config.SMPL_NUM_BETAS
     }
 
-    print("Start generating coarse body shape given the target text: {}".format(coarse_shape_prompt))  # TODO move to config/messages + logging
-
     neutral_body_shape = Settings.NEUTRAL_BODY_SHAPE_PROMPT
     if Settings.ENHANCE_PROMPT:
         coarse_shape_prompt = Settings.PROMPT_ENHANCING.format(coarse_shape_prompt)
         neutral_body_shape = Settings.PROMPT_ENHANCING.format(neutral_body_shape)
 
+    logger.info(Messages.GENERATE_NEW_COARSE_SHAPE_INFO.format(coarse_shape_prompt))
     v, f, zero_beta_v = shape_gen(smpl_args,
                                   Settings.absolute_path(Settings.VIRTUAL_AUTO_ENCODER_PATH),
                                   Settings.absolute_path(Settings.CODEBOOK_PATH),
@@ -50,7 +51,7 @@ def generate_coarse_shape(coarse_shape_prompt: str):
     obj_output_fname = os.path.join(output_folder, Settings.COARSE_SHAPE_OBJ_OUTPUT_NAME)
     writeOBJ(obj_output_fname, v, f)
 
-    print("Coarse body shape generated and saved to {}".format(obj_output_fname))  # TODO move to config/messages + logging
+    logger.info(Messages.GENERATE_NEW_COARSE_SHAPE_SUCCESS.format(obj_output_fname))
 
     sys.path.remove('AvatarGen/ShapeGen')
 
@@ -83,9 +84,9 @@ def render_coarse_shape_wrapper(obj_output_fname):
     v_shaped, _, _, _ = readOBJ(obj_output_fname)
     v_shaped = torch.from_numpy(v_shaped.astype(np.float32)).reshape(1, -1, 3).cuda()
 
-    print("Begin rendering obj: {}".format(obj_output_fname))  # TODO move to config/messages + logging
+    logger.info(Messages.RENDER_COARSE_SHAPE_INFO.format(obj_output_fname))
     render_coarse_shape(pose, v_shaped, smpl_args, render_output_folder)
-    print("Renderings written to: {}".format(render_output_folder))  # TODO move to config/messages + logging
+    logger.info(Messages.RENDER_COARSE_SHAPE_SUCCESS.format(render_output_folder))
 
     sys.path.remove('AvatarGen/ShapeGen')
 
@@ -114,8 +115,12 @@ def initialize_implicit_avatar(config_path, coarse_body_dir, is_continue=False):
         with open(new_config_path, 'w') as f:
             f.write(HOCONConverter().to_hocon(config))
 
+        logger.info(Messages.NEW_CONFIG_FILE_INFO.format(new_config_path))
+
+    logger.info(Messages.INITIALIZE_IMPLICIT_AVATAR_INFO.format(os.path.basename(coarse_body_dir)))
     runner = Runner(new_config_path, 'train', is_continue=is_continue)
     runner.train()
+    logger.info(Messages.INITIALIZE_IMPLICIT_AVATAR_SUCCESS.format(os.path.basename(coarse_body_dir)))
 
     sys.path.remove('AvatarGen/AppearanceGen')
 
@@ -141,7 +146,7 @@ def generate_textures(texture_prompt, config_path, coarse_body_dir, is_continue=
 
         checkpoint_dir = os.path.join(coarse_body_dir, Settings.IMPLICIT_AVATAR_OUTPUT_DIR, 'checkpoints')
         last_checkpoint = sorted(os.listdir(checkpoint_dir))[-1]
-        print("Using checkpoint: {}".format(last_checkpoint))
+        logger.info(Messages.LAST_CHECKPOINT_INFO.format(last_checkpoint))
         checkpoint_path = os.path.join(checkpoint_dir, last_checkpoint)
 
         render_dir = os.path.join(coarse_body_dir, 'render')
@@ -160,10 +165,18 @@ def generate_textures(texture_prompt, config_path, coarse_body_dir, is_continue=
         with open(new_config_path, 'w') as f:
             f.write(HOCONConverter().to_hocon(config))
 
+        logger.info(Messages.NEW_CONFIG_FILE_INFO.format(new_config_path))
+    else:
+        # use the existing config file
+        if not os.path.exists(new_config_path):
+            raise FileNotFoundError('No config file found in {}'.format(output_folder))
+
+    logger.info(Messages.GENERATE_TEXTURES_INFO.format(os.path.basename(coarse_body_dir)))
     runner = Runner(new_config_path, 'train_clip', is_continue=is_continue)
     runner.init_clip()
     runner.init_smpl()
     runner.train_clip()
+    logger.info(Messages.GENERATE_TEXTURES_SUCCESS.format(os.path.basename(coarse_body_dir)))
 
     sys.path.remove('AvatarGen/AppearanceGen')
 

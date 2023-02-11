@@ -36,6 +36,14 @@ class Settings:
     GENERATED_AVATAR_TEXTURE_OUTPUT_DIR = 'texture/'
     GENERATED_AVATAR_FBX_OUTPUT_NAME = 'avatar.fbx'
 
+    # logs
+    LOG_TO_FILE = True
+    LOGS_DIR = 'logs/'
+
     @staticmethod
     def absolute_path(path):
         return os.path.join(os.path.dirname(__file__), path)
+
+
+# TODO log the settings
+# TODO when updating the settings, log the changes

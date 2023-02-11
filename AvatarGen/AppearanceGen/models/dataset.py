@@ -42,7 +42,7 @@ def load_K_Rt_from_P(filename, P=None):
 class Dataset:
     def __init__(self, conf):
         super(Dataset, self).__init__()
-        print('Load data: Begin')
+        pil_logger.info('Load data: Begin')
         self.device = torch.device('cuda')
         self.conf = conf
 
@@ -97,7 +97,7 @@ class Dataset:
         self.object_bbox_min = object_bbox_min[:3, 0]
         self.object_bbox_max = object_bbox_max[:3, 0]
 
-        print('Load data: End')
+        pil_logger.info('Load data: End')
 
     def gen_rays_at(self, img_idx, resolution_level=1):
         """
@@ -203,8 +203,9 @@ def pose_spherical(theta, phi, radius):
 class SMPL_Dataset:
     def __init__(self, conf):
         super(SMPL_Dataset, self).__init__()
-        print('Load data: Begin')
+        pil_logger.info('Load data: Begin')
         self.device = torch.device('cuda')
+        # self.device = torch.device('cpu')
         self.conf = conf
 
         self.data_dir = conf.get_string('data_dir')
@@ -247,7 +248,7 @@ class SMPL_Dataset:
         ])
         self.K = torch.from_numpy(self.K).cpu()
 
-        print('Load data: End')
+        pil_logger.info('Load data: End')
     
     def gen_rays_silhouettes(self, pose, max_ray_num, mask):
         if mask.sum() == 0:
@@ -327,6 +328,7 @@ class SMPL_Dataset:
         rays_v = torch.sum(rays_v[..., None, :] * self.poses[img_idx, :3, :3], -1)
         rays_o = self.poses[img_idx, None, :3, 3].expand(rays_v.shape) # batch_size, 3
         return torch.cat([rays_o.cpu(), rays_v.cpu(), color, mask[:, :1]], dim=-1).cuda()    # batch_size, 10
+        # return torch.cat([rays_o.cpu(), rays_v.cpu(), color, mask[:, :1]], dim=-1)
 
     def near_far_from_sphere(self, rays_o, rays_d, is_sphere=False):
         # if not is_sphere:

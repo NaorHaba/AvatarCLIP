@@ -9,7 +9,7 @@ import trimesh
 import torch
 import torch.nn.functional as F
 from torchvision import transforms
-from torch.utils.tensorboard import SummaryWriter
+# from torch.utils.tensorboard import SummaryWriter
 from shutil import copyfile
 from icecream import ic
 from tqdm import tqdm
@@ -27,9 +27,12 @@ import imageio
 
 to8b = lambda x : (255*np.clip(x,0,1)).astype(np.uint8)
 
+logger = logging.getLogger(__name__)
+
 class Runner:
     def __init__(self, conf_path, mode='train', case='CASE_NAME', is_continue=False, is_colab=False, conf=None):
         self.device = torch.device('cuda')
+        # self.device = torch.device('cpu')
         self.conf_path = conf_path
 
         if is_colab:
@@ -94,7 +97,7 @@ class Runner:
             self.use_silhouettes = False
         try:
             self.head_height = self.conf.get_float('train.head_height')
-            print("Use head height: {}".format(self.head_height))
+            logger.info("Use head height: {}".format(self.head_height))
         except:
             self.head_height = 0.65
         try:
@@ -111,7 +114,7 @@ class Runner:
             np.random.seed(self.seed)
             torch.backends.cudnn.benchmark = False
             torch.backends.cudnn.deterministic = True
-            print("Fix seed to: {}".format(self.seed))
+            logger.info("Fix seed to: {}".format(self.seed))
         except:
             pass
 
@@ -129,7 +132,7 @@ class Runner:
         self.is_continue = is_continue
         self.mode = mode
         self.model_list = []
-        self.writer = None
+        # self.writer = None
 
         # Networks
         params_to_train = []
@@ -155,7 +158,7 @@ class Runner:
         except:
             pretrain_pth = None
         if pretrain_pth is not None:
-            logging.info('Load pretrain: {}'.format(pretrain_pth))
+            logger.info('Load pretrain: {}'.format(pretrain_pth))
             self.load_pretrain(pretrain_pth)
 
         # Load checkpoint
@@ -170,7 +173,7 @@ class Runner:
             latest_model_name = model_list[-1]
 
         if latest_model_name is not None:
-            logging.info('Find checkpoint: {}'.format(latest_model_name))
+            logger.info('Find checkpoint: {}'.format(latest_model_name))
             self.load_checkpoint(latest_model_name)
 
         # Backup codes and configs for debug
@@ -178,7 +181,7 @@ class Runner:
             self.file_backup()
 
     def train(self):
-        self.writer = SummaryWriter(log_dir=os.path.join(self.base_exp_dir, 'logs'))
+        # self.writer = SummaryWriter(log_dir=os.path.join(self.base_exp_dir, 'logs'))
         self.update_learning_rate()
         res_step = self.end_iter - self.iter_step
         image_perm = self.get_image_perm()
@@ -229,17 +232,17 @@ class Runner:
 
             self.iter_step += 1
 
-            self.writer.add_scalar('Loss/loss', loss, self.iter_step)
-            self.writer.add_scalar('Loss/color_loss', color_fine_loss, self.iter_step)
-            self.writer.add_scalar('Loss/eikonal_loss', eikonal_loss, self.iter_step)
-            self.writer.add_scalar('Statistics/s_val', s_val.mean(), self.iter_step)
-            self.writer.add_scalar('Statistics/cdf', (cdf_fine[:, :1] * mask).sum() / mask_sum, self.iter_step)
-            self.writer.add_scalar('Statistics/weight_max', (weight_max * mask).sum() / mask_sum, self.iter_step)
-            self.writer.add_scalar('Statistics/psnr', psnr, self.iter_step)
+            # self.writer.add_scalar('Loss/loss', loss, self.iter_step)
+            # self.writer.add_scalar('Loss/color_loss', color_fine_loss, self.iter_step)
+            # self.writer.add_scalar('Loss/eikonal_loss', eikonal_loss, self.iter_step)
+            # self.writer.add_scalar('Statistics/s_val', s_val.mean(), self.iter_step)
+            # self.writer.add_scalar('Statistics/cdf', (cdf_fine[:, :1] * mask).sum() / mask_sum, self.iter_step)
+            # self.writer.add_scalar('Statistics/weight_max', (weight_max * mask).sum() / mask_sum, self.iter_step)
+            # self.writer.add_scalar('Statistics/psnr', psnr, self.iter_step)
 
             if self.iter_step % self.report_freq == 0:
-                print(self.base_exp_dir)
-                print('iter:{:8>d} loss = {} lr={}'.format(self.iter_step, loss, self.optimizer.param_groups[0]['lr']))
+                logger.info(self.base_exp_dir)
+                logger.info('iter:{:8>d} loss = {} lr={}'.format(self.iter_step, loss, self.optimizer.param_groups[0]['lr']))
 
             if self.iter_step % self.save_freq == 0:
                 self.save_checkpoint()
@@ -269,21 +272,21 @@ class Runner:
         def add_noise(v, mean, std):
             tmp = torch.zeros_like(v)
             return v + torch.normal(mean=tmp+mean, std=tmp+std)
-        
+
         prompt = self.conf.get_string('clip.prompt')
-        print("Prompt: {}".format(prompt))
+        logger.info("Prompt: {}".format(prompt))
         prompt_token = clip.tokenize([prompt]).cuda()
         self.encoded_text = self.perceptor.encode_text(prompt_token).detach()
-        
+
         if self.use_face_prompt:
             face_prompt = self.conf.get_string('clip.face_prompt')
-            print("Face Prompt: {}".format(face_prompt))
+            logger.info("Face Prompt: {}".format(face_prompt))
             face_prompt_token = clip.tokenize([face_prompt]).cuda()
             self.encoded_face_text = self.perceptor.encode_text(face_prompt_token).detach()
 
         if self.use_back_prompt:
             back_prompt = self.conf.get_string('clip.back_prompt')
-            print("Back Prompt: {}".format(back_prompt))
+            logger.info("Back Prompt: {}".format(back_prompt))
             back_prompt_token = clip.tokenize([back_prompt]).cuda()
             self.encoded_back_text = self.perceptor.encode_text(back_prompt_token).detach()
 
@@ -293,7 +296,7 @@ class Runner:
         except:
             template_obj_fname = None
 
-        model_folder = '../../smpl_models'
+        model_folder = self.smpl_model_path
         model_type = 'smpl'
         gender = 'neutral'
         num_betas = 10
@@ -302,7 +305,7 @@ class Runner:
             gender = gender, num_betas = num_betas).cuda()
 
         if self.pose_type == 'stand_pose':
-            with open('../ShapeGen/output/stand_pose.npy', 'rb') as f:
+            with open('../ShapeGen/stand_pose.npy', 'rb') as f:
                 new_pose = np.load(f)
         elif self.pose_type == 't_pose':
             new_pose = np.zeros([1, 24, 3])
@@ -331,11 +334,11 @@ class Runner:
             so = smpl_model(betas = beta, body_pose = pose_rot[:, 1:], global_orient = pose_rot[:, 0, :, :].view(1, 1, 3, 3))
             self.v = so['vertices'].clone()
             del so
-        
+
         self.f = smpl_model.faces.copy()
 
     def train_clip(self):
-        self.writer = SummaryWriter(log_dir=os.path.join(self.base_exp_dir, 'logs'))
+        # self.writer = SummaryWriter(log_dir=os.path.join(self.base_exp_dir, 'logs'))
         self.update_learning_rate()
         res_step = self.end_iter - self.iter_step
         image_perm = self.get_image_perm()
@@ -428,13 +431,13 @@ class Runner:
                 normals = render_out['gradients'] * render_out['weights'][:, :n_samples, None]
                 normals = normals.sum(dim=1)
                 normals = normals / (torch.norm(normals, dim=-1, keepdim=True) + 1e-7)
-                
+
                 # light_dir = torch.from_numpy(np.random.randn(3))
                 light_dir = sphere_coord(theta + np.random.uniform(-np.pi/4, np.pi/4), phi + np.random.uniform(-np.pi/4, np.pi/4))
                 light_dir = torch.from_numpy(light_dir).float()
                 rand_light_d = torch.zeros_like(normals).float().to(normals.device) + light_dir.to(normals.device)
                 rand_light_d = rand_light_d / (torch.norm(rand_light_d, dim=-1, keepdim=True) + 1e-7)
-                
+
                 rand_diffuse_shading = (normals * rand_light_d).sum(-1, keepdim=True).clamp(min=0, max=1)
                 rand_diffuse_shading[torch.isnan(rand_diffuse_shading)] = 1.0
                 ambience = np.random.uniform(0, 0.2)
@@ -529,7 +532,7 @@ class Runner:
                    eikonal_loss * self.igr_weight +\
                    mask_loss * self.mask_weight +\
                    (1.0 - cosine) * self.clip_weight
-                
+
             if self.add_no_texture:
                 loss += (1.0 - cosine_shading) * self.clip_weight
 
@@ -539,16 +542,16 @@ class Runner:
 
             self.iter_step += 1
 
-            self.writer.add_scalar('Loss/loss', loss, self.iter_step)
-            self.writer.add_scalar('Loss/color_loss', color_fine_loss, self.iter_step)
-            self.writer.add_scalar('Loss/eikonal_loss', eikonal_loss, self.iter_step)
-            self.writer.add_scalar('Loss/cosine', cosine, self.iter_step)
-            self.writer.add_scalar('Statistics/s_val', s_val.mean(), self.iter_step)
-            self.writer.add_scalar('Statistics/psnr', psnr, self.iter_step)
+            # self.writer.add_scalar('Loss/loss', loss, self.iter_step)
+            # self.writer.add_scalar('Loss/color_loss', color_fine_loss, self.iter_step)
+            # self.writer.add_scalar('Loss/eikonal_loss', eikonal_loss, self.iter_step)
+            # self.writer.add_scalar('Loss/cosine', cosine, self.iter_step)
+            # self.writer.add_scalar('Statistics/s_val', s_val.mean(), self.iter_step)
+            # self.writer.add_scalar('Statistics/psnr', psnr, self.iter_step)
 
             if self.iter_step % self.report_freq == 0:
-                print(self.base_exp_dir)
-                print('iter:{:8>d} loss = {} lr={}'.format(self.iter_step, loss, self.optimizer.param_groups[0]['lr']))
+                logger.info(self.base_exp_dir)
+                logger.info('iter:{:8>d} loss = {} lr={}'.format(self.iter_step, loss, self.optimizer.param_groups[0]['lr']))
 
             if self.iter_step % self.save_freq == 0:
                 self.save_checkpoint()
@@ -607,7 +610,7 @@ class Runner:
         self.optimizer.load_state_dict(checkpoint['optimizer'])
         self.iter_step = checkpoint['iter_step']
 
-        logging.info('End')
+        logger.info('End')
 
     def load_pretrain(self, checkpoint_name):
         # checkpoint = torch.load(os.path.join(self.base_exp_dir, 'checkpoints', checkpoint_name), map_location=self.device)
@@ -616,7 +619,7 @@ class Runner:
         self.deviation_network.load_state_dict(checkpoint['variance_network_fine'])
         self.color_network.load_state_dict(checkpoint['color_network_fine'], strict=False)
 
-        logging.info('End')
+        logger.info('End')
 
     def save_checkpoint(self):
         checkpoint = {
@@ -742,7 +745,7 @@ class Runner:
         if idx < 0:
             idx = np.random.randint(self.dataset.n_images)
 
-        print('Validate: iter: {}, camera: {}'.format(self.iter_step, idx))
+        logger.info('Validate: iter: {}, camera: {}'.format(self.iter_step, idx))
 
         if resolution_level < 0:
             resolution_level = self.validate_resolution_level
@@ -857,6 +860,7 @@ class Runner:
 
         ### extract color
         pt_vertices = torch.from_numpy(vertices).cuda().reshape(-1, 1, 3).float()
+        # pt_vertices = torch.from_numpy(vertices).reshape(-1, 1, 3).float()
         rays_o_list = [
             np.array([0, 0, 2]),
             np.array([0, 0, -2]),
@@ -869,6 +873,7 @@ class Runner:
         diff_final = None
         for rays_o in rays_o_list:
             rays_o = torch.from_numpy(rays_o.reshape(1, 3)).repeat(vertices.shape[0], 1).cuda().float()
+            # rays_o = torch.from_numpy(rays_o.reshape(1, 3)).repeat(vertices.shape[0], 1).float()
             rays_d = pt_vertices.reshape(-1, 3) - rays_o
             rays_d = rays_d / torch.norm(rays_d, dim=-1).reshape(-1, 1)
             dist = torch.norm(pt_vertices.reshape(-1, 3) - rays_o, dim=-1)
@@ -916,13 +921,13 @@ class Runner:
         trimesh.exchange.export.export_mesh(mesh, os.path.join(self.base_exp_dir, 'meshes', '{:0>8d}.ply'.format(self.iter_step)), file_type='ply')
         # mesh.export(os.path.join(self.base_exp_dir, 'meshes', '{:0>8d}.ply'.format(self.iter_step)))
 
-        logging.info('End')
+        logger.info('End')
 
     def interpolate_view(self, img_idx_0, img_idx_1):
         images = []
         n_frames = 60
         for i in range(n_frames):
-            print(i)
+            logger.info(i)
             images.append(self.render_novel_image(img_idx_0,
                                                   img_idx_1,
                                                   np.sin(((i / n_frames) - 0.5) * np.pi) * 0.5 + 0.5,
@@ -951,7 +956,7 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format=FORMAT)
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--conf', type=str, default='./confs/base.conf')
+    parser.add_argument('--conf', type=str, default='./confs/examples/batman.conf')
     parser.add_argument('--mode', type=str, default='train')
     parser.add_argument('--mcube_threshold', type=float, default=0.0)
     parser.add_argument('--is_continue', default=False, action="store_true")
@@ -960,7 +965,7 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    torch.cuda.set_device(args.gpu)
+    # torch.cuda.set_device(args.gpu)
     
     if args.mode == 'validate_mesh' or \
        args.mode == 'render_geometry_cast_light':
