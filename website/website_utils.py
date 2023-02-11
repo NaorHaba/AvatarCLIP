@@ -9,6 +9,8 @@ from website.settings import Settings
 
 
 handlers = [
+    logging.StreamHandler(sys.stdout),
+    logging.StreamHandler(sys.stderr)
 ]
 
 if Settings.LOG_TO_FILE:
@@ -19,10 +21,7 @@ logging.basicConfig(level=logging.INFO,
                     datefmt='%Y-%m-%d %H:%M:%S',
                     handlers=handlers)
 
-logger = logging.getLogger(__name__)
 
-print(handlers)
-logger.info('test')
 logging.info('test2')
 
 
