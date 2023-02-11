@@ -14,11 +14,9 @@ if Settings.LOG_TO_FILE:
     handlers.append(logging.FileHandler(Settings.absolute_path(Settings.LOGS_DIR + Settings.LOG_FILE_NAME), mode='a'))
 
 logging.basicConfig(level=logging.INFO,
+                    filename=Settings.absolute_path(Settings.LOGS_DIR + Settings.LOG_FILE_NAME),
                     format='%(asctime)s %(levelname)s [%(filename)s:%(lineno)s - %(funcName)20s()]: %(message)s',
-                    datefmt='%Y-%m-%d %H:%M:%S',
-                    handlers=handlers)
-
-st.logger = logging.getLogger(__name__)
+                    datefmt='%Y-%m-%d %H:%M:%S')
 
 logging.info('test2')
 
