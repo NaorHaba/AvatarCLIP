@@ -20,6 +20,9 @@ if torch.cuda.is_available():
     logger.info(Messages.CUDA_DEFAULT_TENSOR_TYPE_INFO)
 
 
+print('hello world')
+
+
 def generate_coarse_shape(coarse_shape_prompt: str):
     sys.path.append('AvatarGen/ShapeGen')
 
