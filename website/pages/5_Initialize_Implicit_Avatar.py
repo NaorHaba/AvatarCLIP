@@ -37,7 +37,6 @@ if os.path.exists(coarse_output_folder):
             choose_config = st.radio(Messages.CHOOSE_CONFIG, options=(Messages.LARGE_CONFIG, Messages.SMALL_CONFIG), key="choose_config")
             submit = st.form_submit_button(Messages.INITIALIZE_IMPLICIT_AVATAR_FORM_SUBMIT_BUTTON)
             implicit_folder = Settings.absolute_path(os.path.join(coarse_output_folder, selected_shape, Settings.IMPLICIT_AVATAR_OUTPUT_DIR))
-            print(implicit_folder)
             if submit:
                 if choose_config == Messages.LARGE_CONFIG:
                     implicit_config = Settings.LARGE_IMPLICIT_AVATAR_CONFIG
@@ -47,15 +46,12 @@ if os.path.exists(coarse_output_folder):
                 shape_folder = Settings.absolute_path(os.path.join(coarse_output_folder, selected_shape))
                 if os.path.exists(implicit_folder):
                     if if_exists_instruction == Messages.OVERWRITE_SELECTION:
-                        print(1)
                         st.warning(Messages.OVERWRITE_NOTICE.format(implicit_folder))
                         decorated_init_implicit_avatar(implicit_config, shape_folder, False)
                     else:
-                        print(2)
                         st.info(Messages.CONTINUE_NOTICE.format(selected_shape))
                         decorated_init_implicit_avatar(implicit_config, shape_folder, True)
                 else:
-                    print(3)
                     decorated_init_implicit_avatar(implicit_config, shape_folder, False)
 else:
     st.info(Messages.FOLDER_DOES_NOT_EXIST.format(coarse_output_folder))
