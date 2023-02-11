@@ -51,6 +51,7 @@ if os.path.exists(coarse_output_folder):
                         st.info(Messages.CONTINUE_NOTICE.format(selected_shape))
                         decorated_init_implicit_avatar(implicit_config, shape_folder, True)
                 else:
+                    print('I am here')
                     decorated_init_implicit_avatar(implicit_config, shape_folder, False)
 else:
     st.info(Messages.FOLDER_DOES_NOT_EXIST.format(coarse_output_folder))

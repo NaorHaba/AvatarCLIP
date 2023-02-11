@@ -115,7 +115,6 @@ def initialize_implicit_avatar(config_path, coarse_body_dir, is_continue=False):
         logger.info(Messages.NEW_CONFIG_FILE_INFO.format(new_config_path))
 
     logger.info(Messages.INITIALIZE_IMPLICIT_AVATAR_INFO.format(os.path.basename(coarse_body_dir)))
-    logger.info(is_continue)
     runner = Runner(new_config_path, 'train', is_continue=is_continue)
     runner.train()
     logger.info(Messages.INITIALIZE_IMPLICIT_AVATAR_SUCCESS.format(os.path.basename(coarse_body_dir)))

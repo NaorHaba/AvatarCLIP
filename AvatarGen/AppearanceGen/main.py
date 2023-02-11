@@ -165,7 +165,6 @@ class Runner:
 
         # Load checkpoint
         latest_model_name = None
-        logger.info(is_continue)
         if is_continue:
             model_list_raw = os.listdir(os.path.join(self.base_exp_dir, 'checkpoints'))
             model_list = []
