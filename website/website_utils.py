@@ -11,18 +11,21 @@ from website.settings import Settings
 handlers = []
 
 if Settings.LOG_TO_FILE:
-    handlers.append(logging.FileHandler(Settings.absolute_path(Settings.LOGS_DIR + Settings.LOG_FILE_NAME), mode='a'))
+    file_handler = logging.FileHandler(Settings.absolute_path(Settings.LOGS_DIR + Settings.LOG_FILE_NAME), mode='a')
+    file_handler.setLevel(logging.DEBUG)
+    handlers.append(file_handler)
 
 logging.basicConfig(level=logging.INFO,
-                    filename=Settings.absolute_path(Settings.LOGS_DIR + Settings.LOG_FILE_NAME),
                     format='%(asctime)s %(levelname)s [%(filename)s:%(lineno)s - %(funcName)20s()]: %(message)s',
-                    datefmt='%Y-%m-%d %H:%M:%S')
+                    datefmt='%Y-%m-%d %H:%M:%S',
+                    handlers=handlers)
 
 logging.info('test2')
 
 logger = logging.getLogger(__name__)
 for handler in handlers:
     logger.addHandler(handler)
+    logger.setLevel(logging.DEBUG)
 
 
 logger.info('test')
