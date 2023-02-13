@@ -3,11 +3,11 @@ import streamlit as st
 import time
 
 from website.config import Config
-from website.website_utils import spinner
+from website.website_utils import spinner, absolute_path
 from website.logic import generate_coarse_shape
 
 from website.messages import Messages
-from website.settings import Settings
+from website.settings import settings
 
 
 st.set_page_config(layout="wide",
@@ -26,8 +26,8 @@ with placeholder.form(key="coarse_shape_form", clear_on_submit=False):
     shape_description = st.text_input(Messages.GENERATE_NEW_COARSE_SHAPE_DESCRIPTION, key="shape_description")
     overwrite = st.checkbox(Messages.OVERWRITE_SELECTION, key="overwrite")
     submit = st.form_submit_button(Messages.GENERATE_NEW_COARSE_SHAPE_FORM_SUBMIT_BUTTON)
-    shape_folder = Settings.absolute_path(os.path.join(Settings.settings['OUTPUT_DIR'], Settings.settings['COARSE_SHAPE_OUTPUT_DIR'], shape_description))
-    obj_file = Settings.absolute_path(os.path.join(shape_folder, Settings.settings['COARSE_SHAPE_OBJ_OUTPUT_NAME']))
+    shape_folder = absolute_path(os.path.join(settings.settings['OUTPUT_DIR'], settings.settings['COARSE_SHAPE_OUTPUT_DIR'], shape_description))
+    obj_file = absolute_path(os.path.join(shape_folder, settings.settings['COARSE_SHAPE_OBJ_OUTPUT_NAME']))
     if submit:
         if os.path.exists(shape_folder) and os.path.exists(obj_file):
             if overwrite:

@@ -7,6 +7,7 @@ class Messages:
     HOME_PAGE_SUBTITLE = '## An interactive tool for generating 3D avatars using AvatarCLIP'
     HOME_PAGE_DESCRIPTION = """
     This project is a web application that allows users to generate 3D avatars using AvatarCLIP.
+   
     Some of the processes are computationally expensive and may take a while to complete.
     If you wish to receive an email notification when those processes are complete, please enter your email address in the Settings page.
     """

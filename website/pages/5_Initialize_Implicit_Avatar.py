@@ -3,10 +3,11 @@ import streamlit as st
 import time
 
 from website.config import Config
-from website.website_utils import spinner, send_email_when_done
+from website.website_utils import spinner, send_email_when_done, absolute_path
 from website.logic import initialize_implicit_avatar
 from website.messages import Messages
-from website.settings import Settings
+from website.settings import settings
+
 
 st.set_page_config(layout="wide",
                    page_title=Messages.INITIALIZE_IMPLICIT_AVATAR_PAGE_TITLE,
@@ -14,18 +15,18 @@ st.set_page_config(layout="wide",
                    )
 
 
-@send_email_when_done(Settings.settings['USER_EMAIL'])
+@send_email_when_done(settings.settings['USER_EMAIL'])
 def decorated_init_implicit_avatar(implicit_config, path_to_render, is_continue):
     initialize_implicit_avatar(implicit_config, path_to_render, is_continue)
 
 
-coarse_output_folder = Settings.absolute_path(os.path.join(Settings.settings['OUTPUT_DIR'], Settings.settings['COARSE_SHAPE_OUTPUT_DIR']))
+coarse_output_folder = absolute_path(os.path.join(settings.settings['OUTPUT_DIR'], settings.settings['COARSE_SHAPE_OUTPUT_DIR']))
 if os.path.exists(coarse_output_folder):
     generated_shapes_dirs = os.listdir(coarse_output_folder)
     relevant_shapes_dirs = []
     for shape in generated_shapes_dirs:
-        shape_dir_path = Settings.absolute_path(os.path.join(coarse_output_folder, shape))
-        render_folder = Settings.absolute_path(os.path.join(shape_dir_path, Settings.settings['COARSE_SHAPE_RENDERING_OUTPUT_DIR']))
+        shape_dir_path = absolute_path(os.path.join(coarse_output_folder, shape))
+        render_folder = absolute_path(os.path.join(shape_dir_path, settings.settings['COARSE_SHAPE_RENDERING_OUTPUT_DIR']))
         if os.path.exists(render_folder):
             relevant_shapes_dirs.append(shape)
 
@@ -38,14 +39,14 @@ if os.path.exists(coarse_output_folder):
             if_exists_instruction = st.radio(Messages.IF_EXISTS_INSTRUCTION, options=(Messages.CONTINUE_SELECTION, Messages.OVERWRITE_SELECTION), key="if_exists_instruction")
             choose_config = st.radio(Messages.CHOOSE_CONFIG, options=(Messages.LARGE_CONFIG, Messages.SMALL_CONFIG), key="choose_config")
             submit = st.form_submit_button(Messages.INITIALIZE_IMPLICIT_AVATAR_FORM_SUBMIT_BUTTON)
-            implicit_folder = Settings.absolute_path(os.path.join(coarse_output_folder, selected_shape, Settings.settings['IMPLICIT_AVATAR_OUTPUT_DIR']))
+            implicit_folder = absolute_path(os.path.join(coarse_output_folder, selected_shape, settings.settings['IMPLICIT_AVATAR_OUTPUT_DIR']))
             if submit:
                 if choose_config == Messages.LARGE_CONFIG:
-                    implicit_config = Settings.settings['LARGE_IMPLICIT_AVATAR_CONFIG']
+                    implicit_config = settings.settings['LARGE_IMPLICIT_AVATAR_CONFIG']
                 else:
-                    implicit_config = Settings.settings['SMALL_IMPLICIT_AVATAR_CONFIG']
+                    implicit_config = settings.settings['SMALL_IMPLICIT_AVATAR_CONFIG']
 
-                shape_folder = Settings.absolute_path(os.path.join(coarse_output_folder, selected_shape))
+                shape_folder = absolute_path(os.path.join(coarse_output_folder, selected_shape))
                 if os.path.exists(implicit_folder):
                     if if_exists_instruction == Messages.OVERWRITE_SELECTION:
                         st.warning(Messages.OVERWRITE_NOTICE.format(implicit_folder))

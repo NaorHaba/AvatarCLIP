@@ -12,7 +12,7 @@ import imageio
 import logging
 from scipy import ndimage
 
-from website.website_utils import get_logger
+from website.logger import get_logger
 
 pil_logger = get_logger('PIL')
 pil_logger.setLevel(logging.INFO)

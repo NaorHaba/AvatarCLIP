@@ -6,14 +6,16 @@ from website.config import Config
 from website.website_utils import spinner, send_email_when_done
 from website.logic import convert_to_FBX
 from website.messages import Messages
-from website.settings import Settings
+from website.settings import settings
+
 
 st.set_page_config(layout="wide",
                    page_title=Messages.CONVERT_TO_FBX_PAGE_TITLE,
                    page_icon=Config.WEBSITE_ICON_PATH
                    )
 
-@send_email_when_done(Settings.settings['USER_EMAIL'])
+
+@send_email_when_done(settings.settings['USER_EMAIL'])
 def decorated_convert_to_FBX():
     convert_to_FBX()
 
@@ -25,13 +27,13 @@ def generate_coarse_shape(shape_description):
         st.success("Done!")  # TODO move to config/messages + logging
 
 
-avatar_output_folder = os.path.join(Settings.settings['OUTPUT_DIR'], Settings.settings['GENERATED_AVATAR_OUTPUT_DIR'])
+avatar_output_folder = os.path.join(settings.settings['OUTPUT_DIR'], settings.settings['GENERATED_AVATAR_OUTPUT_DIR'])
 if os.path.exists(avatar_output_folder):
     generated_avatars_dirs = os.listdir(avatar_output_folder)
     relevant_avatars_dirs = []
     for avatar in generated_avatars_dirs:
         avatar_dir_path = os.path.join(avatar_output_folder, avatar)
-        texture_folder = os.path.join(avatar_dir_path, Settings.settings['GENERATED_AVATAR_TEXTURE_OUTPUT_DIR'])
+        texture_folder = os.path.join(avatar_dir_path, settings.settings['GENERATED_AVATAR_TEXTURE_OUTPUT_DIR'])
         if os.path.exists(texture_folder):
             relevant_avatars_dirs.append(avatar)
 
@@ -44,10 +46,10 @@ if os.path.exists(avatar_output_folder):
             selected_avatar_dir_path = os.path.join(avatar_output_folder, selected_avatar)
             overwrite = st.checkbox(Messages.OVERWRITE_SELECTION, key="overwrite")
             submit = st.form_submit_button(Messages.CONVERT_TO_FBX_FORM_SUBMIT_BUTTON)
-            fbx_file = os.path.join(selected_avatar_dir_path, Settings.settings['GENERATED_AVATAR_FBX_OUTPUT_NAME'])
+            fbx_file = os.path.join(selected_avatar_dir_path, settings.settings['GENERATED_AVATAR_FBX_OUTPUT_NAME'])
             if submit:
                 avatar_dir_path = os.path.join(avatar_output_folder, selected_avatar)
-                texture_folder = os.path.join(avatar_dir_path, Settings.settings['GENERATED_AVATAR_TEXTURE_OUTPUT_DIR'])
+                texture_folder = os.path.join(avatar_dir_path, settings.settings['GENERATED_AVATAR_TEXTURE_OUTPUT_DIR'])
                 if os.path.exists(fbx_file):
                     if overwrite == Messages.OVERWRITE_SELECTION:
                         st.warning(Messages.OVERWRITE_NOTICE.format(fbx_file))

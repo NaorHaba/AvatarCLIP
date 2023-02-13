@@ -1,33 +1,26 @@
-    USER_EMAIL: null
-    SMPL_MODEL_DIR: smpl_models/
-
-    VIRTUAL_AUTO_ENCODER_PATH: AvatarGen/ShapeGen/data/model_VAE_16.pth
-    CODEBOOK_PATH: AvatarGen/ShapeGen/data/codebook.pth
-    STAND_POSE_PATH: AvatarGen/ShapeGen/stand_pose.npy
-
-    ENHANCE_PROMPT: true
-    PROMPT_ENHANCING: a 3d rendering of {} in unreal engine
-    FACE_PROMPT_WRAP: the face of {}
-    BACK_PROMPT_WRAP: the back of {}
-    NEUTRAL_BODY_SHAPE_PROMPT: person
-
-    POSE_TYPE: stand_pose
-
-    SMALL_IMPLICIT_AVATAR_CONFIG: AvatarGen/AppearanceGen/confs/general_confs/small_implicit_avatar.conf
-    LARGE_IMPLICIT_AVATAR_CONFIG: AvatarGen/AppearanceGen/confs/general_confs/large_implicit_avatar.conf
-
-    SMALL_AVATAR_TEXTURE_CONFIG: AvatarGen/AppearanceGen/confs/general_confs/small_avatar_texture.conf
-    LARGE_AVATAR_TEXTURE_CONFIG: AvatarGen/AppearanceGen/confs/general_confs/large_avatar_texture.conf
-
-    OUTPUT_DIR: output/
-    COARSE_SHAPE_OUTPUT_DIR: coarse_shape/
-    COARSE_SHAPE_OBJ_OUTPUT_NAME: coarse_shape.obj
-    COARSE_SHAPE_RENDERING_OUTPUT_DIR: render/
-    IMPLICIT_AVATAR_OUTPUT_DIR: implicit_avatar/
-
-    GENERATED_AVATAR_OUTPUT_DIR: generated_avatar/
-    GENERATED_AVATAR_TEXTURE_OUTPUT_DIR: texture/
-    GENERATED_AVATAR_FBX_OUTPUT_NAME: avatar.fbx
-
-    LOG_TO_FILE: true
-    LOGS_DIR: logs/
+BACK_PROMPT_WRAP: the back of {}
+COARSE_SHAPE_OBJ_OUTPUT_NAME: coarse_shape.obj
+COARSE_SHAPE_OUTPUT_DIR: coarse_shape/
+COARSE_SHAPE_RENDERING_OUTPUT_DIR: render/
+CODEBOOK_PATH: AvatarGen/ShapeGen/data/codebook.pth
+ENHANCE_PROMPT: true
+FACE_PROMPT_WRAP: the face of {}
+GENERATED_AVATAR_FBX_OUTPUT_NAME: avatar.fbx
+GENERATED_AVATAR_OUTPUT_DIR: generated_avatar/
+GENERATED_AVATAR_TEXTURE_OUTPUT_DIR: texture/
+IMPLICIT_AVATAR_OUTPUT_DIR: implicit_avatar/
+LARGE_AVATAR_TEXTURE_CONFIG: AvatarGen/AppearanceGen/confs/general_confs/large_avatar_texture.conf
+LARGE_IMPLICIT_AVATAR_CONFIG: AvatarGen/AppearanceGen/confs/general_confs/large_implicit_avatar.conf
+LOGS_DIR: logs/
+LOG_FILE_NAME: 2023-02-13_21-16-20.log
+LOG_TO_FILE: true
+NEUTRAL_BODY_SHAPE_PROMPT: person
+OUTPUT_DIR: output/
+POSE_TYPE: stand_pose
+PROMPT_ENHANCING: a 3d rendering of {} in unreal engine
+SMALL_AVATAR_TEXTURE_CONFIG: AvatarGen/AppearanceGen/confs/general_confs/small_avatar_texture.conf
+SMALL_IMPLICIT_AVATAR_CONFIG: AvatarGen/AppearanceGen/confs/general_confs/small_implicit_avatar.conf
+SMPL_MODEL_DIR: smpl_models/
+STAND_POSE_PATH: AvatarGen/ShapeGen/stand_pose.npy
+USER_EMAIL: null
+VIRTUAL_AUTO_ENCODER_PATH: AvatarGen/ShapeGen/data/model_VAE_16.pth

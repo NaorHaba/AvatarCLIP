@@ -7,8 +7,9 @@ from pyhocon import ConfigFactory, HOCONConverter
 
 from website.config import Config
 from website.messages import Messages
-from website.settings import Settings, POSE_TYPE
-from website.website_utils import get_logger
+from website.settings import settings, POSE_TYPE
+from website.website_utils import absolute_path
+from website.logger import get_logger
 
 logger = get_logger(__name__)
 
@@ -24,28 +25,28 @@ def generate_coarse_shape(coarse_shape_prompt: str):
     from AvatarGen.ShapeGen.main import shape_gen
     from AvatarGen.ShapeGen.utils import writeOBJ
 
-    output_folder = os.path.join(Settings.absolute_path(Settings.settings['OUTPUT_DIR']), Settings.settings['COARSE_SHAPE_OUTPUT_DIR'], coarse_shape_prompt)
+    output_folder = os.path.join(absolute_path(settings.settings['OUTPUT_DIR']), settings.settings['COARSE_SHAPE_OUTPUT_DIR'], coarse_shape_prompt)
 
     smpl_args = {
-        'model_folder': Settings.absolute_path(Settings.settings['SMPL_MODEL_DIR']),
+        'model_folder': absolute_path(settings.settings['SMPL_MODEL_DIR']),
         'model_type': Config.SMPL_MODEL_TYPE,
         'gender': Config.SMPL_GENDER,
         'num_betas': Config.SMPL_NUM_BETAS
     }
 
-    neutral_body_shape = Settings.settings['NEUTRAL_BODY_SHAPE_PROMPT']
-    if Settings.settings['ENHANCE_PROMPT']:
-        coarse_shape_prompt = Settings.settings['PROMPT_ENHANCING'].format(coarse_shape_prompt)
-        neutral_body_shape = Settings.settings['PROMPT_ENHANCING'].format(neutral_body_shape)
+    neutral_body_shape = settings.settings['NEUTRAL_BODY_SHAPE_PROMPT']
+    if settings.settings['ENHANCE_PROMPT']:
+        coarse_shape_prompt = settings.settings['PROMPT_ENHANCING'].format(coarse_shape_prompt)
+        neutral_body_shape = settings.settings['PROMPT_ENHANCING'].format(neutral_body_shape)
     logger.info(Messages.GENERATE_NEW_COARSE_SHAPE_INFO.format(coarse_shape_prompt))
     v, f, zero_beta_v = shape_gen(smpl_args,
-                                  Settings.absolute_path(Settings.settings['VIRTUAL_AUTO_ENCODER_PATH']),
-                                  Settings.absolute_path(Settings.settings['CODEBOOK_PATH']),
+                                  absolute_path(settings.settings['VIRTUAL_AUTO_ENCODER_PATH']),
+                                  absolute_path(settings.settings['CODEBOOK_PATH']),
                                   neutral_body_shape,
                                   coarse_shape_prompt)
 
     os.makedirs(output_folder, exist_ok=True)
-    obj_output_fname = os.path.join(output_folder, Settings.settings['COARSE_SHAPE_OBJ_OUTPUT_NAME'])
+    obj_output_fname = os.path.join(output_folder, settings.settings['COARSE_SHAPE_OBJ_OUTPUT_NAME'])
     writeOBJ(obj_output_fname, v, f)
 
     logger.info(Messages.GENERATE_NEW_COARSE_SHAPE_SUCCESS.format(obj_output_fname))
@@ -62,17 +63,17 @@ def render_coarse_shape_wrapper(obj_output_fname):
     output_folder = os.path.dirname(obj_output_fname)
 
     smpl_args = {
-        'model_folder': Settings.absolute_path(Settings.settings['SMPL_MODEL_DIR']),
+        'model_folder': absolute_path(settings.settings['SMPL_MODEL_DIR']),
         'model_type': Config.SMPL_MODEL_TYPE,
         'gender': Config.SMPL_GENDER,
         'num_betas': Config.SMPL_NUM_BETAS
     }
 
-    render_output_folder = os.path.join(output_folder, Settings.settings['COARSE_SHAPE_RENDERING_OUTPUT_DIR'])
+    render_output_folder = os.path.join(output_folder, settings.settings['COARSE_SHAPE_RENDERING_OUTPUT_DIR'])
 
-    if Settings.settings['POSE_TYPE'] == POSE_TYPE.STAND_POSE:
-        pose = np.load(Settings.absolute_path(Settings.settings['STAND_POSE_PATH']))
-    elif Settings.settings['POSE_TYPE'] == POSE_TYPE.T_POSE:
+    if settings.settings['POSE_TYPE'] == POSE_TYPE.STAND_POSE:
+        pose = np.load(absolute_path(settings.settings['STAND_POSE_PATH']))
+    elif settings.settings['POSE_TYPE'] == POSE_TYPE.T_POSE:
         pose = np.zeros([1, 24, 3], dtype=np.float32)
         pose[:, 0, 0] = np.pi / 2
     else:
@@ -94,8 +95,8 @@ def initialize_implicit_avatar(config_path, coarse_body_dir, is_continue=False):
 
     from AvatarGen.AppearanceGen.main import Runner
 
-    output_folder = os.path.join(coarse_body_dir, Settings.settings['IMPLICIT_AVATAR_OUTPUT_DIR'])
-    render_folder = os.path.join(coarse_body_dir, Settings.settings['COARSE_SHAPE_RENDERING_OUTPUT_DIR'])
+    output_folder = os.path.join(coarse_body_dir, settings.settings['IMPLICIT_AVATAR_OUTPUT_DIR'])
+    render_folder = os.path.join(coarse_body_dir, settings.settings['COARSE_SHAPE_RENDERING_OUTPUT_DIR'])
 
     new_config_path = os.path.join(output_folder, 'config.conf')
 
@@ -128,7 +129,7 @@ def generate_textures(texture_prompt, config_path, coarse_body_dir, is_continue=
 
     from AvatarGen.AppearanceGen.main import Runner
 
-    output_folder = os.path.join(Settings.absolute_path(Settings.settings['OUTPUT_DIR']), Settings.settings['GENERATED_AVATAR_OUTPUT_DIR'], texture_prompt)
+    output_folder = os.path.join(absolute_path(settings.settings['OUTPUT_DIR']), settings.settings['GENERATED_AVATAR_OUTPUT_DIR'], texture_prompt)
 
     new_config_path = os.path.join(output_folder, 'config.conf')
 
@@ -139,9 +140,9 @@ def generate_textures(texture_prompt, config_path, coarse_body_dir, is_continue=
             config = ConfigFactory.parse_string(f.read())
 
         # get rendering obj and the last checkpoint of implicit avatar from coarse_body_dir
-        coarse_obj_path = os.path.join(coarse_body_dir, Settings.settings['COARSE_SHAPE_OBJ_OUTPUT_NAME'])
+        coarse_obj_path = os.path.join(coarse_body_dir, settings.settings['COARSE_SHAPE_OBJ_OUTPUT_NAME'])
 
-        checkpoint_dir = os.path.join(coarse_body_dir, Settings.settings['IMPLICIT_AVATAR_OUTPUT_DIR'], 'checkpoints')
+        checkpoint_dir = os.path.join(coarse_body_dir, settings.settings['IMPLICIT_AVATAR_OUTPUT_DIR'], 'checkpoints')
         last_checkpoint = sorted(os.listdir(checkpoint_dir))[-1]
         logger.info(Messages.LAST_CHECKPOINT_INFO.format(last_checkpoint))
         checkpoint_path = os.path.join(checkpoint_dir, last_checkpoint)
@@ -152,11 +153,11 @@ def generate_textures(texture_prompt, config_path, coarse_body_dir, is_continue=
         config.put('dataset.data_dir', render_dir)
         config.put('dataset.template_obj', coarse_obj_path)
         config.put('train.pretrain', checkpoint_path)
-        config.put('clip.prompt', Settings.settings['PROMPT_ENHANCING'].format(texture_prompt))
-        config.put('clip.face_prompt', Settings.settings['PROMPT_ENHANCING'].format(
-            Settings.settings['FACE_PROMPT_WRAP'].format(texture_prompt)))
-        config.put('clip.back_prompt', Settings.settings['PROMPT_ENHANCING'].format(
-            Settings.settings['BACK_PROMPT_WRAP'].format(texture_prompt)))
+        config.put('clip.prompt', settings.settings['PROMPT_ENHANCING'].format(texture_prompt))
+        config.put('clip.face_prompt', settings.settings['PROMPT_ENHANCING'].format(
+            settings.settings['FACE_PROMPT_WRAP'].format(texture_prompt)))
+        config.put('clip.back_prompt', settings.settings['PROMPT_ENHANCING'].format(
+            settings.settings['BACK_PROMPT_WRAP'].format(texture_prompt)))
 
         os.makedirs(output_folder, exist_ok=True)
         with open(new_config_path, 'w') as f:

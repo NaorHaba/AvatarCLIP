@@ -6,7 +6,7 @@ import logging
 import mcubes
 from icecream import ic
 
-from website.website_utils import get_logger
+from website.logger import get_logger
 
 logger = get_logger(__name__)
 
