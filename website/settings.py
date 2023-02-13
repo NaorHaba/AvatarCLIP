@@ -2,6 +2,10 @@ import os
 from enum import Enum
 import time
 
+import yaml
+
+from website.config import Config
+
 
 class POSE_TYPE(str, Enum):
     STAND_POSE = 'stand_pose'
@@ -9,46 +13,22 @@ class POSE_TYPE(str, Enum):
 
 
 class Settings:
-    SMPL_MODEL_DIR = 'smpl_models/'
+    @staticmethod
+    def load_settings():
+        with open(Config.SETTING_YAML_PATH, "r") as f:
+            return yaml.safe_load(f)
 
-    VIRTUAL_AUTO_ENCODER_PATH = 'AvatarGen/ShapeGen/data/model_VAE_16.pth'
-    CODEBOOK_PATH = 'AvatarGen/ShapeGen/data/codebook.pth'
-    STAND_POSE_PATH = 'AvatarGen/ShapeGen/stand_pose.npy'
-
-    ENHANCE_PROMPT = True
-    PROMPT_ENHANCING = 'a 3d rendering of {} in unreal engine'
-    FACE_PROMPT_WRAP = 'the face of {}'
-    BACK_PROMPT_WRAP = 'the back of {}'
-    NEUTRAL_BODY_SHAPE_PROMPT = 'person'  # 'man' / 'woman'
-
-    # coarse body shape rendering
-    POSE_TYPE = POSE_TYPE.STAND_POSE
-
-    # appearance rendering
-    SMALL_IMPLICIT_AVATAR_CONFIG = 'AvatarGen/AppearanceGen/confs/general_confs/small_implicit_avatar.conf'
-    LARGE_IMPLICIT_AVATAR_CONFIG = 'AvatarGen/AppearanceGen/confs/general_confs/large_implicit_avatar.conf'
-
-    SMALL_AVATAR_TEXTURE_CONFIG = 'AvatarGen/AppearanceGen/confs/general_confs/small_avatar_texture.conf'
-    LARGE_AVATAR_TEXTURE_CONFIG = 'AvatarGen/AppearanceGen/confs/general_confs/large_avatar_texture.conf'
-
-    OUTPUT_DIR = 'output/'
-    COARSE_SHAPE_OUTPUT_DIR = 'coarse_shape/'
-    COARSE_SHAPE_OBJ_OUTPUT_NAME = 'coarse_shape.obj'
-    COARSE_SHAPE_RENDERING_OUTPUT_DIR = 'render/'
-    IMPLICIT_AVATAR_OUTPUT_DIR = 'implicit_avatar/'
-
-    GENERATED_AVATAR_OUTPUT_DIR = 'generated_avatar/'
-    GENERATED_AVATAR_TEXTURE_OUTPUT_DIR = 'texture/'
-    GENERATED_AVATAR_FBX_OUTPUT_NAME = 'avatar.fbx'
-
-    # logs
-    LOG_TO_FILE = True
-    LOGS_DIR = 'logs/'
-    LOG_FILE_NAME = time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime()) + '.log'
+    @staticmethod
+    def save_settings(settings):
+        with open(Config.SETTING_YAML_PATH, "w") as f:
+            yaml.dump(settings, f)
 
     @staticmethod
     def absolute_path(path):
         return os.path.join(os.path.dirname(__file__), os.pardir, path)
+
+    settings = load_settings()
+    LOG_FILE_NAME = time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime()) + '.log'
 
 
 # TODO log the settings

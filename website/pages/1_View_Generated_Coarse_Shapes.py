@@ -1,17 +1,18 @@
 import os
 import streamlit as st
 
+from website.config import Config
 from website.messages import Messages
 from website.settings import Settings
 from website.website_utils import render_status
 
 st.set_page_config(layout="wide",
                    page_title=Messages.VIEW_GENERATED_COARSE_SHAPES_PAGE_TITLE,
-                   # page_icon='assets/icon.png'  # TODO
+                   page_icon=Config.WEBSITE_ICON_PATH
                    )
 
 
-coarse_output_folder = Settings.absolute_path(os.path.join(Settings.OUTPUT_DIR, Settings.COARSE_SHAPE_OUTPUT_DIR))
+coarse_output_folder = Settings.absolute_path(os.path.join(Settings.settings['OUTPUT_DIR'], Settings.settings['COARSE_SHAPE_OUTPUT_DIR']))
 if os.path.exists(coarse_output_folder):
     generated_shapes_dirs = os.listdir(coarse_output_folder)
     if len(generated_shapes_dirs) == 0:
@@ -21,9 +22,9 @@ if os.path.exists(coarse_output_folder):
         if selected_shape:
             st.markdown(Messages.SELECTED_VIEW_ITEM_TITLE.format(selected_shape))
             shape_dir_path = Settings.absolute_path(os.path.join(coarse_output_folder, selected_shape))
-            obj_file = Settings.absolute_path(os.path.join(shape_dir_path, Settings.COARSE_SHAPE_OBJ_OUTPUT_NAME))
-            render_folder = Settings.absolute_path(os.path.join(shape_dir_path, Settings.COARSE_SHAPE_RENDERING_OUTPUT_DIR))
-            implicit_folder = Settings.absolute_path(os.path.join(shape_dir_path, Settings.IMPLICIT_AVATAR_OUTPUT_DIR))
+            obj_file = Settings.absolute_path(os.path.join(shape_dir_path, Settings.settings['COARSE_SHAPE_OBJ_OUTPUT_NAME']))
+            render_folder = Settings.absolute_path(os.path.join(shape_dir_path, Settings.settings['COARSE_SHAPE_RENDERING_OUTPUT_DIR']))
+            implicit_folder = Settings.absolute_path(os.path.join(shape_dir_path, Settings.settings['IMPLICIT_AVATAR_OUTPUT_DIR']))
             render_status(Messages.VIEW_GENERATED_COARSE_SHAPES_OBJ_FILE_STATUS_TITLE, obj_file)
             render_status(Messages.VIEW_GENERATED_COARSE_SHAPES_RENDER_FOLDER_STATUS_TITLE, render_folder)
             render_status(Messages.VIEW_GENERATED_COARSE_SHAPES_IMPLICIT_FOLDER_STATUS_TITLE, implicit_folder)

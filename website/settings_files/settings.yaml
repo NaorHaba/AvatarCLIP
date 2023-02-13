@@ -1,4 +1,4 @@
-    EMAIL: null
+    USER_EMAIL: null
     SMPL_MODEL_DIR: smpl_models/
 
     VIRTUAL_AUTO_ENCODER_PATH: AvatarGen/ShapeGen/data/model_VAE_16.pth

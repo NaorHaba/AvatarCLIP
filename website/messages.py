@@ -5,7 +5,11 @@ class Messages:
     ## Page Titles
     HOME_PAGE_TITLE = "# AVR Project - AvatarCLIP"
     HOME_PAGE_SUBTITLE = '## An interactive tool for generating 3D avatars using AvatarCLIP'
-    HOME_PAGE_DESCRIPTION = "This project is a web application that allows users to generate 3D avatars using AvatarCLIP."
+    HOME_PAGE_DESCRIPTION = """
+    This project is a web application that allows users to generate 3D avatars using AvatarCLIP.
+    Some of the processes are computationally expensive and may take a while to complete.
+    If you wish to receive an email notification when those processes are complete, please enter your email address in the Settings page.
+    """
 
     VIEW_GENERATED_COARSE_SHAPES_PAGE_TITLE = "Generated Coarse Shapes"
     VIEW_GENERATED_AVATARS_PAGE_TITLE = "Generated Avatars"
@@ -14,6 +18,7 @@ class Messages:
     INITIALIZE_IMPLICIT_AVATAR_PAGE_TITLE = "Initialize Implicit Avatar"
     GENERATE_TEXTURES_PAGE_TITLE = "Generate Textures"
     CONVERT_TO_FBX_PAGE_TITLE = "Convert to FBX"
+    SETTINGS_PAGE_TITLE = "Settings"
 
     ## Page Messages
     SELECTED_VIEW_ITEM_TITLE = "#### {}"
@@ -40,10 +45,12 @@ class Messages:
     GENERATE_NEW_COARSE_SHAPE_DESCRIPTION = "Enter a coarse shape description (e.g a tall person, a skinny person etc.):"
     GENERATE_NEW_COARSE_SHAPE_FORM_SUBMIT_BUTTON = "Generate Coarse Shape"
     GENERATE_NEW_COARSE_SHAPE_RETRY_MESSAGE = "Please choose a different description or check the overwrite checkbox"
+    GENERATE_NEW_COARSE_SHAPE_SPINNER_MESSAGE = "Generating coarse shape, please wait..."
 
     ### Render Coarse Shape
     RENDER_COARSE_SHAPE_SELECT_SHAPE = "Select a shape to render"
     RENDER_COARSE_SHAPE_FORM_SUBMIT_BUTTON = "Render Coarse Shape"
+    RENDER_COARSE_SHAPE_SPINNER_MESSAGE = "Rendering coarse shape, please wait..."
 
     ## Initialize Implicit Avatar
     INITIALIZE_IMPLICIT_AVATAR_SELECT_SHAPE = "Select a shape to initialize"
@@ -61,6 +68,23 @@ class Messages:
     CONVERT_TO_FBX_SELECT_AVATAR = "Select an avatar to convert to FBX"
     CONVERT_TO_FBX_FORM_SUBMIT_BUTTON = "Convert to FBX"
     CONVERT_TO_FBX_RETRY_MESSAGE = "Please choose a different avatar or check the overwrite checkbox"
+
+    ## Settings
+    LOADING_SETTINGS = "Loading settings, please wait..."
+    SAVING_SETTINGS = "Saving settings, please wait..."
+    EMAIL_SETTINGS_HEADER = "## Email Settings:"
+    MODEL_DIRECTORIES_HEADER = "## Model Directories:"
+    PROMPT_SETTINGS_HEADER = "## Prompt Settings:"
+    POSE_SETTINGS_HEADER = "## Pose Settings:"
+    IMPLICIT_AVATAR_INITIALIZATION_SETTINGS_HEADER = "## Implicit Avatar Initialization Configurations:"
+    AVATAR_TEXTURE_SETTINGS_HEADER = "## Avatar Texture Settings:"
+    OUTPUT_SETTINGS_HEADER = "## Output Directories:"
+    LOGGING_SETTINGS_HEADER = "## Logging Settings:"
+    SETTINGS_SAVED_SUCCESSFULLY = "Settings saved successfully"
+    SETTINGS_RESET_SUCCESSFULLY = "Settings reset successfully"
+    SAVE_SETTINGS_FORM_SUBMIT_BUTTON = "Save Settings"
+    RESET_SETTINGS_BUTTON = "Reset Settings"
+
 
     # Error Messages
     FOLDER_DOES_NOT_EXIST = "Folder {} does not exist."

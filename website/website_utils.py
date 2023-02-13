@@ -62,13 +62,28 @@ def render_status(text, path):
         st.markdown(f"{text}: {icon}")
 
 
-# define a decorator that prints st.spinner that runs until the function is done
 def spinner(text):
     def decorator(func):
         def wrapper(*args, **kwargs):
             with st.spinner(text):
                 func(*args, **kwargs)
             st.success('Done!')
+
+        return wrapper
+
+    return decorator
+
+
+def send_email_when_done(email):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            if email is not None:
+                st.info(f"Your request is being processed. You will receive an email to {email} when it's done.")
+            else:
+                st.info("Your request is being processed. You can check the status in the logs.")
+
+            func(*args, **kwargs)
+            # TODO send email
 
         return wrapper
 
