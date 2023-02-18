@@ -2,7 +2,7 @@ import os
 import time
 import streamlit as st
 
-
+import json
 import smtplib
 
 from website.config import Config
@@ -60,7 +60,13 @@ def send_email(recipient_email, subject, body):
     port = 587
 
     sender_email = Config.SENDER_EMAIL
-    sender_password = os.environ.get('EMAIL_PASSWORD')
+    
+    # Load the secrets file
+    with open('secrets.json') as f:
+        secrets = json.load(f)
+
+    # Get the email password from the secrets file
+    sender_password = secrets['EMAIL_PASSWORD']
 
     message = f'Subject: {subject}\n\n{body}'
     with smtplib.SMTP(smtp_server, port) as server:
