@@ -4,7 +4,7 @@ from website.config import Config
 from website.messages import Messages
 
 
-st.set_page_config(page_title=Messages.SETTINGS_PAGE_TITLE,
+st.set_page_config(page_title=Messages.HOME_PAGE_TITLE[2:],
                    page_icon=Config.WEBSITE_ICON_PATH
                    )
 

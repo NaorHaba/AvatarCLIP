@@ -7,7 +7,7 @@ from website.settings import settings
 from website.website_utils import render_status, absolute_path
 
 st.set_page_config(layout="wide",
-                   page_title=Messages.VIEW_GENERATED_COARSE_SHAPES_PAGE_TITLE,
+                   page_title=Messages.VIEW_GENERATED_AVATARS_PAGE_TITLE,
                    page_icon=Config.WEBSITE_ICON_PATH
                    )
 

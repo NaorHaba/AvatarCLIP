@@ -20,6 +20,7 @@ class Messages:
     GENERATE_TEXTURES_PAGE_TITLE = "Generate Textures"
     CONVERT_TO_FBX_PAGE_TITLE = "Convert to FBX"
     SETTINGS_PAGE_TITLE = "Settings"
+    RUN_FROM_FILE_PAGE_TITLE = "Run from File"
 
     ## Page Messages
     SELECTED_VIEW_ITEM_TITLE = "#### {}"
@@ -72,6 +73,9 @@ class Messages:
     CONVERT_TO_FBX_SELECT_AVATAR = "Select an avatar to convert to FBX"
     CONVERT_TO_FBX_FORM_SUBMIT_BUTTON = "Convert to FBX"
     CONVERT_TO_FBX_RETRY_MESSAGE = "Please choose a different avatar or check the overwrite checkbox"
+
+    ### Run from File
+    RUN_FROM_FILE_FORM_SUBMIT_BUTTON = "Run File"
 
     ### Settings
     LOADING_SETTINGS = "Loading settings, please wait..."
