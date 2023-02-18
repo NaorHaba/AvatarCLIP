@@ -12,7 +12,6 @@ IMPLICIT_AVATAR_OUTPUT_DIR: implicit_avatar/
 LARGE_AVATAR_TEXTURE_CONFIG: AvatarGen/AppearanceGen/confs/general_confs/large_avatar_texture.conf
 LARGE_IMPLICIT_AVATAR_CONFIG: AvatarGen/AppearanceGen/confs/general_confs/large_implicit_avatar.conf
 LOGS_DIR: logs/
-LOG_FILE_NAME: 2023-02-13_21-16-20.log
 LOG_TO_FILE: true
 NEUTRAL_BODY_SHAPE_PROMPT: person
 OUTPUT_DIR: output/

@@ -1,10 +1,9 @@
 import os
 import streamlit as st
-import time
 
 from website.config import Config
-from website.website_utils import spinner, absolute_path
-from website.logic import render_coarse_shape_wrapper
+from website.logic_runner import run_render_coarse_shape
+from website.website_utils import absolute_path
 from website.messages import Messages
 from website.settings import settings
 
@@ -13,11 +12,6 @@ st.set_page_config(layout="wide",
                    page_title=Messages.RENDER_COARSE_SHAPE_PAGE_TITLE,
                    page_icon=Config.WEBSITE_ICON_PATH
                    )
-
-
-@spinner(Messages.RENDER_COARSE_SHAPE_SPINNER_MESSAGE)
-def decorated_render_coarse_shape(path_to_obj_file):
-    render_coarse_shape_wrapper(path_to_obj_file)
 
 
 coarse_output_folder = absolute_path(os.path.join(settings.settings['OUTPUT_DIR'], settings.settings['COARSE_SHAPE_OUTPUT_DIR']))
@@ -46,13 +40,12 @@ if os.path.exists(coarse_output_folder):
                     if if_exists_instruction == Messages.OVERWRITE_SELECTION:
                         st.warning(Messages.OVERWRITE_NOTICE.format(render_folder))
                         # call generate_coarse_shape function here
-                        decorated_render_coarse_shape(path_to_obj)
+                        run_render_coarse_shape(path_to_obj)
                     else:
                         st.info(Messages.CONTINUE_NOTICE.format(selected_shape))
-                        decorated_render_coarse_shape(path_to_obj)
+                        run_render_coarse_shape(path_to_obj)
                 else:
                     # call generate_coarse_shape function here
-                    decorated_render_coarse_shape(path_to_obj)
+                    run_render_coarse_shape(path_to_obj)
 else:
     st.info(Messages.FOLDER_DOES_NOT_EXIST.format(coarse_output_folder))
-    # TODO ^ change error to indicate that the folder specified in settings.py does not exist

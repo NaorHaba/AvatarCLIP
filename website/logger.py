@@ -1,4 +1,5 @@
 import logging
+import os
 import sys
 
 from website.settings import settings
@@ -11,7 +12,7 @@ def get_logger(name=__name__):
     formatter = logging.Formatter('%(asctime)s %(levelname)s [%(filename)s:%(lineno)s - %(funcName)20s()]: %(message)s',
                                   datefmt='%Y-%m-%d %H:%M:%S')
 
-    file_handler = logging.FileHandler(absolute_path(settings.settings['LOGS_DIR'] + settings.settings['LOG_FILE_NAME']))
+    file_handler = logging.FileHandler(absolute_path(os.path.join(settings.settings['LOGS_DIR'], settings.settings['CURRENT_LOG_DIR'], settings.settings['LOG_FILE_NAME'])))
     file_handler.setFormatter(formatter)
 
     logger.addHandler(file_handler)

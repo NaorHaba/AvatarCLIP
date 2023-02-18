@@ -3,8 +3,7 @@ import streamlit as st
 import time
 
 from website.config import Config
-from website.website_utils import spinner, send_email_when_done
-from website.logic import generate_textures
+from website.logic_runner import run_generate_textures
 from website.messages import Messages
 from website.settings import settings
 
@@ -13,18 +12,6 @@ st.set_page_config(layout="wide",
                    page_title=Messages.GENERATE_TEXTURES_PAGE_TITLE,
                    page_icon=Config.WEBSITE_ICON_PATH
                    )
-
-
-@send_email_when_done(settings.settings['USER_EMAIL'])
-def decorated_generate_textures(texture_prompt, config_path, coarse_body_dir, is_continue):
-    generate_textures(texture_prompt, config_path, coarse_body_dir, is_continue)
-
-
-def generate_coarse_shape(shape_description, choose_config):
-    with st.spinner(text="Rendering textures, this may take a while..."):  # TODO move to config/messages + logging
-        for i in range(10):
-            time.sleep(1)
-        st.success("Done!")  # TODO move to config/messages + logging
 
 
 coarse_output_folder = os.path.join(settings.settings['OUTPUT_DIR'], settings.settings['COARSE_SHAPE_OUTPUT_DIR'])
@@ -61,12 +48,11 @@ if os.path.exists(coarse_output_folder):
                 if os.path.exists(texture_folder):
                     if if_exists_instruction == Messages.OVERWRITE_SELECTION:
                         st.warning(Messages.OVERWRITE_NOTICE.format(texture_folder))
-                        decorated_generate_textures(texture_description, implicit_config, selected_shape_dir, False)
+                        run_generate_textures(texture_description, implicit_config, selected_shape_dir, False)
                     else:
                         st.info(Messages.CONTINUE_NOTICE.format(texture_folder))
-                        decorated_generate_textures(texture_description, implicit_config, selected_shape_dir, True)
+                        run_generate_textures(texture_description, implicit_config, selected_shape_dir, True)
                 else:
-                    decorated_generate_textures(texture_description, implicit_config, selected_shape_dir, False)
+                    run_generate_textures(texture_description, implicit_config, selected_shape_dir, False)
 else:
     st.info(Messages.FOLDER_DOES_NOT_EXIST.format(coarse_output_folder))
-    # TODO ^ change error to indicate that the folder specified in settings.py does not exist

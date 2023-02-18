@@ -3,8 +3,8 @@ import streamlit as st
 import time
 
 from website.config import Config
-from website.website_utils import spinner, send_email_when_done, absolute_path
-from website.logic import initialize_implicit_avatar
+from website.logic_runner import run_initialize_implicit_avatar
+from website.website_utils import spinner, request_processed_info, absolute_path
 from website.messages import Messages
 from website.settings import settings
 
@@ -13,11 +13,6 @@ st.set_page_config(layout="wide",
                    page_title=Messages.INITIALIZE_IMPLICIT_AVATAR_PAGE_TITLE,
                    page_icon=Config.WEBSITE_ICON_PATH
                    )
-
-
-@send_email_when_done(settings.settings['USER_EMAIL'])
-def decorated_init_implicit_avatar(implicit_config, path_to_render, is_continue):
-    initialize_implicit_avatar(implicit_config, path_to_render, is_continue)
 
 
 coarse_output_folder = absolute_path(os.path.join(settings.settings['OUTPUT_DIR'], settings.settings['COARSE_SHAPE_OUTPUT_DIR']))
@@ -50,12 +45,11 @@ if os.path.exists(coarse_output_folder):
                 if os.path.exists(implicit_folder):
                     if if_exists_instruction == Messages.OVERWRITE_SELECTION:
                         st.warning(Messages.OVERWRITE_NOTICE.format(implicit_folder))
-                        decorated_init_implicit_avatar(implicit_config, shape_folder, False)
+                        run_initialize_implicit_avatar(implicit_config, shape_folder, False)
                     else:
                         st.info(Messages.CONTINUE_NOTICE.format(selected_shape))
-                        decorated_init_implicit_avatar(implicit_config, shape_folder, True)
+                        run_initialize_implicit_avatar(implicit_config, shape_folder, True)
                 else:
-                    decorated_init_implicit_avatar(implicit_config, shape_folder, False)
+                    run_initialize_implicit_avatar(implicit_config, shape_folder, False)
 else:
     st.info(Messages.FOLDER_DOES_NOT_EXIST.format(coarse_output_folder))
-    # TODO ^ change error to indicate that the folder specified in settings.py does not exist

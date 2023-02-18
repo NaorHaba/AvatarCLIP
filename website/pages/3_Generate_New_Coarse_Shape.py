@@ -1,10 +1,9 @@
 import os
 import streamlit as st
-import time
 
 from website.config import Config
-from website.website_utils import spinner, absolute_path
-from website.logic import generate_coarse_shape
+from website.logic_runner import run_generate_coarse_shape
+from website.website_utils import absolute_path
 
 from website.messages import Messages
 from website.settings import settings
@@ -14,11 +13,6 @@ st.set_page_config(layout="wide",
                    page_title=Messages.GENERATE_NEW_COARSE_SHAPE_PAGE_TITLE,
                    page_icon=Config.WEBSITE_ICON_PATH
                    )
-
-
-@spinner(Messages.GENERATE_NEW_COARSE_SHAPE_SPINNER_MESSAGE)
-def decorated_generate_coarse_shape(shape_description):
-    generate_coarse_shape(shape_description)
 
 
 placeholder = st.empty()
@@ -32,9 +26,9 @@ with placeholder.form(key="coarse_shape_form", clear_on_submit=False):
         if os.path.exists(shape_folder) and os.path.exists(obj_file):
             if overwrite:
                 st.warning(Messages.OVERWRITE_NOTICE.format(shape_description))
-                decorated_generate_coarse_shape(shape_description)
+                run_generate_coarse_shape(shape_description)
             else:
                 st.warning(Messages.ALREADY_EXISTS.format(shape_description))
                 st.info(Messages.GENERATE_NEW_COARSE_SHAPE_RETRY_MESSAGE.format(shape_description))
         else:
-            decorated_generate_coarse_shape(shape_description)
+            run_generate_coarse_shape(shape_description)

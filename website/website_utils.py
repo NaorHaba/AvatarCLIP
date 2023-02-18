@@ -2,6 +2,8 @@ import os
 import time
 import streamlit as st
 
+from website.messages import Messages
+
 
 def render_status(text, path):
     if os.path.exists(path):
@@ -28,16 +30,15 @@ def spinner(text):
     return decorator
 
 
-def send_email_when_done(email):
+def request_processed_info(email):
     def decorator(func):
         def wrapper(*args, **kwargs):
             if email is not None:
-                st.info(f"Your request is being processed. You will receive an email to {email} when it's done.")
+                st.info(Messages.REQUEST_PROCESSED_INFO_WITH_EMAIL.format(email))
             else:
-                st.info("Your request is being processed. You can check the status in the logs.")
+                st.info(Messages.REQUEST_PROCESSED_INFO)
 
             func(*args, **kwargs)
-            # TODO send email
 
         return wrapper
 

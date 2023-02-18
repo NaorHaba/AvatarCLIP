@@ -31,11 +31,14 @@ class Messages:
     CONTINUE_SELECTION = "Continue training from last checkpoint"
     CONTINUE_NOTICE = "Continuing training for '{}'"
 
+    REQUEST_PROCESSED_INFO_WITH_EMAIL = "Your request is being processed. You will receive an email to {} when it's done."
+    REQUEST_PROCESSED_INFO = "Your request is being processed. You can check the status in the logs."
+
     ### View Generated Coarse Shapes
     VIEW_GENERATED_COARSE_SHAPES_SELECT_SHAPE = "Select a shape to view"
     VIEW_GENERATED_COARSE_SHAPES_OBJ_FILE_STATUS_TITLE = "OBJ file"
     VIEW_GENERATED_COARSE_SHAPES_RENDER_FOLDER_STATUS_TITLE = "Render folder"
-    VIEW_GENERATED_COARSE_SHAPES_IMPLICIT_FOLDER_STATUS_TITLE = "Implicit folder"  # TODO find a better name for implicit
+    VIEW_GENERATED_COARSE_SHAPES_IMPLICIT_FOLDER_STATUS_TITLE = "Implicit folder"
 
     ### View Generated Avatars
     VIEW_GENERATED_AVATARS_SELECT_AVATAR = "Select an avatar to view"
@@ -53,24 +56,24 @@ class Messages:
     RENDER_COARSE_SHAPE_FORM_SUBMIT_BUTTON = "Render Coarse Shape"
     RENDER_COARSE_SHAPE_SPINNER_MESSAGE = "Rendering coarse shape, please wait..."
 
-    ## Initialize Implicit Avatar
+    ### Initialize Implicit Avatar
     INITIALIZE_IMPLICIT_AVATAR_SELECT_SHAPE = "Select a shape to initialize"
     INITIALIZE_IMPLICIT_AVATAR_FORM_SUBMIT_BUTTON = "Initialize Implicit Avatar"
     CHOOSE_CONFIG = "Choose a config file to use for initialization"
     LARGE_CONFIG = "Large config"
     SMALL_CONFIG = "Small config"
 
-    ## Generate Textures
+    ### Generate Textures
     GENERATE_TEXTURES_SELECT_SHAPE = "Select a shape to generate textures for"
     GENERATE_TEXTURES_FORM_SUBMIT_BUTTON = "Generate Textures"
     GENERATE_TEXTURES_DESCRIPTION = "Enter the texture description (e.g Batman, Obama etc.):"
 
-    ## Convert to FBX
+    ### Convert to FBX
     CONVERT_TO_FBX_SELECT_AVATAR = "Select an avatar to convert to FBX"
     CONVERT_TO_FBX_FORM_SUBMIT_BUTTON = "Convert to FBX"
     CONVERT_TO_FBX_RETRY_MESSAGE = "Please choose a different avatar or check the overwrite checkbox"
 
-    ## Settings
+    ### Settings
     LOADING_SETTINGS = "Loading settings, please wait..."
     SAVING_SETTINGS = "Saving settings, please wait..."
     EMAIL_SETTINGS_HEADER = "## Email Settings:"
@@ -97,6 +100,10 @@ class Messages:
     CUDA_DEFAULT_TENSOR_TYPE_INFO = "CUDA is available. Setting default tensor type to 'torch.cuda.FloatTensor'"
     NEW_CONFIG_FILE_INFO = "Creating new config file with running parameters: {}"
     LAST_CHECKPOINT_INFO = "Using last checkpoint: {} for training"
+
+    ## logic_runner
+    INITIALIZE_IMPLICIT_AVATAR_SUBPROCESS_INFO = "Running 'initialize_implicit_avatar' in a subprocess, PID: {}"
+    GENERATE_TEXTURES_SUBPROCESS_INFO = "Running 'generate_textures' in a subprocess, PID: {}"
 
     ## generate_coarse_shape
     GENERATE_NEW_COARSE_SHAPE_INFO = "Start generating coarse body shape given the target text: {}"

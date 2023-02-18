@@ -3,7 +3,7 @@ import streamlit as st
 import time
 
 from website.config import Config
-from website.website_utils import spinner, send_email_when_done
+from website.website_utils import spinner, request_processed_info
 from website.logic import convert_to_FBX
 from website.messages import Messages
 from website.settings import settings
@@ -15,7 +15,7 @@ st.set_page_config(layout="wide",
                    )
 
 
-@send_email_when_done(settings.settings['USER_EMAIL'])
+@request_processed_info(settings.settings['USER_EMAIL'])
 def decorated_convert_to_FBX():
     convert_to_FBX()
 
@@ -64,4 +64,3 @@ if os.path.exists(avatar_output_folder):
                     decorated_convert_to_FBX(texture_folder)
 else:
     st.info(Messages.FOLDER_DOES_NOT_EXIST.format(avatar_output_folder))
-    # TODO ^ change error to indicate that the folder specified in settings.py does not exist

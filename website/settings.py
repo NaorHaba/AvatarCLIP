@@ -16,8 +16,9 @@ class POSE_TYPE(str, Enum):
 class Settings:
     def __init__(self):
         self.settings = self.load_settings()
-        self.settings['LOG_FILE_NAME'] = time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime()) + '.log'
-        os.makedirs(website_utils.absolute_path(self.settings['LOGS_DIR']), exist_ok=True)
+        self.settings['CURRENT_LOG_DIR'] = time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime())
+        self.settings['LOG_FILE_NAME'] = 'main.log'
+        os.makedirs(website_utils.absolute_path(os.path.join(self.settings['LOGS_DIR'], self.settings['CURRENT_LOG_DIR'])), exist_ok=True)
 
     @staticmethod
     def load_settings():
