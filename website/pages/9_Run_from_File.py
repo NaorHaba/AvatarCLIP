@@ -1,9 +1,8 @@
 import os
 import streamlit as st
-import time
 import yaml
+from website.logic_runner import run_all
 from website.config import Config
-from website.website_utils import spinner, send_email_when_done
 from website.messages import Messages
 from website.settings import settings
 
@@ -13,13 +12,6 @@ st.set_page_config(layout="wide",
                    page_icon=Config.WEBSITE_ICON_PATH
                    )
 
-
-@send_email_when_done(settings.settings['USER_EMAIL'])
-def decorated_run_from_file(data):
-    # here we call the function from logic
-    pass
-
-
 st.markdown("#### YAML File Example:")
 st.markdown("""```yaml
 run_args: [
@@ -28,14 +20,14 @@ run_args: [
     texture_description_prompt: a policeman,
     should_continue: false,
     should_overwrite: true,
-    convert_to_fbx: true
+    config_type: arge
   },
   {
     coarse_shape_prompt: a short person,
     texture_description_prompt: superman,
     should_continue: false,
     should_overwrite: true,
-    convert_to_fbx: true,
+    config_type: small,
   },
   ...
   ]
@@ -54,6 +46,6 @@ with placeholder.form(key="render_coarse_shape_form", clear_on_submit=False):
             data = yaml.safe_load(file_contents)
 
             # send the YAML file to the BE to run
-            decorated_run_from_file(data)
+            run_all(data)
             # # Display the YAML data
             # st.write(data)
