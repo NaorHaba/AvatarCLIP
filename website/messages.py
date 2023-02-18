@@ -105,6 +105,10 @@ class Messages:
     NEW_CONFIG_FILE_INFO = "Creating new config file with running parameters: {}"
     LAST_CHECKPOINT_INFO = "Using last checkpoint: {} for training"
 
+    EMAIL_SUBJECT = 'Function {} execution status'
+    SUCCESS_EMAIL_BODY = 'The function {} was executed successfully.'
+    FAILURE_EMAIL_BODY = 'The function {} failed to execute with the following error: {}'
+
     ## logic_runner
     INITIALIZE_IMPLICIT_AVATAR_SUBPROCESS_INFO = "Running 'initialize_implicit_avatar' in a subprocess, PID: {}"
     GENERATE_TEXTURES_SUBPROCESS_INFO = "Running 'generate_textures' in a subprocess, PID: {}"

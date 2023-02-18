@@ -2,7 +2,12 @@ import os
 import time
 import streamlit as st
 
+
+import smtplib
+
+from website.config import Config
 from website.messages import Messages
+from website.settings import settings
 
 
 def render_status(text, path):
@@ -47,3 +52,18 @@ def request_processed_info(email):
 
 def absolute_path(path):
     return os.path.join(os.path.dirname(__file__), os.pardir, path)
+
+
+def send_email(recipient_email, subject, body):
+    # Send email using Gmail
+    smtp_server = 'smtp.gmail.com'
+    port = 587
+
+    sender_email = Config.SENDER_EMAIL
+    sender_password = os.environ.get('EMAIL_PASSWORD')
+
+    message = f'Subject: {subject}\n\n{body}'
+    with smtplib.SMTP(smtp_server, port) as server:
+        server.starttls()
+        server.login(sender_email, sender_password)
+        server.sendmail(sender_email, recipient_email, message)

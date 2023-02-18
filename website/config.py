@@ -7,3 +7,6 @@ class Config:
 
     SETTING_YAML_PATH = 'website/settings_files/settings.yaml'
     DEFAULT_SETTINGS_YAML_PATH = 'website/settings_files/default_settings.yaml'
+    SECRETS_FILE = 'website/secrets.json'
+
+    SENDER_EMAIL = 'AvatarClipTechnion@gmail.com'

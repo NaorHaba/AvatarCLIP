@@ -9,6 +9,7 @@ from pyhocon import ConfigFactory, HOCONConverter
 from website.logger import get_logger
 from website.messages import Messages
 from website.settings import settings
+from website.website_utils import send_email
 
 
 def run(config_path, coarse_body_dir, is_continue=False):
@@ -63,4 +64,12 @@ if __name__ == '__main__':
         torch.set_default_tensor_type('torch.cuda.FloatTensor')
         logger.info(Messages.CUDA_DEFAULT_TENSOR_TYPE_INFO)
 
-    run(args.config_path, args.coarse_body_dir, args.is_continue)
+    try:
+        run(args.config_path, args.coarse_body_dir, args.is_continue)
+
+        if settings.settings.USER_EMAIL is not None:
+            send_email(settings.settings.USER_EMAIL, Messages.SUCCESS_EMAIL_BODY.format('initialize_implicit_avatar'), Messages.SUCCESS_EMAIL_BODY.format('initialize_implicit_avatar'))
+    except Exception as e:
+        logger.exception(e)
+        if settings.settings.USER_EMAIL is not None:
+            send_email(settings.settings.USER_EMAIL, Messages.FAILURE_EMAIL_BODY.format('initialize_implicit_avatar'), Messages.FAILURE_EMAIL_BODY.format('initialize_implicit_avatar', str(e)))
