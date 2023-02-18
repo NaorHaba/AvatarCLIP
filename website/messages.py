@@ -112,6 +112,7 @@ class Messages:
     ## logic_runner
     INITIALIZE_IMPLICIT_AVATAR_SUBPROCESS_INFO = "Running 'initialize_implicit_avatar' in a subprocess, PID: {}"
     GENERATE_TEXTURES_SUBPROCESS_INFO = "Running 'generate_textures' in a subprocess, PID: {}"
+    RUN_ALL_SUBPROCESS_INFO = "Running 'run_from_file' in a subprocess, PID: {}"
 
     ## generate_coarse_shape
     GENERATE_NEW_COARSE_SHAPE_INFO = "Start generating coarse body shape given the target text: {}"
@@ -128,3 +129,5 @@ class Messages:
     ## generate_textures
     GENERATE_TEXTURES_INFO = "Start generating textures for the given coarse shape: {}"
     GENERATE_TEXTURES_SUCCESS = "Textures generated and saved according to the config file"
+
+    
