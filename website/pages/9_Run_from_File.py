@@ -20,7 +20,7 @@ run_args: [
     texture_description_prompt: a policeman,
     should_continue: false,
     should_overwrite: true,
-    config_type: arge
+    config_type: large
   },
   {
     coarse_shape_prompt: a short person,

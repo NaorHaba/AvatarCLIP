@@ -11,3 +11,4 @@ output/
 .idea/
 logs/
 secrets.json
+/unity models/

@@ -195,6 +195,12 @@ y[z<=0] = 0
 z[z<=0] = 0
 ```
 
+finally, to convert the created avatars to a format that can be used in Unity ('fbx' format), we need to install packages 
+according to the instructions in the original project (steps 1-3):
+https://github.com/hongfz16/AvatarCLIP/tree/main/Avatar2FBX
+
+
+
 ## Data Preparation
 
 For this section, start by following the instructions in the original project.
@@ -203,86 +209,104 @@ Then, .... TODO
 
 ## Running the Code
 
-### Avatar Generation - Coarse Shape Generation
-
-Folder `AvatarGen/ShapeGen` contains codes for this part. Run the follow command to generate the coarse shape corresponding to the shape description 'a strong man'. We recommend to use the prompt augmentation 'a 3d rendering of xxx in unreal engine' for better results. The generated coarse body mesh will be stored under `AvatarGen/ShapeGen/output/coarse_shape`.
-
-```bash
-python main.py --target_txt 'a 3d rendering of a strong man in unreal engine'
-```
-
-Then we need to render the mesh for initialization of the implicit avatar representation. Use the following command for rendering.
+As we mentioned before, this fork provides an interface to run the process of avatar generation. <BR>
+To do so, we created a website (running with Streamlit on localhost) that allows the user to control each step of the process. <BR>
+To run the website, run the following command:
 
 ```bash
-python render.py --coarse_shape_obj output/coarse_shape/a_3d_rendering_of_a_strong_man_in_unreal_engine.obj --output_folder ${RENDER_FOLDER}
+python -m streamlit run website/Home.py
 ```
 
-### Avatar Generation - Shape Sculpting and Texture Generation
+The website will open in your browser, and you can start generating avatars. 
+Usage is pretty straightforward, but we will explain the process in more detail in the following sections.
 
-Note that all the codes are tested on NVIDIA V100 (32GB memory). Therefore, in order to run on GPUs with lower memory, please try to scale down the network or tune down `max_ray_num` in the config files. You can refer to `confs/examples_small/example.conf` or our [colab demo](https://colab.research.google.com/drive/1dfaecX7xF3nP6fyXc8XBljV5QY1lc1TR?usp=sharing) for a scale-down version of AvatarCLIP.
+The website is using a settings file to store the user's preferences. <BR>
+The process of generating avatars can be divided into two main parts: <BR>
+1. Coarse Shape Generation
+2. Shape Sculpting and Texture Generation
 
-Folder `AvatarGen/AppearanceGen` contains codes for this part. We provide data, pretrained model and scripts to perform shape sculpting and texture generation on a zero-beta body (mean shape defined by SMPL). We provide many example scripts under `AvatarGen/AppearanceGen/confs/examples`. For example, if we want to generate 'Abraham Lincoln', which is defined in the config file `confs/examples/abrahamlincoln.conf`, use the following command.
+Outputs of the first part are necessary for the second part, so the user must run the first part before running the second part. <BR>
+Also, due to the nature of the process, we divided the outputs of the model into 2 folders: <BR>
+1. `coarse_shape` - contains the coarse shape of the model. <BR>
+2. `generated_avatar` - contains the final avatar, after the shape sculpting and texture generation together with the fbx format. <BR>
 
-```bash
-python main.py --mode train_clip --conf confs/examples/abrahamlincoln.conf
-```
+Each of the steps in the process is logged according to the settings file and the user can view the status of each step in the log. <BR>
 
-Results will be stored in `AvatarCLIP/AvatarGen/AppearanceGen/exp/smpl/examples/abrahamlincoln`.
+According to the nature of the above, the website has the following structure: <BR>
 
-If you wish to perform shape sculpting and texture generation on the previously generated coarse shape. We also provide example config files in `confs/base_models/astrongman.conf` `confs/astrongman/*.conf`. Two steps of optimization are required as follows.
+### View Generated Coarse Shape
+In this section, the user can view the generated coarse shapes so far. 
+For each generated coarse shape we are specifying for each part of the coarse shape generation its status (done/not done): <BR>
+1. "OBJ file"
+2. "Render folder"
+3. "implicit folder"
 
-```bash
-# Initilization of the implicit avatar
-python main.py --mode train --conf confs/base_models/astrongman.conf
-# Shape sculpting and texture generation on the initialized implicit avatar
-python main.py --mode train_clip --conf confs/astrongman/hulk.conf
-```
+### View Generated Avatars
+In this section, the user can view the generated avatars so far.
+For each generated avatar we are specifying for each part of the avatar generation its status (done/not done): <BR>
+1. "Texture folder"
+2. "FBX file"
 
-### Marching Cube
+### Generate New Coarse Shape
+In this section, the user can generate a new coarse shape. <BR>
+To do so, the user needs to provide a prompt for the coarse shape generation such as 'a tall person', 'a short person', 'a fat person', etc. <BR>
+More examples can be found in `output/coarse_shape`
 
-To extract meshes from the generated implicit avatar, one may use the following command.
+### Render Coarse Shape
+In this section, the user can render the coarse shape that was generated in the previous section. <BR>
+The user needs to choose the coarse shape that was generated in the previous section for which he wants to render the avatar. <BR>
 
-```bash
-python main.py --mode validate_mesh --conf confs/examples/abrahamlincoln.conf
-```
+### Initialize Implicit Avatar
+In this section, the user can initialize the implicit avatar that was generated in the previous section. <BR>
+This is in fact a pretraining step for the shape sculpting and texture generation. 
+The model which will be used for the shape sculpting and texture generation is initialized with the implicit avatar.
 
-The final high resolution mesh will be stored as `AvatarCLIP/AvatarGen/AppearanceGen/exp/smpl/examples/abrahamlincoln/meshes/00030000.ply`
+This step is dependent on GPU resources. In order to run this step, the user needs to have a GPU installed on his machine. 
+We are providing 2 options for the size of the model: small and large, which the user can choose from. <BR>
+The small model is faster to train and requires less resources, but the results are not as good as the large model. <BR>
 
-## Convert Avatar to FBX Format
+This step can take a long time so we are running it in the background and send the user an email (if he provided his email) when it is done.
+Please make sure that the machine will not be shut down before the process is done.
+If the process dies for some reason, the user can run it again and continue from where it stopped. <BR>
 
-For the convenience of using the generated avatar with modern graphics pipeline, we also provide scripts to rig the avatar and convert to FBX format. See the instructions [here](./Avatar2FBX/README.md).
+NOTICE! <BR> 
+This step is not necessary for the user to run, but it is recommended to run it. If the user chooses so, he can use a default model instead. <BR>
 
-### Make your own configure
+### Generate Texture
+In this section, the user can generate the texture of the avatar that was generated in the previous section. <BR>
+The user needs to choose the avatar that was generated in the previous section for which he wants to generate the texture. <BR>
+Also, the user needs to provide a prompt for the texture generation such as 'a basketball player', 'a circus performer', 'a sumo wrestler', etc. <BR>
+More examples can be found in `output/generated_avatar`
 
-Each configuration contains three independent parts: general setting, pose generator, and motion generator.
+This step is also dependent on GPU resources. The user should act according to the previous step. <BR>
 
-```text
-# General Setting
-general {
-    # describe the results path
-    base_exp_dir = ./exp/motion_ablation/motion_optimizer/raise_arms
+This step can also take a long time, so we operate the same as in the previous step. <BR>
 
-    # if you only want to generate poses, then you can set "mode = pose".
-    mode = motion
-
-    # define your prompt. We highly recommend using the format "a rendered 3d man is xxx"
-    text = a rendered 3d man is raising both arms
-}
-
-# Pose Generator
-pose_generator {
-    type = VPoserCodebook
-    # you can change the number of candidate poses by setting "topk = 10"
-    # for PoseOptimizer and VPoserOptimizer, you can further define the number of iterations and the optimizer type
-}
-
-# Motion Generator
-# if "mode = pose", you can ignore this part
-motion_generator {
-    type = MotionOptimizer
-    # you can further modify the coefficient of each loss. 
-    # for example, if you find the generated motion is very intensive, you can reduce the coefficient of delta loss.
-}
+### Generate FBX
+In this section, the user can generate the fbx file of the avatar that was generated in the previous section. <BR>
+The user needs to choose the avatar that was generated in the previous section for which he wants to generate the fbx file. <BR>
 
 
-```
+### Settings
+In this section, the user can change the settings of the website. <BR>
+The settings are stored in the file `website/settings_files/settings.yaml`. <BR>
+We recommend not to change the settings unless you know what you are doing. <BR>
+
+Also this is the place where the user can provide his email address. <BR>
+
+
+### Run From File
+In this section, the user can run the process of avatar generation (or multiple avatars) from a  file. <BR>
+Example is provided in the website itself. <BR>
+
+
+## Running the Code - Advanced
+We provide a simple yet useful interface to run the process of avatar generation. 
+However, this interface is limited in some ways that some users might want to overcome. <BR>
+For a more advanced usage, a user can refer to the original project, and follow the instructions there. <BR>
+https://github.com/hongfz16/AvatarCLIP
+
+
+## Acknowledgements
+This project is supported through the AVR lab at the Israel Institute of Technology - The Technion. <BR>
+We would like to thank the faculty members, Boaz Sternfeld and Yaron Honen, for their support and guidance. <BR>
