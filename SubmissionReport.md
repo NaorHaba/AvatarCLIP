@@ -6,7 +6,7 @@
 ## Abstract
 In this project, we present our work during a research project under the AVR-Lab at the Technion.
 The project was focused on the development of a system that can generate and animate 3D avatars from text descriptions.
-Specifically, we followed the paper of AvatarCLIP, a novel work by ... that uses a conditional variational autoencoder to generate 3D avatars from text descriptions.
+Specifically, we followed the paper of AvatarCLIP, a novel work by <a name="AvatarCLIP">[Fangzhou Hong et al. 2022]</a> that uses a conditional variational autoencoder to generate 3D avatars from text descriptions.
 Our aim was to understand the paper and reproduce the results, while also trying to integrate the generated avatars into a Unity scene.
 Our work concludes with a Unity scene integrating the generated avatars, and a website built over the original paper's code that allows the user to use this technology in a more user-friendly manner.
 
@@ -111,4 +111,5 @@ Overall, we feel that our work has made a valuable contribution to the field
 and we look forward to seeing the future developments and advancements in this area.
 
 ## References
-[1] AvatarCLIP: Zero-Shot Text-Driven Generation and Animation of 3D Avatars
+[1](#AvatarCLIP) [AvatarCLIP](https://github.com/hongfz16/AvatarCLIP): Zero-Shot Text-Driven Generation and Animation of 3D Avatars
+[2](#CLIP) [CLIP](https://github.com/OpenAI/CLIP): Connecting Text and Images
