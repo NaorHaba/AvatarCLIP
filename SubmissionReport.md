@@ -91,8 +91,10 @@ Because of the lack of support for converting the generated animations to an FBX
 By uploading the avatar to mixamo and downloading an animated version of it in FBX format, we were able to use the animations in Unity.
 To enable the textures to be displayed correctly in Unity, we had to select the meshNode object of each avatar and change the material of the Skinned Mesh Renderer component to DefaultMateriallVertexColorShader.
 
+The Scene from above:<br>
 ![All Scene](https://media2.giphy.com/media/ywnQwSYTuydqOz4cQW/giphy.gif)
 
+Gameplay View:<br>
 ![Gameplay View](https://media2.giphy.com/media/BnaabrK8mtbDMnuKkC/giphy.gif)
 
 ## Conclusion
