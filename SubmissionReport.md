@@ -91,9 +91,9 @@ Because of the lack of support for converting the generated animations to an FBX
 By uploading the avatar to mixamo and downloading an animated version of it in FBX format, we were able to use the animations in Unity.
 To enable the textures to be displayed correctly in Unity, we had to select the meshNode object of each avatar and change the material of the Skinned Mesh Renderer component to DefaultMateriallVertexColorShader.
 
-![All Scene](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYzRhOWY0ZDBhMjkyYTc5OWJhMTgxYjE2NmY3YzVkYWRmMDgyNmE2NCZjdD1n/ywnQwSYTuydqOz4cQW/giphy.gif)
+![All Scene](https://media2.giphy.com/media/ywnQwSYTuydqOz4cQW/giphy.gif)
 
-![Gameplay View](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZmFkOTdmM2I0MmYyNDE4NDUxZTRhMzY1MjliOTdmY2IwMTkzNjFjOSZjdD1n/BnaabrK8mtbDMnuKkC/giphy.gif)
+![Gameplay View](https://media2.giphy.com/media/BnaabrK8mtbDMnuKkC/giphy.gif)
 
 ## Conclusion
 Our research project focused on reproducing the results of the AvatarCLIP paper, which presents a system for generating and animating 3D avatars from text descriptions using a conditional variational autoencoder.
