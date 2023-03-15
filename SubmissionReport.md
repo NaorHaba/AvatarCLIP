@@ -6,7 +6,7 @@
 ## Abstract
 In this project, we present our work during a research project under the AVR-Lab at the Technion.
 The project was focused on the development of a system that can generate and animate 3D avatars from text descriptions.
-Specifically, we followed the paper of AvatarCLIP, a novel work by <a name="AvatarCLIP">[Fangzhou Hong et al. 2022]</a> that uses a conditional variational autoencoder to generate 3D avatars from text descriptions.
+Specifically, we followed the paper of AvatarCLIP, a novel work by [Fangzhou Hong et al. 2022](#AvatarCLIP) that uses a conditional variational autoencoder to generate 3D avatars from text descriptions.
 Our aim was to understand the paper and reproduce the results, while also trying to integrate the generated avatars into a Unity scene.
 Our work concludes with a Unity scene integrating the generated avatars, and a website built over the original paper's code that allows the user to use this technology in a more user-friendly manner.
 
@@ -92,8 +92,8 @@ By uploading the avatar to mixamo and downloading an animated version of it in F
 To enable the textures to be displayed correctly in Unity, we had to select the meshNode object of each avatar and change the material of the Skinned Mesh Renderer component to DefaultMateriallVertexColorShader.
 
 The Scene from above:<br>
-<!-- ![All Scene](https://media2.giphy.com/media/ywnQwSYTuydqOz4cQW/giphy.gif) -->
-<img src="https://media2.giphy.com/media/ywnQwSYTuydqOz4cQW/giphy.gif" width="480" height="312" />
+![All Scene](https://media1.giphy.com/media/KzmEfOzqfx97RXgz62/giphy.gif)
+<!-- <img src="https://media2.giphy.com/media/ywnQwSYTuydqOz4cQW/giphy.gif" width="480" height="312" /> -->
 Gameplay View:<br>
 <img src="https://media2.giphy.com/media/BnaabrK8mtbDMnuKkC/giphy.gif" width="480" height="312" />
 <!-- ![Gameplay View](https://media2.giphy.com/media/BnaabrK8mtbDMnuKkC/giphy.gif) -->
@@ -111,5 +111,5 @@ Overall, we feel that our work has made a valuable contribution to the field
 and we look forward to seeing the future developments and advancements in this area.
 
 ## References
-[1](#AvatarCLIP) [AvatarCLIP](https://github.com/hongfz16/AvatarCLIP): Zero-Shot Text-Driven Generation and Animation of 3D Avatars
-[2](#CLIP) [CLIP](https://github.com/OpenAI/CLIP): Connecting Text and Images
+<a name="AvatarCLIP">[1] [AvatarCLIP](https://github.com/hongfz16/AvatarCLIP): Zero-Shot Text-Driven Generation and Animation of 3D Avatars</a>
+[2] [CLIP](https://github.com/OpenAI/CLIP): Connecting Text and Images
