@@ -92,10 +92,11 @@ By uploading the avatar to mixamo and downloading an animated version of it in F
 To enable the textures to be displayed correctly in Unity, we had to select the meshNode object of each avatar and change the material of the Skinned Mesh Renderer component to DefaultMateriallVertexColorShader.
 
 The Scene from above:<br>
-![All Scene](https://media2.giphy.com/media/ywnQwSYTuydqOz4cQW/giphy.gif)
-
+<!-- ![All Scene](https://media2.giphy.com/media/ywnQwSYTuydqOz4cQW/giphy.gif) -->
+<img src="https://media2.giphy.com/media/ywnQwSYTuydqOz4cQW/giphy.gif" width="480" height="312" />
 Gameplay View:<br>
-![Gameplay View](https://media2.giphy.com/media/BnaabrK8mtbDMnuKkC/giphy.gif)
+<img src="https://media2.giphy.com/media/BnaabrK8mtbDMnuKkC/giphy.gif" width="480" height="312" />
+<!-- ![Gameplay View](https://media2.giphy.com/media/BnaabrK8mtbDMnuKkC/giphy.gif) -->
 
 ## Conclusion
 Our research project focused on reproducing the results of the AvatarCLIP paper, which presents a system for generating and animating 3D avatars from text descriptions using a conditional variational autoencoder.
