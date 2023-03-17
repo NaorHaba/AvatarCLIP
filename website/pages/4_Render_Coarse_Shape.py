@@ -35,7 +35,6 @@ if os.path.exists(coarse_output_folder):
             render_folder = os.path.join(coarse_output_folder, selected_shape, settings.settings['COARSE_SHAPE_RENDERING_OUTPUT_DIR'])
             obj_file = os.path.join(selected_shape, settings.settings['COARSE_SHAPE_OBJ_OUTPUT_NAME'])
             path_to_obj = os.path.join(coarse_output_folder, obj_file)
-            print(render_folder)
             if submit:
                 if os.path.exists(render_folder):
                     if overwrite:
