@@ -32,12 +32,13 @@ if os.path.exists(coarse_output_folder):
             selected_shape = st.selectbox(Messages.RENDER_COARSE_SHAPE_SELECT_SHAPE, relevant_shapes_dirs, key="selected_shape")
             overwrite = st.checkbox(Messages.OVERWRITE_SELECTION, key="overwrite")
             submit = st.form_submit_button(Messages.RENDER_COARSE_SHAPE_FORM_SUBMIT_BUTTON)
-            render_folder = os.path.join(selected_shape, settings.settings['COARSE_SHAPE_RENDERING_OUTPUT_DIR'])
+            render_folder = os.path.join(coarse_output_folder, selected_shape, settings.settings['COARSE_SHAPE_RENDERING_OUTPUT_DIR'])
             obj_file = os.path.join(selected_shape, settings.settings['COARSE_SHAPE_OBJ_OUTPUT_NAME'])
             path_to_obj = os.path.join(coarse_output_folder, obj_file)
+            print(render_folder)
             if submit:
                 if os.path.exists(render_folder):
-                    if overwrite == Messages.OVERWRITE_SELECTION:
+                    if overwrite:
                         st.warning(Messages.OVERWRITE_NOTICE.format(render_folder))
                         # call generate_coarse_shape function here
                         run_render_coarse_shape(path_to_obj)
