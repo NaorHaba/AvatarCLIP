@@ -32,9 +32,13 @@ if os.path.exists(coarse_output_folder):
             selected_shape = st.selectbox(Messages.RENDER_COARSE_SHAPE_SELECT_SHAPE, relevant_shapes_dirs, key="selected_shape")
             if_exists_instruction = st.radio(Messages.IF_EXISTS_INSTRUCTION, options=(Messages.CONTINUE_SELECTION, Messages.OVERWRITE_SELECTION), key="if_exists_instruction")
             submit = st.form_submit_button(Messages.RENDER_COARSE_SHAPE_FORM_SUBMIT_BUTTON)
-            render_folder = absolute_path(os.path.join(selected_shape, settings.settings['COARSE_SHAPE_RENDERING_OUTPUT_DIR']))
-            obj_file = absolute_path(os.path.join(selected_shape, settings.settings['COARSE_SHAPE_OBJ_OUTPUT_NAME']))
-            path_to_obj = absolute_path(os.path.join(coarse_output_folder, obj_file))
+            render_folder = os.path.join(selected_shape, settings.settings['COARSE_SHAPE_RENDERING_OUTPUT_DIR'])
+            obj_file = os.path.join(selected_shape, settings.settings['COARSE_SHAPE_OBJ_OUTPUT_NAME'])
+            path_to_obj = os.path.join(coarse_output_folder, obj_file)
+            print(coarse_output_folder)
+            print(render_folder)
+            print(obj_file)
+            print(path_to_obj)
             if submit:
                 if os.path.exists(render_folder):
                     if if_exists_instruction == Messages.OVERWRITE_SELECTION:

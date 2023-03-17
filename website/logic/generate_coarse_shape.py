@@ -9,7 +9,9 @@ from website.messages import Messages
 from website.settings import Settings
 from website.website_utils import absolute_path
 
+
 settings = Settings()
+logger = get_logger(__name__)
 
 def run(coarse_shape_prompt: str):
     sys.path.append('AvatarGen/ShapeGen')
@@ -55,7 +57,5 @@ if __name__ == '__main__':
 
     settings.settings['CURRENT_LOG_DIR'] = args.log_dir
     settings.settings['LOG_FILE_NAME'] = args.log_file_name
-
-    logger = get_logger(__name__)
 
     run(args.coarse_shape_prompt)
