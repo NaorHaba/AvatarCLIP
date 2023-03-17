@@ -77,7 +77,7 @@ However, we still had many avatars from the paper's authors that we could use in
 
 ## Interface For AvatarCLIP
 The interface we built is based on the original code repository, and allows the user to generate 3D avatars from text descriptions.
-It allows to user a basic usage of the technology, and to generate avatars in an easy manner and in the most common (and recommended by the authors) way.
+It allows the user a basic usage of the technology, and to generate avatars in an easy manner and in the most common (and recommended by the authors) way.
 A complete description of the interface can be found in the README file of the repository of our project.
 
 ## AvatarCLIP in Unity
