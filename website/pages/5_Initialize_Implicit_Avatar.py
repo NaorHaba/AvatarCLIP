@@ -42,14 +42,18 @@ if os.path.exists(coarse_output_folder):
                     implicit_config = settings.settings['SMALL_IMPLICIT_AVATAR_CONFIG']
 
                 shape_folder = absolute_path(os.path.join(coarse_output_folder, selected_shape))
+                
                 if os.path.exists(implicit_folder):
                     if if_exists_instruction == Messages.OVERWRITE_SELECTION:
                         st.warning(Messages.OVERWRITE_NOTICE.format(implicit_folder))
+                        print("@@@@@@@@@ we are here overwrite @@@@@@@@@@@@")
                         run_initialize_implicit_avatar(implicit_config, shape_folder, False)
                     else:
                         st.info(Messages.CONTINUE_NOTICE.format(selected_shape))
+                        print("@@@@@@@@@ we are here not overwrite @@@@@@@@@@@@")
                         run_initialize_implicit_avatar(implicit_config, shape_folder, True)
                 else:
+                    print("@@@@@@@@@ we are here default @@@@@@@@@@@@")
                     run_initialize_implicit_avatar(implicit_config, shape_folder, False)
 else:
     st.info(Messages.FOLDER_DOES_NOT_EXIST.format(coarse_output_folder))

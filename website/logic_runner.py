@@ -24,10 +24,12 @@ def run_render_coarse_shape(path_to_obj_file):
 
 @request_processed_info(settings.settings['USER_EMAIL'])
 def run_initialize_implicit_avatar(implicit_config, path_to_render, is_continue):
-    run = subprocess.Popen(['python', absolute_path('website/logic/initialize_implicit_avatar.py'), implicit_config, path_to_render, str(is_continue), settings.settings['CURRENT_LOG_DIR']])
+    args = ['python', absolute_path('website/logic/initialize_implicit_avatar.py'), '--config_path', implicit_config, '--coarse_body_dir', path_to_render, '--log_dir', settings.settings['CURRENT_LOG_DIR']]
+    if is_continue:
+        args.append('--is_continue')
+    run = subprocess.Popen(args)
     # save run.pid to log file
     logger.info(Messages.INITIALIZE_IMPLICIT_AVATAR_SUBPROCESS_INFO.format(run.pid))
-
 
 @request_processed_info(settings.settings['USER_EMAIL'])
 def run_generate_textures(texture_prompt, config_path, coarse_body_dir, is_continue):

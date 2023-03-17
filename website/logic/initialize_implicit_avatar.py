@@ -1,5 +1,6 @@
 import os
 import sys
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 import argparse
 import time
 
@@ -25,7 +26,7 @@ def run(config_path, coarse_body_dir, is_continue=False):
     render_folder = os.path.join(coarse_body_dir, settings.settings['COARSE_SHAPE_RENDERING_OUTPUT_DIR'])
 
     new_config_path = os.path.join(output_folder, 'config.conf')
-
+    logger.info(f"@@@@@@@@@@@ {is_continue} @@@@@@@@@@@@@@@@@@")
     if not is_continue:
         # read config, change relevant parameters, and save to new config
 
@@ -53,7 +54,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--config_path', type=str, required=True)
     parser.add_argument('--coarse_body_dir', type=str, required=True)
-    parser.add_argument('--is_continue', type=bool, default=False)
+    parser.add_argument('--is_continue', action='store_true')
     parser.add_argument('--log_dir', type=str, default=time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime()))
     parser.add_argument('--log_file_name', type=str, default='initialize_implicit_avatar.log')
     args = parser.parse_args()
@@ -68,9 +69,9 @@ if __name__ == '__main__':
     try:
         run(args.config_path, args.coarse_body_dir, args.is_continue)
 
-        if settings.settings.USER_EMAIL is not None:
-            send_email(settings.settings.USER_EMAIL, Messages.SUCCESS_EMAIL_BODY.format('initialize_implicit_avatar'), Messages.SUCCESS_EMAIL_BODY.format('initialize_implicit_avatar'))
+        if settings.settings['USER_EMAIL'] is not None:
+            send_email(settings.settings['USER_EMAIL'], Messages.SUCCESS_EMAIL_BODY.format('initialize_implicit_avatar'), Messages.SUCCESS_EMAIL_BODY.format('initialize_implicit_avatar'))
     except Exception as e:
         logger.exception(e)
-        if settings.settings.USER_EMAIL is not None:
-            send_email(settings.settings.USER_EMAIL, Messages.FAILURE_EMAIL_BODY.format('initialize_implicit_avatar'), Messages.FAILURE_EMAIL_BODY.format('initialize_implicit_avatar', str(e)))
+        if settings.settings['USER_EMAIL'] is not None:
+            send_email(settings.settings['USER_EMAIL'], Messages.FAILURE_EMAIL_BODY.format('initialize_implicit_avatar'), Messages.FAILURE_EMAIL_BODY.format('initialize_implicit_avatar', str(e)))
