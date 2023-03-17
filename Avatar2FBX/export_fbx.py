@@ -39,7 +39,7 @@ if __name__ == "__main__":
 
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument('--mesh_file', type=str, required=True)
-    arg_parser.add_argument('--save_dir', type=str, required=True)
+    arg_parser.add_argument('--save_path', type=str, required=True)
     arg_parser.add_argument('--model_dir', type=str, required=True)
     args = arg_parser.parse_args()
 
@@ -47,7 +47,7 @@ if __name__ == "__main__":
     pose_dir = os.path.join(root_dir, 'poses')
 
     mesh_file = args.mesh_file
-    save_dir = args.save_dir
+    save_path = args.save_path
     model_dir = args.model_dir
 
     # Read Triangle Mesh
@@ -108,7 +108,7 @@ if __name__ == "__main__":
         'triangles': triangles,
         'joints': tpose_joints * 100,
         'blend_weights': mesh_blend_weights,
-        'name': ply_name.split('.')[0],
+        'name': os.path.basename(mesh_file).split('.')[0],
         'colors': colors,
     }
 
@@ -131,7 +131,7 @@ if __name__ == "__main__":
     lFileFormat = lSdkManager.GetIOPluginRegistry().GetNativeWriterFormat()
 
     # Save the scene
-    lResult = FbxCommon.SaveScene(lSdkManager, lScene, os.path.join(save_dir, f"{smpl_object['name']}.fbx"))
+    lResult = FbxCommon.SaveScene(lSdkManager, lScene, save_path)
 
     if lResult == False:
         print(f"\n\nAn error occurred while saving the scene for: {smpl_object['name']}\n")

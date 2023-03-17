@@ -40,6 +40,13 @@ def run_generate_textures(texture_prompt, config_path, coarse_body_dir, is_conti
     # save run.pid to log file
     logger.info(Messages.GENERATE_TEXTURES_SUBPROCESS_INFO.format(run.pid))
 
+@request_processed_info(settings.settings['USER_EMAIL'])
+def run_convert_to_fbx(mesh_file, save_path):
+    args = ['python', absolute_path('Avatar2FBX/export_fbx.py'), '--mesh_file', mesh_file, '--save_path', save_path, '--model_dir', absolute_path(settings.settings["SMPL_MODEL_DIR"])]
+    run = subprocess.Popen(args)
+    # save run.pid to log file
+    logger.info(Messages.CONVERT_TO_FBX_SUBPROCESS_INFO.format(run.pid))
+
 
 @request_processed_info(settings.settings['USER_EMAIL'])
 def run_all(run_args):

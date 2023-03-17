@@ -3,10 +3,10 @@ import streamlit as st
 import time
 
 from website.config import Config
-from website.website_utils import spinner, request_processed_info
-from website.logic import convert_to_FBX
+from website.logic_runner import run_convert_to_fbx
 from website.messages import Messages
 from website.settings import Settings
+from website.website_utils import absolute_path
 
 settings = Settings()
 st.set_page_config(layout="wide",
@@ -15,19 +15,7 @@ st.set_page_config(layout="wide",
                    )
 
 
-@request_processed_info(settings.settings['USER_EMAIL'])
-def decorated_convert_to_FBX():
-    convert_to_FBX()
-
-
-def generate_coarse_shape(shape_description):
-    with st.spinner(text="Converting to FBX, this may take a while..."):  # TODO move to config/messages + logging
-        for i in range(10):
-            time.sleep(1)
-        st.success("Done!")  # TODO move to config/messages + logging
-
-
-avatar_output_folder = os.path.join(settings.settings['OUTPUT_DIR'], settings.settings['GENERATED_AVATAR_OUTPUT_DIR'])
+avatar_output_folder = absolute_path(os.path.join(settings.settings['OUTPUT_DIR'], settings.settings['GENERATED_AVATAR_OUTPUT_DIR']))
 if os.path.exists(avatar_output_folder):
     generated_avatars_dirs = os.listdir(avatar_output_folder)
     relevant_avatars_dirs = []
@@ -50,17 +38,21 @@ if os.path.exists(avatar_output_folder):
             if submit:
                 avatar_dir_path = os.path.join(avatar_output_folder, selected_avatar)
                 texture_folder = os.path.join(avatar_dir_path, settings.settings['GENERATED_AVATAR_TEXTURE_OUTPUT_DIR'])
+
+                meshes_folder = os.path.join(texture_folder, "meshes")
+                mesh_file = os.path.join(meshes_folder, sorted(os.listdir(meshes_folder))[-1])
+
                 if os.path.exists(fbx_file):
                     if overwrite == Messages.OVERWRITE_SELECTION:
                         st.warning(Messages.OVERWRITE_NOTICE.format(fbx_file))
                         # call generate_coarse_shape function here
-                        decorated_convert_to_FBX(texture_folder)
+                        run_convert_to_fbx(mesh_file, fbx_file)
                     else:
                         st.warning(Messages.ALREADY_EXISTS.format(fbx_file))
                         st.info(Messages.CONVERT_TO_FBX_RETRY_MESSAGE.format(selected_avatar))
 
                 else:
                     # call generate_coarse_shape function here
-                    decorated_convert_to_FBX(texture_folder)
+                    run_convert_to_fbx(mesh_file, fbx_file)
 else:
     st.info(Messages.FOLDER_DOES_NOT_EXIST.format(avatar_output_folder))

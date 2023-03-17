@@ -114,6 +114,7 @@ class Messages:
     INITIALIZE_IMPLICIT_AVATAR_SUBPROCESS_INFO = "Running 'initialize_implicit_avatar' in a subprocess, PID: {}"
     GENERATE_TEXTURES_SUBPROCESS_INFO = "Running 'generate_textures' in a subprocess, PID: {}"
     RUN_ALL_SUBPROCESS_INFO = "Running 'run_from_file' in a subprocess, PID: {}"
+    CONVERT_TO_FBX_SUBPROCESS_INFO = "Running 'convert_to_fbx' in a subprocess, PID: {}"
 
     ## generate_coarse_shape
     GENERATE_NEW_COARSE_SHAPE_INFO = "Start generating coarse body shape given the target text: {}"
@@ -128,7 +129,9 @@ class Messages:
     INITIALIZE_IMPLICIT_AVATAR_SUCCESS = "Implicit avatar initialized and saved according to the config file"
 
     ## generate_textures
-    GENERATE_TEXTURES_INFO = "Start generating textures for the given coarse shape: {}"
+    GENERATE_TEXTURES_INFO = "Start generating textures for the given avatar: {}"
     GENERATE_TEXTURES_SUCCESS = "Textures generated and saved according to the config file"
 
-    
+    ## convert to fbx
+    CONVERT_TO_FBX_INFO = "Start converting textures to FBX for the given avatar: {}"
+    CONVERT_TO_FBX_SUCCESS = "Textures converted to FBX and saved to {}"
