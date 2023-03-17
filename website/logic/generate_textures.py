@@ -22,7 +22,7 @@ def run(texture_prompt, config_path, coarse_body_dir, is_continue=False):
 
     from AvatarGen.AppearanceGen.main import Runner
 
-    output_folder = os.path.join(absolute_path(settings.settings['OUTPUT_DIR']), settings.settings['GENERATED_AVATAR_OUTPUT_DIR'], texture_prompt)
+    output_folder = os.path.join(absolute_path(settings.settings['OUTPUT_DIR']), settings.settings['GENERATED_AVATAR_OUTPUT_DIR'], texture_prompt, settings.settings["GENERATED_AVATAR_TEXTURE_OUTPUT_DIR"])
 
     new_config_path = os.path.join(output_folder, 'config.conf')
 
