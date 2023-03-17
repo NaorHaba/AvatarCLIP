@@ -6,6 +6,7 @@ from website.config import Config
 from website.logic_runner import run_generate_textures
 from website.messages import Messages
 from website.settings import Settings
+from website.website_utils import absolute_path
 
 
 settings = Settings()
@@ -35,7 +36,7 @@ if os.path.exists(coarse_output_folder):
             if_exists_instruction = st.radio(Messages.IF_EXISTS_INSTRUCTION, options=(Messages.CONTINUE_SELECTION, Messages.OVERWRITE_SELECTION), key="if_exists_instruction")
             choose_config = st.radio(Messages.CHOOSE_CONFIG, options=(Messages.LARGE_CONFIG, Messages.SMALL_CONFIG), key="choose_config")
             submit = st.form_submit_button(Messages.GENERATE_TEXTURES_FORM_SUBMIT_BUTTON)
-            avatar_output_folder = os.path.join(settings.settings['OUTPUT_DIR'], settings.settings['GENERATED_AVATAR_OUTPUT_DIR'])
+            avatar_output_folder = absolute_path(os.path.join(settings.settings['OUTPUT_DIR'], settings.settings['GENERATED_AVATAR_OUTPUT_DIR']))
             if submit:                
                 if choose_config == Messages.LARGE_CONFIG:
                     implicit_config = settings.settings['LARGE_AVATAR_TEXTURE_CONFIG']
