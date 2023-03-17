@@ -2,10 +2,11 @@ import logging
 import os
 import sys
 
-from website.settings import settings
+from website.settings import Settings
 from website.website_utils import absolute_path
 
 
+settings = Settings()
 def get_logger(name=__name__):
     logger = logging.getLogger(name)
     logger.setLevel(logging.DEBUG)

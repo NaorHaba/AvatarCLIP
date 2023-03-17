@@ -8,9 +8,10 @@ from pyhocon import ConfigFactory, HOCONConverter
 
 from website.logger import get_logger
 from website.messages import Messages
-from website.settings import settings
+from website.settings import Settings
 from website.website_utils import absolute_path, send_email
 
+settings = Settings()
 
 def run(texture_prompt, config_path, coarse_body_dir, is_continue=False):
 

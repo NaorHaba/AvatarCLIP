@@ -9,9 +9,10 @@ import argparse
 from website.config import Config
 from website.logger import get_logger
 from website.messages import Messages
-from website.settings import settings, POSE_TYPE
+from website.settings import Settings, POSE_TYPE
 from website.website_utils import absolute_path
 
+settings = Settings()
 
 def run(obj_output_fname):
     sys.path.append('AvatarGen/ShapeGen')

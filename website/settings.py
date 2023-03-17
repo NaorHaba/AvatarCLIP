@@ -28,10 +28,3 @@ class Settings:
     def save_settings(self):
         with open(Config.SETTING_YAML_PATH, "w") as f:
             yaml.dump(self.settings, f)
-
-
-settings = Settings()
-
-
-# TODO log the settings
-# TODO when updating the settings, log the changes

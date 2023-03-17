@@ -5,9 +5,9 @@ from website.config import Config
 from website.logic_runner import run_render_coarse_shape
 from website.website_utils import absolute_path
 from website.messages import Messages
-from website.settings import settings
+from website.settings import Settings
 
-
+settings = Settings()
 st.set_page_config(layout="wide",
                    page_title=Messages.RENDER_COARSE_SHAPE_PAGE_TITLE,
                    page_icon=Config.WEBSITE_ICON_PATH

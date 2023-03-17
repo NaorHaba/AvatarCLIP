@@ -6,9 +6,9 @@ from website.config import Config
 from website.logic_runner import run_initialize_implicit_avatar
 from website.website_utils import spinner, request_processed_info, absolute_path
 from website.messages import Messages
-from website.settings import settings
+from website.settings import Settings
 
-
+settings = Settings()
 st.set_page_config(layout="wide",
                    page_title=Messages.INITIALIZE_IMPLICIT_AVATAR_PAGE_TITLE,
                    page_icon=Config.WEBSITE_ICON_PATH

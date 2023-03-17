@@ -3,9 +3,10 @@ import streamlit as st
 
 from website.config import Config
 from website.messages import Messages
-from website.settings import settings
+from website.settings import Settings
 from website.website_utils import spinner
 
+settings = Settings()
 st.set_page_config(layout="wide",
                    page_title=Messages.SETTINGS_PAGE_TITLE,
                    page_icon=Config.WEBSITE_ICON_PATH
@@ -60,6 +61,7 @@ with placeholder.form(key="settings_form", clear_on_submit=False):
 
     if submit:
         new_settings["POSE_TYPE"] = "stand_pose" if pose_type == "Stand Pose" else "t_pose"
+        settings.settings = new_settings
         settings.save_settings()
         st.success(Messages.SETTINGS_SAVED_SUCCESSFULLY)
 

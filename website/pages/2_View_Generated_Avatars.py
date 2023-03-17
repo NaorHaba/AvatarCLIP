@@ -3,9 +3,10 @@ import streamlit as st
 
 from website.config import Config
 from website.messages import Messages
-from website.settings import settings
+from website.settings import Settings
 from website.website_utils import render_status, absolute_path
 
+settings = Settings()
 st.set_page_config(layout="wide",
                    page_title=Messages.VIEW_GENERATED_AVATARS_PAGE_TITLE,
                    page_icon=Config.WEBSITE_ICON_PATH

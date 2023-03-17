@@ -6,9 +6,10 @@ import time
 from website.config import Config
 from website.logger import get_logger
 from website.messages import Messages
-from website.settings import settings
+from website.settings import Settings
 from website.website_utils import absolute_path
 
+settings = Settings()
 
 def run(coarse_shape_prompt: str):
     sys.path.append('AvatarGen/ShapeGen')

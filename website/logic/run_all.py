@@ -8,13 +8,16 @@ from pyhocon import ConfigFactory, HOCONConverter
 
 from website.logger import get_logger
 from website.messages import Messages
-from website.settings import settings
+from website.settings import Settings
 from website.website_utils import send_email, absolute_path
 
 from website.logic.generate_coarse_shape import run as generate_coarse_shape
 from website.logic.render_coarse_shape import run as render_coarse_shape
 from website.logic.initialize_implicit_avatar import run as initialize_implicit_avatar
 from website.logic.generate_textures import run as generate_textures
+
+
+settings = Settings()
 
 def run(coarse_shape_prompt, texture_description_prompt, should_continue, should_overwrite, config_type):
     generate_coarse_shape(coarse_shape_prompt)

@@ -5,9 +5,10 @@ from logic.generate_coarse_shape import run as generate_coarse_shape
 from logic.render_coarse_shape import run as render_coarse_shape
 from website.logger import get_logger
 from website.messages import Messages
-from website.settings import settings
+from website.settings import Settings
 from website.website_utils import spinner, request_processed_info, absolute_path
 
+settings = Settings()
 logger = get_logger(__name__)
 
 

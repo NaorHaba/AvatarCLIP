@@ -93,9 +93,7 @@ To enable the textures to be displayed correctly in Unity, we had to select the 
 
 The Scene from above:<br>
 ![All Scene](https://github.com/NaorHaba/AvatarCLIP/blob/main/demo/All%20Scene%20View.gif)
-<!-- <img src="https://media2.giphy.com/media/ywnQwSYTuydqOz4cQW/giphy.gif" width="480" height="312" /> -->
 Gameplay View:<br>
-<!-- <img src="https://media2.giphy.com/media/BnaabrK8mtbDMnuKkC/giphy.gif" width="480" height="312" /> -->
 ![Gameplay View](https://github.com/NaorHaba/AvatarCLIP/blob/main/demo/Gameplay%20View.gif)
 
 ## Conclusion

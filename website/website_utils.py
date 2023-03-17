@@ -7,7 +7,6 @@ import smtplib
 
 from website.config import Config
 from website.messages import Messages
-from website.settings import settings
 
 
 def render_status(text, path):

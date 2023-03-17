@@ -4,9 +4,9 @@ import yaml
 from website.logic_runner import run_all
 from website.config import Config
 from website.messages import Messages
-from website.settings import settings
+from website.settings import Settings
 
-
+settings = Settings()
 st.set_page_config(layout="wide",
                    page_title=Messages.RUN_FROM_FILE_PAGE_TITLE,
                    page_icon=Config.WEBSITE_ICON_PATH
