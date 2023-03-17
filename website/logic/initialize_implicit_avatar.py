@@ -26,7 +26,6 @@ def run(config_path, coarse_body_dir, is_continue=False):
     render_folder = os.path.join(coarse_body_dir, settings.settings['COARSE_SHAPE_RENDERING_OUTPUT_DIR'])
 
     new_config_path = os.path.join(output_folder, 'config.conf')
-    logger.info(f"@@@@@@@@@@@ {is_continue} @@@@@@@@@@@@@@@@@@")
     if not is_continue:
         # read config, change relevant parameters, and save to new config
 
