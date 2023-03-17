@@ -33,7 +33,10 @@ def run_initialize_implicit_avatar(implicit_config, path_to_render, is_continue)
 
 @request_processed_info(settings.settings['USER_EMAIL'])
 def run_generate_textures(texture_prompt, config_path, coarse_body_dir, is_continue):
-    run = subprocess.Popen(['python', absolute_path('website/logic/generate_textures.py'), texture_prompt, config_path, coarse_body_dir, str(is_continue), settings.settings['CURRENT_LOG_DIR']])
+    args = ['python', absolute_path('website/logic/generate_textures.py'), '--texture_prompt', texture_prompt, '--config_path', config_path, '--coarse_body_dir', coarse_body_dir, '--log_dir', settings.settings['CURRENT_LOG_DIR']]
+    if is_continue:
+        args.append('--is_continue')
+    run = subprocess.Popen(args)
     # save run.pid to log file
     logger.info(Messages.GENERATE_TEXTURES_SUBPROCESS_INFO.format(run.pid))
 
