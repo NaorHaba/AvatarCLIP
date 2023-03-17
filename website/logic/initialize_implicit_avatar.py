@@ -12,6 +12,8 @@ from website.settings import Settings
 from website.website_utils import send_email
 
 settings = Settings()
+logger = get_logger(__name__)
+
 
 def run(config_path, coarse_body_dir, is_continue=False):
 
@@ -58,8 +60,6 @@ if __name__ == '__main__':
 
     settings.settings['CURRENT_LOG_DIR'] = args.log_dir
     settings.settings['LOG_FILE_NAME'] = args.log_file_name
-
-    logger = get_logger(__name__)
 
     if torch.cuda.is_available():
         torch.set_default_tensor_type('torch.cuda.FloatTensor')

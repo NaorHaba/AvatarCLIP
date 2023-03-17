@@ -18,6 +18,8 @@ from website.logic.generate_textures import run as generate_textures
 
 
 settings = Settings()
+logger = get_logger(__name__)
+
 
 def run(coarse_shape_prompt, texture_description_prompt, should_continue, should_overwrite, config_type):
     generate_coarse_shape(coarse_shape_prompt)
@@ -64,8 +66,6 @@ if __name__ == '__main__':
 
     settings.settings['CURRENT_LOG_DIR'] = args.log_dir
     settings.settings['LOG_FILE_NAME'] = args.log_file_name
-
-    logger = get_logger(__name__)
 
     if torch.cuda.is_available():
         torch.set_default_tensor_type('torch.cuda.FloatTensor')
