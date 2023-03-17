@@ -89,12 +89,12 @@ if __name__ == '__main__':
         torch.set_default_tensor_type('torch.cuda.FloatTensor')
         logger.info(Messages.CUDA_DEFAULT_TENSOR_TYPE_INFO)
 
-    logger.info(Messages.GENERATE_TEXTURES_START_INFO.format(args.texture_prompt, args.coarse_body_dir))
+    logger.info(Messages.GENERATE_TEXTURES_INFO.format(args.texture_prompt, args.coarse_body_dir))
     try:
         run(args.texture_prompt, args.config_path, args.coarse_body_dir, args.is_continue)
-        if settings.settings.USER_EMAIL is not None:
-            send_email(settings.settings.USER_EMAIL, Messages.SUCCESS_EMAIL_BODY.format('initialize_implicit_avatar'), Messages.SUCCESS_EMAIL_BODY.format('initialize_implicit_avatar'))
+        if settings.settings['USER_EMAIL'] is not None:
+            send_email(settings.settings['USER_EMAIL'], Messages.SUCCESS_EMAIL_BODY.format('initialize_implicit_avatar'), Messages.SUCCESS_EMAIL_BODY.format('initialize_implicit_avatar'))
     except Exception as e:
         logger.exception(e)
-        if settings.settings.USER_EMAIL is not None:
-            send_email(settings.settings.USER_EMAIL, Messages.FAILURE_EMAIL_BODY.format('initialize_implicit_avatar'), Messages.FAILURE_EMAIL_BODY.format('initialize_implicit_avatar', str(e)))
+        if settings.settings['USER_EMAIL'] is not None:
+            send_email(settings.settings['USER_EMAIL'], Messages.FAILURE_EMAIL_BODY.format('initialize_implicit_avatar'), Messages.FAILURE_EMAIL_BODY.format('initialize_implicit_avatar', str(e)))
