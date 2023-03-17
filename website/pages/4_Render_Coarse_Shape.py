@@ -30,24 +30,20 @@ if os.path.exists(coarse_output_folder):
         placeholder = st.empty()
         with placeholder.form(key="render_coarse_shape_form", clear_on_submit=False):
             selected_shape = st.selectbox(Messages.RENDER_COARSE_SHAPE_SELECT_SHAPE, relevant_shapes_dirs, key="selected_shape")
-            if_exists_instruction = st.radio(Messages.IF_EXISTS_INSTRUCTION, options=(Messages.CONTINUE_SELECTION, Messages.OVERWRITE_SELECTION), key="if_exists_instruction")
+            overwrite = st.checkbox(Messages.OVERWRITE_SELECTION, key="overwrite")
             submit = st.form_submit_button(Messages.RENDER_COARSE_SHAPE_FORM_SUBMIT_BUTTON)
             render_folder = os.path.join(selected_shape, settings.settings['COARSE_SHAPE_RENDERING_OUTPUT_DIR'])
             obj_file = os.path.join(selected_shape, settings.settings['COARSE_SHAPE_OBJ_OUTPUT_NAME'])
             path_to_obj = os.path.join(coarse_output_folder, obj_file)
-            print(coarse_output_folder)
-            print(render_folder)
-            print(obj_file)
-            print(path_to_obj)
             if submit:
                 if os.path.exists(render_folder):
-                    if if_exists_instruction == Messages.OVERWRITE_SELECTION:
+                    if overwrite == Messages.OVERWRITE_SELECTION:
                         st.warning(Messages.OVERWRITE_NOTICE.format(render_folder))
                         # call generate_coarse_shape function here
                         run_render_coarse_shape(path_to_obj)
                     else:
-                        st.info(Messages.CONTINUE_NOTICE.format(selected_shape))
-                        run_render_coarse_shape(path_to_obj)
+                        st.warning(Messages.ALREADY_EXISTS.format(selected_shape))
+                        st.info(Messages.RENDER_COARSE_SHAPE_RETRY_MESSAGE.format(selected_shape))
                 else:
                     # call generate_coarse_shape function here
                     run_render_coarse_shape(path_to_obj)

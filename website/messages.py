@@ -55,6 +55,7 @@ class Messages:
     ### Render Coarse Shape
     RENDER_COARSE_SHAPE_SELECT_SHAPE = "Select a shape to render"
     RENDER_COARSE_SHAPE_FORM_SUBMIT_BUTTON = "Render Coarse Shape"
+    RENDER_COARSE_SHAPE_RETRY_MESSAGE = "Please choose a different shape or check the overwrite checkbox"
     RENDER_COARSE_SHAPE_SPINNER_MESSAGE = "Rendering coarse shape, please wait..."
 
     ### Initialize Implicit Avatar
