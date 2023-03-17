@@ -16,7 +16,7 @@ st.set_page_config(layout="wide",
                    )
 
 
-coarse_output_folder = os.path.join(settings.settings['OUTPUT_DIR'], settings.settings['COARSE_SHAPE_OUTPUT_DIR'])
+coarse_output_folder = absolute_path(os.path.join(settings.settings['OUTPUT_DIR'], settings.settings['COARSE_SHAPE_OUTPUT_DIR']))
 if os.path.exists(coarse_output_folder):
     generated_shapes_dirs = os.listdir(coarse_output_folder)
     relevant_shapes_dirs = []
