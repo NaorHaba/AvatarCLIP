@@ -72,11 +72,6 @@ ln -s /home/your_username/miniconda3/envs/AvatarCLIP/bin/x86_64-conda_cos6-linux
 ln -s /home/your_username/miniconda3/envs/AvatarCLIP/bin/x86_64-conda_cos6-linux-gnu-g++ g++
 ```
 
-
-cd /home/eitan.g/miniconda3/envs/AvatarCLIP/bin
-ln -s /home/eitan.g/miniconda3/envs/AvatarCLIP/bin/x86_64-conda_cos6-linux-gnu-gcc gcc
-ln -s /home/eitan.g/miniconda3/envs/AvatarCLIP/bin/x86_64-conda_cos6-linux-gnu-g++ g++
-
 To verify that the new versions of GCC and G++ are installed, first deactivate the conda environment and then reactivate it:
 
 ```bash
@@ -122,7 +117,7 @@ conda install pytorch==1.7.0 torchvision==0.8.0 torchaudio==0.7.0 cudatoolkit=10
 Next, clone the project repository:
 
 ```bash
-git clone https://github.com/hongfz16/AvatarCLIP.git
+git clone https://github.com/NaorHaba/AvatarCLIP.git
 cd AvatarCLIP
 ```
 
