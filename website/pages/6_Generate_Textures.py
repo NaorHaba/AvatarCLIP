@@ -50,11 +50,11 @@ if os.path.exists(coarse_output_folder):
                 if os.path.exists(texture_folder):
                     if if_exists_instruction == Messages.OVERWRITE_SELECTION:
                         st.warning(Messages.OVERWRITE_NOTICE.format(texture_folder))
-                        run_generate_textures(texture_description, implicit_config, selected_shape_dir, False)
+                        run_generate_textures(texture_description, implicit_config, selected_shape_dir, selected_avatar, False)
                     else:
                         st.info(Messages.CONTINUE_NOTICE.format(texture_folder))
-                        run_generate_textures(texture_description, implicit_config, selected_shape_dir, True)
+                        run_generate_textures(texture_description, implicit_config, selected_shape_dir, selected_avatar, True)
                 else:
-                    run_generate_textures(texture_description, implicit_config, selected_shape_dir, False)
+                    run_generate_textures(texture_description, implicit_config, selected_shape_dir, selected_avatar, False)
 else:
     st.info(Messages.FOLDER_DOES_NOT_EXIST.format(coarse_output_folder))

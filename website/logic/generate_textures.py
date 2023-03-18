@@ -16,13 +16,13 @@ from website.website_utils import absolute_path, send_email
 settings = Settings()
 logger = get_logger(__name__)
 
-def run(texture_prompt, config_path, coarse_body_dir, is_continue=False):
+def run(texture_prompt, config_path, coarse_body_dir, avatar_name, is_continue=False):
 
     sys.path.append('AvatarGen/AppearanceGen')
 
     from AvatarGen.AppearanceGen.main import Runner
 
-    output_folder = os.path.join(absolute_path(settings.settings['OUTPUT_DIR']), settings.settings['GENERATED_AVATAR_OUTPUT_DIR'], texture_prompt, settings.settings["GENERATED_AVATAR_TEXTURE_OUTPUT_DIR"])
+    output_folder = os.path.join(absolute_path(settings.settings['OUTPUT_DIR']), settings.settings['GENERATED_AVATAR_OUTPUT_DIR'], avatar_name, settings.settings["GENERATED_AVATAR_TEXTURE_OUTPUT_DIR"])
 
     new_config_path = os.path.join(output_folder, 'config.conf')
 
@@ -77,6 +77,7 @@ if __name__ == '__main__':
     parser.add_argument('--texture_prompt', type=str, required=True)
     parser.add_argument('--config_path', type=str, required=True)
     parser.add_argument('--coarse_body_dir', type=str, required=True)
+    parser.add_argument('--avatar_name', type=str, required=True)
     parser.add_argument('--is_continue', action='store_true')
     parser.add_argument('--log_dir', type=str, default=time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime()))
     parser.add_argument('--log_file_name', type=str, default='generate_textures.log')
@@ -91,7 +92,7 @@ if __name__ == '__main__':
 
     logger.info(Messages.GENERATE_TEXTURES_INFO.format(args.texture_prompt, args.coarse_body_dir))
     try:
-        run(args.texture_prompt, args.config_path, args.coarse_body_dir, args.is_continue)
+        run(args.texture_prompt, args.config_path, args.coarse_body_dir, args.avatar_name, args.is_continue)
         if settings.settings['USER_EMAIL'] is not None:
             send_email(settings.settings['USER_EMAIL'], Messages.SUCCESS_EMAIL_BODY.format('initialize_implicit_avatar'), Messages.SUCCESS_EMAIL_BODY.format('initialize_implicit_avatar'))
     except Exception as e:
