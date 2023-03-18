@@ -51,6 +51,11 @@ def run_convert_to_fbx(mesh_file, save_path):
 @request_processed_info(settings.settings['USER_EMAIL'])
 def run_all(run_args):
     for avatar in run_args.values():
-        run = subprocess.Popen(['python', absolute_path('website/logic/run_all.py'), avatar['coarse_shape_prompt'], avatar['texture_description_prompt'], str(avatar['should_continue']), str(avatar['should_overwrite']), avatar['config_type'], settings.settings['CURRENT_LOG_DIR'], settings.settings['LOG_FILE_NAME']])
+        args = ['python', absolute_path('website/logic/run_all.py'), '--coarse_shape_prompt', avatar['coarse_shape_prompt'], '--texture_description_prompt', avatar['texture_description_prompt'], '--config_type', avatar['config_type'], '--log_dir', settings.settings['CURRENT_LOG_DIR'], '--log_file_name', settings.settings['LOG_FILE_NAME']]
+        if avatar['should_continue']:
+            args.append('--should_continue')
+        if avatar['should_overwrite']:
+            args.append('--should_overwrite')
+        run = subprocess.Popen(args)
         # save run.pid to log file
         logger.info(Messages.RUN_ALL_SUBPROCESS_INFO.format(run.pid))
