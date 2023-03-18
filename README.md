@@ -14,7 +14,7 @@ We highly recommend you to read the original README file for more information ab
 
 ## Installation
 
-In the following section we will explain how to install the project on your local machine. 
+In the following section we will explain how to install the project on your machine. 
 We will assume that you are using a Linux machine, but the installation should be similar on other operating systems.
 
 As some dependencies of the project require configuring system related resources (which are not python packages), 
@@ -190,17 +190,34 @@ y[z<=0] = 0
 z[z<=0] = 0
 ```
 
-finally, to convert the created avatars to a format that can be used in Unity ('fbx' format), we need to install packages 
-according to the instructions in the original project (steps 1-3):
-https://github.com/hongfz16/AvatarCLIP/tree/main/Avatar2FBX
+finally, we will install the required packages for the "convert to fbx" part of the project according to the [instructions](https://github.com/hongfz16/AvatarCLIP/tree/main/Avatar2FBX) in the original project:
+  
+First, install the following packages:  
+```bash
+pip install 'smplx[all]'
+pip install chumpy
+```
 
+Then, follow step 2 and 3 exactly as in the instructions in the original project:
 
+2. Install Python FBX SDK
+* Download FBX Python SDK from https://www.autodesk.com/developer-network/platform-technologies/fbx-sdk-2020-3
+* Unzip the downloaded file and follow the instructions in Install_FbxSdk.txt
+
+3. Edit paths
+Edit the following paths according to your environment:
+* In export_fbx.py and fbx_utils.py:  
+```python
+sys.path.append('/path/to/fbxsdk/FBX202031_FBXPYTHONSDK_LINUX/lib/Python37_x64')
+```
 
 ## Data Preparation
 
-For this section, start by following the instructions in the original project.
+For this section, follow the exact instructions in the original project in the [Data Preparation Section](https://github.com/hongfz16/AvatarCLIP#data-preparation),
+subsections [Download SMPL Models](https://github.com/hongfz16/AvatarCLIP#download-smpl-models) 
+and first part of [Download Pretrained Models & Other Data](https://github.com/hongfz16/AvatarCLIP#download-pretrained-models--other-data)
+(the part that is related to the avatar generation process).
 
-Then, .... TODO
 
 ## Running the Code
 
@@ -234,7 +251,7 @@ In this section, the user can view the generated coarse shapes so far.
 For each generated coarse shape we are specifying for each part of the coarse shape generation its status (done/not done): <BR>
 1. "OBJ file"
 2. "Render folder"
-3. "implicit folder"
+3. "Implicit checkpoints folder"
 
 ### View Generated Avatars
 In this section, the user can view the generated avatars so far.
@@ -263,9 +280,6 @@ The small model is faster to train and requires less resources, but the results 
 This step can take a long time so we are running it in the background and send the user an email (if he provided his email) when it is done.
 Please make sure that the machine will not be shut down before the process is done.
 If the process dies for some reason, the user can run it again and continue from where it stopped. <BR>
-
-NOTICE! <BR> 
-This step is not necessary for the user to run, but it is recommended to run it. If the user chooses so, he can use a default model instead. <BR>
 
 ### Generate Texture
 In this section, the user can generate the texture of the avatar that was generated in the previous section. <BR>
@@ -298,7 +312,7 @@ Example is provided in the website itself. <BR>
 ## Running the Code - Advanced
 We provide a simple yet useful interface to run the process of avatar generation. 
 However, this interface is limited in some ways that some users might want to overcome. <BR>
-For a more advanced usage, a user can refer to the original project, and follow the instructions there. <BR>
+For a more advanced usage, users can refer to the original project, and follow the instructions there. <BR>
 https://github.com/hongfz16/AvatarCLIP
 
 
