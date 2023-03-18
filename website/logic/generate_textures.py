@@ -94,8 +94,8 @@ if __name__ == '__main__':
     try:
         run(args.texture_prompt, args.config_path, args.coarse_body_dir, args.avatar_name, args.is_continue)
         if settings.settings['USER_EMAIL'] is not None:
-            send_email(settings.settings['USER_EMAIL'], Messages.SUCCESS_EMAIL_BODY.format('initialize_implicit_avatar'), Messages.SUCCESS_EMAIL_BODY.format('initialize_implicit_avatar'))
+            send_email(settings.settings['USER_EMAIL'], Messages.SUCCESS_EMAIL_BODY.format('generate_textures'), Messages.SUCCESS_EMAIL_BODY.format('generate_textures'))
     except Exception as e:
         logger.exception(e)
         if settings.settings['USER_EMAIL'] is not None:
-            send_email(settings.settings['USER_EMAIL'], Messages.FAILURE_EMAIL_BODY.format('initialize_implicit_avatar'), Messages.FAILURE_EMAIL_BODY.format('initialize_implicit_avatar', str(e)))
+            send_email(settings.settings['USER_EMAIL'], Messages.FAILURE_EMAIL_BODY.format('generate_textures'), Messages.FAILURE_EMAIL_BODY.format('generate_textures', str(e)))

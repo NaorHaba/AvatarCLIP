@@ -72,7 +72,7 @@ if __name__ == '__main__':
     parser.add_argument('--should_continue', action='store_true')
     parser.add_argument('--should_overwrite', action='store_true')
     parser.add_argument('--log_dir', type=str, default=time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime()))
-    parser.add_argument('--log_file_name', type=str, default='initialize_implicit_avatar.log')
+    parser.add_argument('--log_file_name', type=str, default='run_all.log')
     args = parser.parse_args()
 
     settings.settings['CURRENT_LOG_DIR'] = args.log_dir
@@ -86,8 +86,8 @@ if __name__ == '__main__':
         run(args.coarse_shape_prompt, args.texture_description_prompt, args.should_continue, args.should_overwrite, args.config_type)
         
         if settings.settings.USER_EMAIL is not None:
-            send_email(settings.settings.USER_EMAIL, Messages.SUCCESS_EMAIL_BODY.format('initialize_implicit_avatar'), Messages.SUCCESS_EMAIL_BODY.format('initialize_implicit_avatar'))
+            send_email(settings.settings.USER_EMAIL, Messages.SUCCESS_EMAIL_BODY.format(f'run_all_{args.texture_description_prompt}'), Messages.SUCCESS_EMAIL_BODY.format(f'run_all_{args.texture_description_prompt}'))
     except Exception as e:
         logger.exception(e)
         if settings.settings.USER_EMAIL is not None:
-            send_email(settings.settings.USER_EMAIL, Messages.FAILURE_EMAIL_BODY.format('initialize_implicit_avatar'), Messages.FAILURE_EMAIL_BODY.format('initialize_implicit_avatar', str(e)))
+            send_email(settings.settings.USER_EMAIL, Messages.FAILURE_EMAIL_BODY.format(f'run_all_{args.texture_description_prompt}'), Messages.FAILURE_EMAIL_BODY.format(f'run_all_{args.texture_description_prompt}', str(e)))
