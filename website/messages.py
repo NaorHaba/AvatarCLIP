@@ -135,3 +135,4 @@ class Messages:
     ## convert to fbx
     CONVERT_TO_FBX_INFO = "Start converting textures to FBX for the given avatar: {}"
     CONVERT_TO_FBX_SUCCESS = "Textures converted to FBX and saved to {}"
+    CONVERT_TO_FBX_MESH_FILE = "Mesh file: {}"

@@ -44,6 +44,7 @@ if os.path.exists(avatar_output_folder):
                 if os.path.exists(fbx_file):
                     if overwrite:
                         st.warning(Messages.OVERWRITE_NOTICE.format(fbx_file))
+                        st.info(Messages.CONVERT_TO_FBX_MESH_FILE.format(mesh_file))
                         # call generate_coarse_shape function here
                         run_convert_to_fbx(mesh_file, fbx_file)
                     else:
@@ -52,6 +53,7 @@ if os.path.exists(avatar_output_folder):
 
                 else:
                     # call generate_coarse_shape function here
+                    st.info(Messages.CONVERT_TO_FBX_MESH_FILE.format(mesh_file))
                     run_convert_to_fbx(mesh_file, fbx_file)
 else:
     st.info(Messages.FOLDER_DOES_NOT_EXIST.format(avatar_output_folder))
