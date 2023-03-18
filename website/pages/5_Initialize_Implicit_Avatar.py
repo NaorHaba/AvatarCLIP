@@ -34,7 +34,7 @@ if os.path.exists(coarse_output_folder):
             if_exists_instruction = st.radio(Messages.IF_EXISTS_INSTRUCTION, options=(Messages.CONTINUE_SELECTION, Messages.OVERWRITE_SELECTION), key="if_exists_instruction")
             choose_config = st.radio(Messages.CHOOSE_CONFIG, options=(Messages.LARGE_CONFIG, Messages.SMALL_CONFIG), key="choose_config")
             submit = st.form_submit_button(Messages.INITIALIZE_IMPLICIT_AVATAR_FORM_SUBMIT_BUTTON)
-            implicit_folder = absolute_path(os.path.join(coarse_output_folder, selected_shape, settings.settings['IMPLICIT_AVATAR_OUTPUT_DIR']))
+            implicit_folder = absolute_path(os.path.join(coarse_output_folder, selected_shape, settings.settings['IMPLICIT_AVATAR_OUTPUT_DIR'], "checkpoints"))
             if submit:
                 if choose_config == Messages.LARGE_CONFIG:
                     implicit_config = settings.settings['LARGE_IMPLICIT_AVATAR_CONFIG']

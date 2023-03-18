@@ -23,7 +23,7 @@ if os.path.exists(avatar_output_folder):
         if selected_avatar:
             st.markdown(Messages.SELECTED_VIEW_ITEM_TITLE.format(selected_avatar))
             avatar_dir_path = absolute_path(os.path.join(avatar_output_folder, selected_avatar))
-            texture_folder = absolute_path(os.path.join(avatar_dir_path, settings.settings['GENERATED_AVATAR_TEXTURE_OUTPUT_DIR']))
+            texture_folder = absolute_path(os.path.join(avatar_dir_path, settings.settings['GENERATED_AVATAR_TEXTURE_OUTPUT_DIR'], "meshes"))
             fbx_file = absolute_path(os.path.join(avatar_dir_path, settings.settings['GENERATED_AVATAR_FBX_OUTPUT_NAME']))
             render_status(Messages.VIEW_GENERATED_AVATARS_TEXTURE_FOLDER_STATUS_TITLE, texture_folder)
             render_status(Messages.VIEW_GENERATED_AVATARS_FBX_FILE_STATUS_TITLE, fbx_file)

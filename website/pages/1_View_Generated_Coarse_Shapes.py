@@ -25,7 +25,7 @@ if os.path.exists(coarse_output_folder):
             shape_dir_path = absolute_path(os.path.join(coarse_output_folder, selected_shape))
             obj_file = absolute_path(os.path.join(shape_dir_path, settings.settings['COARSE_SHAPE_OBJ_OUTPUT_NAME']))
             render_folder = absolute_path(os.path.join(shape_dir_path, settings.settings['COARSE_SHAPE_RENDERING_OUTPUT_DIR']))
-            implicit_folder = absolute_path(os.path.join(shape_dir_path, settings.settings['IMPLICIT_AVATAR_OUTPUT_DIR']))
+            implicit_folder = absolute_path(os.path.join(shape_dir_path, settings.settings['IMPLICIT_AVATAR_OUTPUT_DIR'], "checkpoints"))
             render_status(Messages.VIEW_GENERATED_COARSE_SHAPES_OBJ_FILE_STATUS_TITLE, obj_file)
             render_status(Messages.VIEW_GENERATED_COARSE_SHAPES_RENDER_FOLDER_STATUS_TITLE, render_folder)
             render_status(Messages.VIEW_GENERATED_COARSE_SHAPES_IMPLICIT_FOLDER_STATUS_TITLE, implicit_folder)

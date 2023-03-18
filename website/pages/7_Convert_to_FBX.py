@@ -41,9 +41,8 @@ if os.path.exists(avatar_output_folder):
 
                 meshes_folder = os.path.join(texture_folder, "meshes")
                 mesh_file = os.path.join(meshes_folder, sorted(os.listdir(meshes_folder))[-1])
-
                 if os.path.exists(fbx_file):
-                    if overwrite == Messages.OVERWRITE_SELECTION:
+                    if overwrite:
                         st.warning(Messages.OVERWRITE_NOTICE.format(fbx_file))
                         # call generate_coarse_shape function here
                         run_convert_to_fbx(mesh_file, fbx_file)
