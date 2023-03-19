@@ -43,7 +43,7 @@ class Messages:
 
     ### View Generated Avatars
     VIEW_GENERATED_AVATARS_SELECT_AVATAR = "Select an avatar to view"
-    VIEW_GENERATED_AVATARS_TEXTURE_FOLDER_STATUS_TITLE = "Texture folder"
+    VIEW_GENERATED_AVATARS_TEXTURE_FOLDER_STATUS_TITLE = "Texture meshes folder"
     VIEW_GENERATED_AVATARS_FBX_FILE_STATUS_TITLE = "FBX file"
 
     ### Generate New Coarse Shape
