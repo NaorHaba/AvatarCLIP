@@ -73,4 +73,4 @@ if __name__ == '__main__':
     except Exception as e:
         logger.exception(e)
         if settings.settings['USER_EMAIL'] is not None:
-            send_email(settings.settings['USER_EMAIL'], Messages.FAILURE_EMAIL_BODY.format('initialize_implicit_avatar'), Messages.FAILURE_EMAIL_BODY.format('initialize_implicit_avatar', str(e)))
+            send_email(settings.settings['USER_EMAIL'], Messages.FAILURE_EMAIL_BODY.format('initialize_implicit_avatar', ''), Messages.FAILURE_EMAIL_BODY.format('initialize_implicit_avatar', str(e)))

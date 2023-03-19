@@ -124,10 +124,12 @@ def run(mesh_file, save_path, model_dir):
     if lResult == False:
         print(f"\n\nAn error occurred while saving the scene for: {smpl_object['name']}\n")
         lSdkManager.Destroy()
+        sys.exit(1)
         
 
     # Destroy all objects created by the FBX SDK
     lSdkManager.Destroy()
+    sys.exit(0)
 
 
 if __name__ == "__main__":
@@ -237,7 +239,9 @@ if __name__ == "__main__":
     if lResult == False:
         print(f"\n\nAn error occurred while saving the scene for: {smpl_object['name']}\n")
         lSdkManager.Destroy()
+        sys.exit(1)
         
 
     # Destroy all objects created by the FBX SDK
     lSdkManager.Destroy()
+    sys.exit(0)

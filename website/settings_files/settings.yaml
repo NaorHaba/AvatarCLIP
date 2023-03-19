@@ -21,5 +21,5 @@ SMALL_AVATAR_TEXTURE_CONFIG: AvatarGen/AppearanceGen/confs/general_confs/small_a
 SMALL_IMPLICIT_AVATAR_CONFIG: AvatarGen/AppearanceGen/confs/general_confs/small_implicit_avatar.conf
 SMPL_MODEL_DIR: smpl_models/
 STAND_POSE_PATH: AvatarGen/ShapeGen/stand_pose.npy
-USER_EMAIL: null
+USER_EMAIL: naorhabaxd@gmail.com
 VIRTUAL_AUTO_ENCODER_PATH: AvatarGen/ShapeGen/data/model_VAE_16.pth

@@ -22,7 +22,7 @@ if os.path.exists(coarse_output_folder):
     relevant_shapes_dirs = []
     for shape in generated_shapes_dirs:
         shape_dir_path = os.path.join(coarse_output_folder, shape)
-        implicit_folder = os.path.join(shape_dir_path, settings.settings['IMPLICIT_AVATAR_OUTPUT_DIR'])
+        implicit_folder = os.path.join(shape_dir_path, settings.settings['IMPLICIT_AVATAR_OUTPUT_DIR'], "checkpoints")
         if os.path.exists(implicit_folder):
             relevant_shapes_dirs.append(shape)
 
@@ -46,7 +46,7 @@ if os.path.exists(coarse_output_folder):
                 selected_shape_dir = os.path.join(coarse_output_folder, selected_shape)
                 selected_avatar = f"{texture_description} ({selected_shape})"
                 avatar_dir_path = os.path.join(avatar_output_folder, selected_avatar)
-                texture_folder = os.path.join(avatar_dir_path, settings.settings['GENERATED_AVATAR_TEXTURE_OUTPUT_DIR'], "meshes")
+                texture_folder = os.path.join(avatar_dir_path, settings.settings['GENERATED_AVATAR_TEXTURE_OUTPUT_DIR'], "checkpoints")
                 if os.path.exists(texture_folder):
                     if if_exists_instruction == Messages.OVERWRITE_SELECTION:
                         st.warning(Messages.OVERWRITE_NOTICE.format(texture_folder))

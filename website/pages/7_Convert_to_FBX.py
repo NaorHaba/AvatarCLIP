@@ -21,7 +21,7 @@ if os.path.exists(avatar_output_folder):
     relevant_avatars_dirs = []
     for avatar in generated_avatars_dirs:
         avatar_dir_path = os.path.join(avatar_output_folder, avatar)
-        texture_folder = os.path.join(avatar_dir_path, settings.settings['GENERATED_AVATAR_TEXTURE_OUTPUT_DIR'])
+        texture_folder = os.path.join(avatar_dir_path, settings.settings['GENERATED_AVATAR_TEXTURE_OUTPUT_DIR'], "meshes")
         if os.path.exists(texture_folder):
             relevant_avatars_dirs.append(avatar)
 

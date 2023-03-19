@@ -98,4 +98,4 @@ if __name__ == '__main__':
     except Exception as e:
         logger.exception(e)
         if settings.settings['USER_EMAIL'] is not None:
-            send_email(settings.settings['USER_EMAIL'], Messages.FAILURE_EMAIL_BODY.format('generate_textures'), Messages.FAILURE_EMAIL_BODY.format('generate_textures', str(e)))
+            send_email(settings.settings['USER_EMAIL'], Messages.FAILURE_EMAIL_BODY.format('generate_textures', ''), Messages.FAILURE_EMAIL_BODY.format('generate_textures', str(e)))

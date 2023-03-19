@@ -61,7 +61,7 @@ def send_email(recipient_email, subject, body):
     sender_email = Config.SENDER_EMAIL
     
     # Load the secrets file
-    with open('secrets.json') as f:
+    with open('website/secrets.json') as f:
         secrets = json.load(f)
 
     # Get the email password from the secrets file

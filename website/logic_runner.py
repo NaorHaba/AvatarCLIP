@@ -50,7 +50,7 @@ def run_convert_to_fbx(mesh_file, save_path):
 
 @request_processed_info(settings.settings['USER_EMAIL'])
 def run_all(run_args):
-    for avatar in run_args.values():
+    for avatar in run_args['run_args']:
         args = ['python', absolute_path('website/logic/run_all.py'), '--coarse_shape_prompt', avatar['coarse_shape_prompt'], '--texture_description_prompt', avatar['texture_description_prompt'], '--config_type', avatar['config_type'], '--log_dir', settings.settings['CURRENT_LOG_DIR'], '--log_file_name', settings.settings['LOG_FILE_NAME']]
         if avatar['should_continue']:
             args.append('--should_continue')
