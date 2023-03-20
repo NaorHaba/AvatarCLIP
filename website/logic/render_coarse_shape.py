@@ -1,5 +1,6 @@
 import os
 import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 import time
 
 import numpy as np
@@ -17,7 +18,6 @@ settings = Settings()
 logger = get_logger(__name__)
 
 def run(obj_output_fname):
-    sys.path.append('AvatarGen/ShapeGen')
 
     from AvatarGen.ShapeGen.render import render_coarse_shape
     from AvatarGen.ShapeGen.utils import readOBJ
@@ -47,8 +47,6 @@ def run(obj_output_fname):
     logger.info(Messages.RENDER_COARSE_SHAPE_INFO.format(obj_output_fname))
     render_coarse_shape(pose, v_shaped, smpl_args, render_output_folder)
     logger.info(Messages.RENDER_COARSE_SHAPE_SUCCESS.format(render_output_folder))
-
-    sys.path.remove('AvatarGen/ShapeGen')
 
 
 if __name__ == '__main__':

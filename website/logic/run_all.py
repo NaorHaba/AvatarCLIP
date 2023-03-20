@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 import argparse
 import time
 
@@ -64,7 +64,6 @@ def run(coarse_shape_prompt, texture_description_prompt, config_type, should_con
     convert_to_fbx(mesh_file, save_path, model_dir)
 
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--coarse_shape_prompt', type=str, required=True)
@@ -86,9 +85,9 @@ if __name__ == '__main__':
     try:
         run(args.coarse_shape_prompt, args.texture_description_prompt, args.should_continue, args.should_overwrite, args.config_type)
         
-        if settings.settings.USER_EMAIL is not None:
-            send_email(settings.settings.USER_EMAIL, Messages.SUCCESS_EMAIL_BODY.format(f'run_all_{args.texture_description_prompt}'), Messages.SUCCESS_EMAIL_BODY.format(f'run_all_{args.texture_description_prompt}'))
+        if settings.settings['USER_EMAIL'] is not None:
+            send_email(settings.settings['USER_EMAIL'], Messages.SUCCESS_EMAIL_BODY.format(f'run_all_{args.texture_description_prompt}'), Messages.SUCCESS_EMAIL_BODY.format(f'run_all_{args.texture_description_prompt}'))
     except Exception as e:
         logger.exception(e)
-        if settings.settings.USER_EMAIL is not None:
-            send_email(settings.settings.USER_EMAIL, Messages.FAILURE_EMAIL_BODY.format(f'run_all_{args.texture_description_prompt}'), Messages.FAILURE_EMAIL_BODY.format(f'run_all_{args.texture_description_prompt}', str(e)))
+        if settings.settings['USER_EMAIL'] is not None:
+            send_email(settings.settings['USER_EMAIL'], Messages.FAILURE_EMAIL_BODY.format(f'run_all_{args.texture_description_prompt}'), Messages.FAILURE_EMAIL_BODY.format(f'run_all_{args.texture_description_prompt}', str(e)))

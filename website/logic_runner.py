@@ -31,6 +31,7 @@ def run_initialize_implicit_avatar(implicit_config, path_to_render, is_continue)
     # save run.pid to log file
     logger.info(Messages.INITIALIZE_IMPLICIT_AVATAR_SUBPROCESS_INFO.format(run.pid))
 
+
 @request_processed_info(settings.settings['USER_EMAIL'])
 def run_generate_textures(texture_prompt, config_path, coarse_body_dir, avatar_name, is_continue):
     args = ['python', absolute_path('website/logic/generate_textures.py'), '--texture_prompt', texture_prompt, '--config_path', config_path, '--coarse_body_dir', coarse_body_dir, '--avatar_name', avatar_name, '--log_dir', settings.settings['CURRENT_LOG_DIR']]
@@ -39,6 +40,7 @@ def run_generate_textures(texture_prompt, config_path, coarse_body_dir, avatar_n
     run = subprocess.Popen(args, start_new_session=True)
     # save run.pid to log file
     logger.info(Messages.GENERATE_TEXTURES_SUBPROCESS_INFO.format(run.pid))
+
 
 @request_processed_info(settings.settings['USER_EMAIL'])
 def run_convert_to_fbx(mesh_file, save_path):
@@ -56,6 +58,6 @@ def run_all(run_args):
             args.append('--should_continue')
         if avatar['should_overwrite']:
             args.append('--should_overwrite')
-        run = subprocess.Popen(args)
+        run = subprocess.Popen(args, start_new_session=True)
         # save run.pid to log file
         logger.info(Messages.RUN_ALL_SUBPROCESS_INFO.format(run.pid))

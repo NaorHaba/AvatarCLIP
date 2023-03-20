@@ -1,5 +1,6 @@
 import os
 import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 import argparse
 import time
 
@@ -14,7 +15,6 @@ settings = Settings()
 logger = get_logger(__name__)
 
 def run(coarse_shape_prompt: str):
-    sys.path.append('AvatarGen/ShapeGen')
 
     from AvatarGen.ShapeGen.main import shape_gen
     from AvatarGen.ShapeGen.utils import writeOBJ
@@ -44,8 +44,6 @@ def run(coarse_shape_prompt: str):
     writeOBJ(obj_output_fname, v, f)
 
     logger.info(Messages.GENERATE_NEW_COARSE_SHAPE_SUCCESS.format(obj_output_fname))
-
-    sys.path.remove('AvatarGen/ShapeGen')
 
 
 if __name__ == '__main__':

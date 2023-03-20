@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 import argparse
 import time
 
@@ -17,8 +17,6 @@ logger = get_logger(__name__)
 
 
 def run(config_path, coarse_body_dir, is_continue=False):
-
-    sys.path.append('AvatarGen/AppearanceGen')
 
     from AvatarGen.AppearanceGen.main import Runner
 
@@ -45,8 +43,6 @@ def run(config_path, coarse_body_dir, is_continue=False):
     runner = Runner(new_config_path, 'train', is_continue=is_continue)
     runner.train()
     logger.info(Messages.INITIALIZE_IMPLICIT_AVATAR_SUCCESS.format(os.path.basename(coarse_body_dir)))
-
-    sys.path.remove('AvatarGen/AppearanceGen')
 
 
 if __name__ == '__main__':
