@@ -110,7 +110,6 @@ To maintain stability in the environment, we will install all the packages using
 First, install the packages using `conda` according to the following order (changing the order might cause dependency errors and lead to the infamous [dependency hell](https://en.wikipedia.org/wiki/Dependency_hell)):
 
 ```bash
-conda install -c menpo osmesa
 conda install pytorch==1.7.0 torchvision==0.8.0 torchaudio==0.7.0 cudatoolkit=10.1 -c pytorch
 ```
 
@@ -195,7 +194,6 @@ Also, we will install the required packages for the "convert to fbx" part of the
 First, install the following packages:  
 ```bash
 pip install 'smplx[all]'
-pip install chumpy
 ```
 
 Then, follow step 2 and 3 exactly as in the instructions in the original project:
