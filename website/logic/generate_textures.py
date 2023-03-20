@@ -17,6 +17,7 @@ settings = Settings()
 logger = get_logger(__name__)
 
 def run(texture_prompt, config_path, coarse_body_dir, avatar_name, is_continue=False):
+    sys.path.append(absolute_path('AvatarGen/AppearanceGen'))
 
     from AvatarGen.AppearanceGen.main import Runner
 
@@ -66,6 +67,8 @@ def run(texture_prompt, config_path, coarse_body_dir, avatar_name, is_continue=F
     runner.init_smpl()
     runner.train_clip()
     logger.info(Messages.GENERATE_TEXTURES_SUCCESS.format(os.path.basename(coarse_body_dir)))
+
+    sys.path.remove(absolute_path('AvatarGen/AppearanceGen'))
 
 
 if __name__ == '__main__':

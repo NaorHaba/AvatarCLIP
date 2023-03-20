@@ -10,13 +10,14 @@ from pyhocon import ConfigFactory, HOCONConverter
 from website.logger import get_logger
 from website.messages import Messages
 from website.settings import Settings
-from website.website_utils import send_email
+from website.website_utils import send_email, absolute_path
 
 settings = Settings()
 logger = get_logger(__name__)
 
 
 def run(config_path, coarse_body_dir, is_continue=False):
+    sys.path.append(absolute_path('AvatarGen/AppearanceGen'))
 
     from AvatarGen.AppearanceGen.main import Runner
 
@@ -43,6 +44,8 @@ def run(config_path, coarse_body_dir, is_continue=False):
     runner = Runner(new_config_path, 'train', is_continue=is_continue)
     runner.train()
     logger.info(Messages.INITIALIZE_IMPLICIT_AVATAR_SUCCESS.format(os.path.basename(coarse_body_dir)))
+
+    sys.path.remove(absolute_path('AvatarGen/AppearanceGen'))
 
 
 if __name__ == '__main__':

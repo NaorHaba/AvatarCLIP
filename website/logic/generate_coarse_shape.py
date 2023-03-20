@@ -15,6 +15,7 @@ settings = Settings()
 logger = get_logger(__name__)
 
 def run(coarse_shape_prompt: str):
+    sys.path.append(absolute_path('AvatarGen/ShapeGen'))
 
     from AvatarGen.ShapeGen.main import shape_gen
     from AvatarGen.ShapeGen.utils import writeOBJ
@@ -44,6 +45,8 @@ def run(coarse_shape_prompt: str):
     writeOBJ(obj_output_fname, v, f)
 
     logger.info(Messages.GENERATE_NEW_COARSE_SHAPE_SUCCESS.format(obj_output_fname))
+
+    sys.path.remove(absolute_path('AvatarGen/ShapeGen'))
 
 
 if __name__ == '__main__':

@@ -18,6 +18,7 @@ settings = Settings()
 logger = get_logger(__name__)
 
 def run(obj_output_fname):
+    sys.path.append(absolute_path('AvatarGen/ShapeGen'))
 
     from AvatarGen.ShapeGen.render import render_coarse_shape
     from AvatarGen.ShapeGen.utils import readOBJ
@@ -47,6 +48,8 @@ def run(obj_output_fname):
     logger.info(Messages.RENDER_COARSE_SHAPE_INFO.format(obj_output_fname))
     render_coarse_shape(pose, v_shaped, smpl_args, render_output_folder)
     logger.info(Messages.RENDER_COARSE_SHAPE_SUCCESS.format(render_output_folder))
+
+    sys.path.remove(absolute_path('AvatarGen/ShapeGen'))
 
 
 if __name__ == '__main__':
