@@ -190,7 +190,7 @@ y[z<=0] = 0
 z[z<=0] = 0
 ```
 
-finally, we will install the required packages for the "convert to fbx" part of the project according to the [instructions](https://github.com/hongfz16/AvatarCLIP/tree/main/Avatar2FBX) in the original project:
+Also, we will install the required packages for the "convert to fbx" part of the project according to the [instructions](https://github.com/hongfz16/AvatarCLIP/tree/main/Avatar2FBX) in the original project:
   
 First, install the following packages:  
 ```bash
@@ -210,6 +210,13 @@ Edit the following paths according to your environment:
 ```python
 sys.path.append('/path/to/fbxsdk/FBX202031_FBXPYTHONSDK_LINUX/lib/Python37_x64')
 ```
+
+Finally, to be able to run the website, we need to install Streamlit:
+
+```bash
+pip install streamlit
+```
+
 
 ## Data Preparation
 
