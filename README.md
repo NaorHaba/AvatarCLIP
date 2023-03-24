@@ -193,7 +193,8 @@ Also, we will install the required packages for the "convert to fbx" part of the
   
 First, install the following packages:  
 ```bash
-pip install 'smplx[all]'
+pip uninstall open3d-python
+pip install open3d==0.16.0
 ```
 
 Then, follow step 2 and 3 exactly as in the instructions in the original project:
