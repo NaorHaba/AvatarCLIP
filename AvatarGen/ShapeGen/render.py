@@ -11,7 +11,7 @@ from PIL import Image
 from smplx.lbs import *
 from smplx import build_layer
 
-from utils import readOBJ
+from AvatarGen.ShapeGen.utils import readOBJ
 
 
 def norm_np_arr(arr):

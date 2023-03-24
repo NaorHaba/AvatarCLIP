@@ -17,7 +17,7 @@ from tqdm import tqdm
 import clip
 from PIL import ImageFile, Image
 
-from utils import render_one_batch, writeOBJ
+from AvatarGen.ShapeGen.utils import render_one_batch, writeOBJ
 
 
 class LinearVAE(nn.Module):

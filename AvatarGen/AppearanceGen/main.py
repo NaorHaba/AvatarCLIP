@@ -14,13 +14,13 @@ from shutil import copyfile
 from icecream import ic
 from tqdm import tqdm
 from pyhocon import ConfigFactory
-from models.dataset import Dataset
-from models.dataset import SMPL_Dataset
-from models.fields import RenderingNetwork, SDFNetwork, SingleVarianceNetwork, NeRF
-from models.renderer import NeuSRenderer
-from models.utils import lookat, random_eye, random_at, render_one_batch, batch_rodrigues
-from models.utils import sphere_coord, random_eye_normal, rgb2hsv, differentiable_histogram
-from models.utils import my_lbs, readOBJ
+from AvatarGen.AppearanceGen.models.dataset import Dataset
+from AvatarGen.AppearanceGen.models.dataset import SMPL_Dataset
+from AvatarGen.AppearanceGen.models.fields import RenderingNetwork, SDFNetwork, SingleVarianceNetwork, NeRF
+from AvatarGen.AppearanceGen.models.renderer import NeuSRenderer
+from AvatarGen.AppearanceGen.models.utils import lookat, random_eye, random_at, render_one_batch, batch_rodrigues
+from AvatarGen.AppearanceGen.models.utils import sphere_coord, random_eye_normal, rgb2hsv, differentiable_histogram
+from AvatarGen.AppearanceGen.models.utils import my_lbs, readOBJ
 import clip
 from smplx import build_layer
 import imageio

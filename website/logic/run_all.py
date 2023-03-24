@@ -24,18 +24,19 @@ logger = get_logger(__name__)
 
 
 def run(coarse_shape_prompt, texture_description_prompt, config_type, should_continue=False, should_overwrite=False):
+    
     generate_coarse_shape(coarse_shape_prompt)
     
-    obj_output_fname = absolute_path(os.path.join(coarse_shape_prompt, settings.settings['COARSE_SHAPE_OBJ_OUTPUT_NAME']))
+    obj_output_fname = os.path.join(absolute_path(settings.settings['OUTPUT_DIR']), settings.settings['COARSE_SHAPE_OUTPUT_DIR'], coarse_shape_prompt, settings.settings['COARSE_SHAPE_OBJ_OUTPUT_NAME'])
     
     render_coarse_shape(obj_output_fname)
 
     if config_type == 'small':
-        implicit_config_path = settings.settings.SMALL_IMPLICIT_AVATAR_CONFIG
-        avatar_texture_config_path = settings.settings.SMALL_AVATAR_TEXTURE_CONFIG
+        implicit_config_path = absolute_path(settings.settings['SMALL_IMPLICIT_AVATAR_CONFIG'])
+        avatar_texture_config_path = absolute_path(settings.settings['SMALL_AVATAR_TEXTURE_CONFIG'])
     else:
-        implicit_config_path = settings.settings.LARGE_IMPLICIT_AVATAR_CONFIG
-        avatar_texture_config_path = settings.settings.LARGE_AVATAR_TEXTURE_CONFIG
+        implicit_config_path = absolute_path(settings.settings['LARGE_IMPLICIT_AVATAR_CONFIG'])
+        avatar_texture_config_path = absolute_path(settings.settings['LARGE_AVATAR_TEXTURE_CONFIG'])
 
     coarse_output_folder = absolute_path(os.path.join(settings.settings['OUTPUT_DIR'], settings.settings['COARSE_SHAPE_OUTPUT_DIR']))
     coarse_body_dir = absolute_path(os.path.join(coarse_output_folder, coarse_shape_prompt))
@@ -50,14 +51,15 @@ def run(coarse_shape_prompt, texture_description_prompt, config_type, should_con
     initialize_implicit_avatar(implicit_config_path, coarse_body_dir, continue_flag)
 
     avatar_name = f"{texture_description_prompt} ({coarse_shape_prompt})"
+    # print("@@@@@@@@@@@@", texture_description_prompt, avatar_texture_config_path, coarse_body_dir, avatar_name, continue_flag)
 
     generate_textures(texture_description_prompt, avatar_texture_config_path, coarse_body_dir, avatar_name, continue_flag)
 
     avatar_output_folder = absolute_path(os.path.join(settings.settings['OUTPUT_DIR'], settings.settings['GENERATED_AVATAR_OUTPUT_DIR']))
     selected_avatar_dir_path = os.path.join(avatar_output_folder, avatar_name)
     save_path = os.path.join(selected_avatar_dir_path, settings.settings['GENERATED_AVATAR_FBX_OUTPUT_NAME'])
-    avatar_dir_path = os.path.join(avatar_output_folder, avatar_name)
-    texture_folder = os.path.join(avatar_dir_path, settings.settings['GENERATED_AVATAR_TEXTURE_OUTPUT_DIR'])
+    # avatar_dir_path = os.path.join(avatar_output_folder, avatar_name)
+    texture_folder = os.path.join(selected_avatar_dir_path, settings.settings['GENERATED_AVATAR_TEXTURE_OUTPUT_DIR'])
     meshes_folder = os.path.join(texture_folder, "meshes")
     mesh_file = os.path.join(meshes_folder, sorted(os.listdir(meshes_folder))[-1])
     model_dir = absolute_path(settings.settings["SMPL_MODEL_DIR"])
@@ -83,11 +85,11 @@ if __name__ == '__main__':
         logger.info(Messages.CUDA_DEFAULT_TENSOR_TYPE_INFO)
 
     try:
-        run(args.coarse_shape_prompt, args.texture_description_prompt, args.should_continue, args.should_overwrite, args.config_type)
+        run(args.coarse_shape_prompt, args.texture_description_prompt, args.config_type, args.should_continue, args.should_overwrite)
         
         if settings.settings['USER_EMAIL'] is not None:
             send_email(settings.settings['USER_EMAIL'], Messages.SUCCESS_EMAIL_BODY.format(f'run_all_{args.texture_description_prompt}'), Messages.SUCCESS_EMAIL_BODY.format(f'run_all_{args.texture_description_prompt}'))
     except Exception as e:
         logger.exception(e)
         if settings.settings['USER_EMAIL'] is not None:
-            send_email(settings.settings['USER_EMAIL'], Messages.FAILURE_EMAIL_BODY.format(f'run_all_{args.texture_description_prompt}'), Messages.FAILURE_EMAIL_BODY.format(f'run_all_{args.texture_description_prompt}', str(e)))
+            send_email(settings.settings['USER_EMAIL'], Messages.FAILURE_EMAIL_BODY.format(f'run_all_{args.texture_description_prompt}', ''), Messages.FAILURE_EMAIL_BODY.format(f'run_all_{args.texture_description_prompt}', str(e)))
