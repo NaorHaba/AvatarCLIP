@@ -29,7 +29,7 @@ except:
 from utils.ply_utils import *
 from utils.fbx_utils import *
 
-def run(mesh_file, save_path, model_dir):
+def convert_ply_to_fbx(mesh_file, save_path, model_dir):
     # ==============================================================================
     # Parse SMPL data
     # ==============================================================================
@@ -101,9 +101,9 @@ def run(mesh_file, save_path, model_dir):
         'colors': colors,
     }
 
-# ==============================================================================
-# Convert to FBX
-# ==============================================================================
+    # ==============================================================================
+    # Convert to FBX
+    # ==============================================================================
 
     # Prepare the FBX SDK
     (lSdkManager, lScene) = FbxCommon.InitializeSdkObjects()

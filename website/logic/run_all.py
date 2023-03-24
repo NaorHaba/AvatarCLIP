@@ -16,7 +16,7 @@ from website.logic.generate_coarse_shape import run as generate_coarse_shape
 from website.logic.render_coarse_shape import run as render_coarse_shape
 from website.logic.initialize_implicit_avatar import run as initialize_implicit_avatar
 from website.logic.generate_textures import run as generate_textures
-from Avatar2FBX.export_fbx import run as convert_to_fbx
+from Avatar2FBX.export_fbx import convert_ply_to_fbx as convert_to_fbx
 
 
 settings = Settings()

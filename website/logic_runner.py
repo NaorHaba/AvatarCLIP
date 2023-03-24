@@ -7,6 +7,7 @@ from website.logger import get_logger
 from website.messages import Messages
 from website.settings import Settings
 from website.website_utils import spinner, request_processed_info, absolute_path
+from Avatar2FBX.export_fbx import convert_ply_to_fbx
 
 settings = Settings()
 logger = get_logger(__name__)
@@ -42,12 +43,9 @@ def run_generate_textures(texture_prompt, config_path, coarse_body_dir, avatar_n
     logger.info(Messages.GENERATE_TEXTURES_SUBPROCESS_INFO.format(run.pid))
 
 
-@request_processed_info(settings.settings['USER_EMAIL'])
+@spinner(Messages.CONVERT_TO_FBX_SPINNER_MESSAGE)
 def run_convert_to_fbx(mesh_file, save_path):
-    args = ['python', absolute_path('Avatar2FBX/export_fbx.py'), '--mesh_file', mesh_file, '--save_path', save_path, '--model_dir', absolute_path(settings.settings["SMPL_MODEL_DIR"])]
-    run = subprocess.Popen(args, start_new_session=True)
-    # save run.pid to log file
-    logger.info(Messages.CONVERT_TO_FBX_SUBPROCESS_INFO.format(run.pid))
+    convert_ply_to_fbx(mesh_file, save_path, absolute_path(settings.settings["SMPL_MODEL_DIR"]))
 
 
 @request_processed_info(settings.settings['USER_EMAIL'])

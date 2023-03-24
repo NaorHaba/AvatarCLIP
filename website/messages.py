@@ -74,6 +74,7 @@ class Messages:
     CONVERT_TO_FBX_SELECT_AVATAR = "Select an avatar to convert to FBX"
     CONVERT_TO_FBX_FORM_SUBMIT_BUTTON = "Convert to FBX"
     CONVERT_TO_FBX_RETRY_MESSAGE = "Please choose a different avatar or check the overwrite checkbox"
+    CONVERT_TO_FBX_SPINNER_MESSAGE = "Converting to FBX, please wait..."
 
     ### Run from File
     RUN_FROM_FILE_FORM_SUBMIT_BUTTON = "Run File"
